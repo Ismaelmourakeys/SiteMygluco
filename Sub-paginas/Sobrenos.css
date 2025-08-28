@@ -1,0 +1,210 @@
+* { 
+    margin: none;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #04571af6, #467a9c);
+    color: #ffffff;
+}
+
+header {
+    width: 100%;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+}
+
+
+nav.search_bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  animation: fadeIn 2s ease; 
+  backdrop-filter: blur(10px);
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+
+nav img {
+  position: relative;
+  right: 21rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-list li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-list li a:hover {
+  color: #f9d2c7;
+  cursor: pointer;
+}
+
+.search_bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 600;
+}
+
+main {
+  padding: 10px;
+}
+
+h1 {
+  font-family: 'cursive', cursive;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #ffcc70;
+}
+
+h2 {font-family: 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #ffcc70;
+}
+
+p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #ffffff;
+  margin: 0rem 7rem 0rem 2rem;
+}
+
+.sobre-nos p {
+    font-style: none;
+    margin: 0rem 7rem 0rem 2rem;
+}
+
+.redes-sociais li {
+    list-style: none;
+    font-size: 18px;
+    margin: 0rem 7rem 0rem 2rem;
+    font-style: italic;
+    
+}
+
+.redes-sociais a {
+    text-decoration: none;
+    color: #70b3ff;
+}
+
+.redes-sociais li a:hover {
+    color: #8ad0f8;
+    cursor: pointer;
+    
+}
+
+.valores li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.grupo_mindsync {
+    display: block;
+    width: 50%;
+    height: auto;
+    border-radius: 10%;
+    margin: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.grupo_mindsync:hover {
+    transform: scale(1.05);
+}
+
+.grupo_mindsync figcaption {
+    text-align: center;
+    font-size: 1rem;
+    color: #ffffff;
+    
+}
+
+footer {
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 120px;
+    height: auto;
+    border-radius: 20%;
+    transition: transform 0.3s ease;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+/* Animação fade-in com movimento para cima */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estado inicial */
+body {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Quando a página estiver carregada */
+body.page-loaded {
+  animation: fadeInUp 1s ease forwards;
+}
+
+
+
+
+/* Ativar a transição suave após o carregamento */

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MyGluco - Venha e calcule sua meta de carboidratos para monitorar a sua alimentação.">
+    <link rel="stylesheet" href="my_gluco.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>MyGluco - Monitoramento de carboidratos para Nível Glicêmico</title>
+</head>
+
+<body>
+
+    <!-- Header / Navbar -->
+    <header>
+        <nav class="search_bar">
+            <img src="Imagens MyGluco/tugacriança.png" alt="Logo MyGluco" class="logo"> 
+            <ul class="nav-list"> 
+                <li><a href="MyGluco.html">Inicio</a></li>
+                <li><a href="Sub-paginas/dispositivos.html">Dispositivos</a></li>
+                <li><a href="Sub-paginas/Suporte.html">Suporte</a></li>
+                <li><a href="Sub-paginas/Sobrenos.html">Quem somos nós</a></li>
+            </ul>
+            <button onclick="openModal()" class="botao-login">Login / Cadastro</button>
+        </nav>
+    </header>
+    
+    <!-- Saudação dinâmica -->
+    <h3 id="saudacao"></h3>
+
+    <!-- Modal Login/Cadastro -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span onclick="closeModal()" class="close">&times;</span>
+            <h2>Login / Cadastro</h2>
+            <input type="text" id="username" placeholder="Digite seu nome">
+            <button onclick="saveUser()" class="botao-login">Entrar</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <main>
+        <section>
+            <h1>My GLUCO</h1>
+            <h2 class="subtitulo">Venha e calcule sua meta de carboidratos para monitorar a sua alimentação.</h2>
+            <a href="Sub-paginas/calculo.html" class="calculo">Simule Aqui!</a>
+        </section>
+        <img src="Imagens MyGluco/Tuga calculadora (melhorado).png" alt="Mascote" class="Mascote">
+    </main>
+
+    <!-- Descrição -->
+    <section class="descricao_site">
+        <h3>O que o MyGluco faz por você?</h3>
+        <ul class="descricao">
+        <li>O myGluco é um aplicativo que ajuda você a monitorar sua ingestão de carboidratos, essencial para o controle glicêmico, especialmente para pessoas com diabetes. Com uma interface amigável e fácil de usar, você pode calcular sua meta diária de carboidratos, acompanhar seu progresso e fazer ajustes na sua dieta com dicas de alimentação saudável para manter a saúde em dia, exercícios físicos e muito mais.</li>
+        
+        <li>O aplicativo é projetado para ser intuitivo, permitindo que você registre facilmente suas refeições e receba feedback sobre sua ingestão de carboidratos. Além disso, o myGluco oferece recursos adicionais, como gráficos de progresso e lembretes personalizados, para ajudar você a atingir suas metas de saúde.</li>
+        </ul>
+
+        <br><br>
+        
+        <h3>Com o MyGluco, você pode:</h3>
+        
+        <ul>
+            <li>Calcular sua meta diária de carboidratos</li>
+            <li>Acompanhar sua ingestão de carboidratos</li>
+            <li>Receber dicas de alimentação saudável</li>
+            <li>Gerenciar sua saúde de forma prática e eficiente</li>
+            <li>Receber dicas de exercícios físicos</li>
+            <li>Visualizar gráficos de progresso</li>
+            <li>Configurar lembretes personalizados</li>
+            <li>Registrar suas refeições facilmente</li>
+            <li>Obter feedback sobre sua dieta</li>
+            <li>Receber suporte da comunidade</li>
+            <li>E muito mais...</li>
+        </ul>        
+
+        
+        <br>
+            <h3>Baixe agora o nosso aplicativo!</h3>
+        <h2>Venha e descubra como o MyGluco pode ajudar você a manter uma vida saudável!</h2>
+
+
+        <a href="#" class="Download">Clique Aqui Para Fazer o Download!!!</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <img src="Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" alt="Logo Mindsync" class="footer-logo">
+            <ul class="socials">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+            </ul>
+            <p>© 2025 Mindsync. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+
+        // Função para abrir o modal
+        function openModal() {
+            document.getElementById("modal").style.display = "block";
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
+        }
+
+        // Função para salvar o usuário e exibir saudação
+        function saveUser() {
+            const username = document.getElementById("username").value;
+            if (username) {
+                localStorage.setItem("username", username);
+                document.getElementById("saudacao").innerText = `Olá, ${username}! \nBem-vindo a nossa página!`;
+                closeModal();
+            } else {
+                alert("Por favor, digite seu nome.");
+            }
+        }        
+
+      
+    window.addEventListener('load', function() {
+        document.body.classList.add('page-loaded');
+    });
+
+        // Exibir modal ao carregar a página se o usuário não estiver logado
+        window.onload = function() {
+            const username = localStorage.getItem("username");
+            if (!username) {
+                openModal();
+            } else {
+                document.getElementById("saudacao").innerText = `Olá, ${username}! \nBem-vindo a nossa página!`;
+            }
+        };
+        // Exibir modal ao clicar no botão de login/cadastro
+        document.querySelector(".botao-login").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevenir o comportamento padrão do botão
+            openModal();
+        });
+
+        // Exibir saudação ao carregar a página
+        window.onload = function() {
+            const username = localStorage.getItem("username");
+            if (username) {
+                document.getElementById("saudacao").innerText = `Olá, ${username}! \nBem-vindo a nossa página!`;
+            }
+        };
+
+        // Fechar o modal ao clicar fora dele
+        window.onclick = function(event) {
+            const modal = document.getElementById("modal");
+            if (event.target == modal) {
+                closeModal();
+            }
+        };
+        // Adicionar evento de logout ao botão de login/cadastro
+        document.querySelector(".botao-login").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevenir o comportamento padrão do botão
+            const username = localStorage.getItem("username");
+            if (username) {
+                localStorage.removeItem("username");
+                document.getElementById("saudacao").innerText = "Você saiu. Faça login novamente.";
+            } else {
+                openModal();
+            }
+        });
+
+        
+
+    
+    </script>
+
+</body>
+</html>

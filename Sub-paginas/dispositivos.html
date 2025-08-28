@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dispositivo</title>
+    <link rel="stylesheet" href="dispositivos.CSS">
+</head>
+
+<body>
+      <header>
+        <nav class="search_bar">
+            <img src="../Imagens MyGluco/tugacriança.png" alt="Logo MyGluco" class="logo">
+            <ul class="nav-list">
+                <li><a href="../MyGluco.html">Inicio</a></li>
+                <li><a href="Dispositivos.html">Dispositivos</a></li>
+                <li><a href="Suporte.html">Suporte</a></li>
+                <li><a href="Sobrenos.html">Quem somos nós</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1> DISPONIBILIDADE PARA VÁRIOS DISPOSITIVOS MOBILE  </h1>
+
+  <section class="mobile"> 
+  <div class="texto">
+    <h2> IOS </h2>
+    <p>
+      No iOS, o Mygluco sincroniza dados de glicemia, atividades físicas e dieta automaticamente, garantindo que todas as informações fiquem centralizadas e seguras. O app envia notificações personalizadas para lembrar o usuário de medir a glicose, tomar medicamentos e registrar refeições. Além disso, o Mygluco conta com gráficos interativos e relatórios detalhados, facilitando o acompanhamento da saúde e possibilitando o compartilhamento desses dados com médicos e familiares diretamente pelo iPhone ou iPad.
+    </p>
+
+    <!-- bolinhas-->
+    <div class="info">
+      <div class="circle">
+        <span>570 MB</span>
+        <p>Memoria</p>
+      </div>
+      <div class="circle">
+        <span> PT-BR </span>
+        <p>Idiomas</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="imagem">
+    <img src="../Imagens MyGluco/celulares.png" alt="Imagem de dispositivos" style="height: auto; width: 200vw; display: block;">
+  </div>
+</section>
+  
+
+
+ <!-- android --> 
+    <section class="nota">
+     <h2> PENSAMOS EM VOCÊ</h2>
+     <img src="../Imagens MyGluco/pessoas.png"  height="50%" width="50%" class="pessoas">
+    </section>
+  <section class="mobile-samsung"> 
+  <!-- Imagem  -->
+  <div class="imagem">
+
+    <img src="../Imagens MyGluco/samsung s20.png" alt="Imagem de dispositivos">
+    
+  </div>
+
+  <!-- Texto e bolinhas  -->
+  <div class="texto-samsung">
+    <h2>ANDROID</h2>
+    <p>
+      No Android, o Mygluco integra-se com o Google Fit para sincronizar dados de glicemia, atividades físicas e alimentação automaticamente, mantendo todas as informações organizadas e seguras em um só lugar. O aplicativo envia notificações personalizadas para lembrar o usuário de medir a glicose, tomar medicamentos e registrar refeições. Além disso, o Mygluco apresenta gráficos interativos e relatórios detalhados, facilitando o acompanhamento da saúde e possibilitando o compartilhamento dos dados com médicos e familiares diretamente pelo smartphone ou tablet Android.
+    </p>
+    <p>
+      Registro diário de níveis de glicose, insulina e medicamentos
+
+      Alertas e lembretes personalizados
+      
+      Monitoramento da alimentação com sugestões de refeições balanceadas
+      
+      Integração com o Google Fit para coleta automática de dados
+      
+      Gráficos e relatórios para análise detalhada da condição
+      
+      Compartilhamento seguro de informações com profissionais de saúde
+    </p>
+
+    <!-- bolinhas -->
+    <div class="info">
+      <div class="circle">
+        <span>570 MB</span>
+        <p>Memoria</p>
+      </div>
+      <div class="circle">
+        <span> PT-BR </span>
+        <p>Idiomas</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+     
+<script>
+  
+  const slides = document.querySelectorAll(".slide");
+let currentIndex = 0;
+
+document.querySelector(".next").addEventListener("click", () => {
+    changeSlide(currentIndex + 1);
+});
+
+document.querySelector(".prev").addEventListener("click", () => {
+    changeSlide(currentIndex - 1);
+});
+
+function changeSlide(index) {
+    if (index < 0) {
+        index = slides.length - 1;
+    } else if (index >= slides.length) {
+        index = 0;
+    }
+    document.querySelector(".slider").style.transform = `translateX(-${index * 100}%)`;
+    currentIndex = index;
+}
+
+
+   window.addEventListener("load", function() {
+    document.body.classList.remove("preload");
+    document.body.classList.add("page-loaded");
+  });
+
+
+</script>
+  
+</body>
+</html>

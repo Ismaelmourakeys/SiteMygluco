@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Carboidratos - MyGluco</title>
+
+  <!-- Firebase App + Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="calculo.css">
+</head>
+<body>
+
+<header>
+  <nav class="search_bar">
+    <img src="../Imagens MyGluco/tugacriança.png" alt="Logo MyGluco" class="logo"> 
+    <ul class="nav-list"> 
+      <li><a href="../MyGluco.html">Início</a></li>
+      <li><a href="Dispositivos.html">Dispositivos</a></li>
+      <li><a href="Suporte.html">Suporte</a></li>
+      <li><a href="Sobrenos.html">Quem Somos Nós</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h1>Descubra o seu nível de carboidratos</h1>
+  <p>Calcule a quantidade ideal de carboidratos para o seu dia a dia, considerando seu perfil e necessidades nutricionais.</p>
+  <p>Esta ferramenta é especialmente útil para pessoas com diabetes, ajudando a controlar a ingestão de carboidratos e a manter a glicemia estável.</p>
+  <p>Preencha os campos abaixo e obtenha uma estimativa personalizada.</p>
+  <h3>Para mais informações, consulte um profissional de saúde ou nutricionista.</h3>
+
+  <br><br>
+
+  <div class="container-principal">
+
+    <!-- Bloco da calculadora + tartaruga -->
+    <div class="bloco-calculo">
+      <section class="calculadora-carbo">
+        <h2>Calculadora de Carboidratos</h2>
+
+        <form id="carboForm" onsubmit="return false;">
+          <label for="sexo">Sexo:</label>
+          <select id="sexo">
+            <option value="masculino">Masculino</option>
+            <option value="feminino">Feminino</option>
+          </select>
+
+          <label>Peso (kg):</label>
+          <input type="number" id="peso" placeholder="Ex: 70">
+
+          <label>Altura (cm):</label>
+          <input type="number" id="altura" placeholder="Ex: 175">
+
+          <label>Idade (anos):</label>
+          <input type="number" id="idade" placeholder="Ex: 30">
+
+          <label for="atividade">Nível de atividade:</label>
+          <select id="atividade">
+            <option value="1.2">Sedentário</option>
+            <option value="1.375">Levemente ativo</option>
+            <option value="1.55">Moderadamente ativo</option>
+            <option value="1.725">Muito ativo</option>
+            <option value="1.9">Extremamente ativo</option>
+          </select>
+
+          <label for="tipoDiabetes">Tipo de Diabetes:</label>
+          <select id="tipoDiabetes">
+            <option value="tipo1">Tipo 1</option>
+            <option value="tipo2">Tipo 2</option>
+            <option value="gestacional">Gestacional</option>
+            <option value="nao_sabe">Não sabe</option>
+          </select>
+
+          <label for="meta">Meta Calórica:</label>
+          <select id="meta">
+            <option value="manter">Manter Peso</option>
+            <option value="perder">Perder Peso</option>
+            <option value="ganhar">Ganhar Peso</option>
+          </select>
+
+          <label>Glicemia em Jejum (mg/dL):</label>
+          <input type="number" id="glicemiaJejum" placeholder="Opcional">
+
+          <label>Glicemia Pós-Refeição (2h) (mg/dL):</label>
+          <input type="number" id="glicemiaPos" placeholder="Opcional">
+
+          <br>
+
+          <button type="button" onclick="calcularCarboidratos()">Calcular</button>
+          <button type="button" onclick="mostrarGrafico()">Ver Gráfico dos Resultados</button>
+          <button type="button" onclick="mostrarHistorico()">Ver Histórico de Cálculos</button>
+        </form>
+
+        <div class="resultado" id="resultado"></div>
+      </section>
+
+      <!--<img src="Imagens MyGluco/Tuga calculadora (melhorado).png" alt="Logo Flutuante" class="logo-flutuante">-->
+    </div>
+
+    <!-- Bloco do gráfico e histórico -->
+    <div class="area-visual">
+      <div class="grafico-container">
+        <h2>Gráfico de Carboidratos Calculados</h2>
+        <canvas id="graficoCarbo"></canvas>
+      </div>
+
+      <div id="filtroContainer">
+        <label for="filtroData">Filtrar por data:</label>
+        <input type="date" id="filtroData">
+        <button onclick="aplicarFiltro()">🔍 Filtrar</button>
+      </div>
+
+      <div id="historicoResultados"></div>
+    </div>
+  </div>
+</main>
+
+<script src="calculo.js"></script>
+</body>
+</html>
+
