@@ -1,76 +1,517 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="preload">
+<html lang="pt-br" class="scroll-smooth preload">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Suporte - MyGluco</title>
-    <link rel="stylesheet" href="Suporte.css">
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        mgBlue: "#1E88E5",
+                        mgGreen: "#43A047",
+                        mgWhite: "#F8FAFC"
+                    },
+                    keyframes: {
+                        float: {
+                            "0%,100%": { transform: "translateY(0px)" },
+                            "50%": { transform: "translateY(-10px)" }
+                        },
+                        wave: {
+                            "0%": { transform: "translateX(0)" },
+                            "50%": { transform: "translateX(-20px)" },
+                            "100%": { transform: "translateX(0)" }
+                        },
+                        breathe: {
+                            "0%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" },
+                            "50%": { filter: "drop-shadow(0 0 18px rgba(30,136,229,0.28))" },
+                            "100%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" }
+                        }
+                    },
+                    animation: {
+                        float: "float 4s ease-in-out infinite",
+                        wave: "wave 6s ease-in-out infinite",
+                        breathe: "breathe 3s ease-in-out infinite"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Preload => hide transitions until full load */
+        .preload * {
+            transition: none !important;
+        }
+
+        /* Glass + layout tweaks */
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Poppins", "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* logo glow */
+        .logo-glow {
+            transition: transform .2s ease, box-shadow .3s ease;
+            will-change: transform, box-shadow;
+            animation: breathe 3s ease-in-out infinite;
+        }
+
+        /* mascot follower */
+        .mascot {
+            position: fixed;
+            right: 30px;
+            bottom: 100px;
+            width: 120px;
+            height: 120px;
+            pointer-events: none;
+            transform: translate3d(0, 0, 0);
+            transition: transform .12s linear;
+            z-index: 60;
+            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.25));
+        }
+
+        /* small bounce when following quickly */
+        .mascot.tilt {
+            transform: translate3d(var(--mx, 0), var(--my, 0), 0) rotate(-7deg) scale(1.02);
+        }
+
+        /* fade-in / scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(14px) scale(.995);
+            transition: all .7s cubic-bezier(.2, .9, .2, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* hamburger */
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 22px;
+            background: currentColor;
+            border-radius: 2px;
+            transition: transform .25s ease, opacity .2s ease;
+        }
+
+        /* footer waves: make subtle */
+        .footer-waves svg {
+            display: block;
+            width: 100%;
+            height: 60px;
+            opacity: .18;
+        }
+
+        /* whatsapp button */
+        .whatsapp-fab {
+            position: fixed;
+            right: 20px;
+            bottom: 22px;
+            z-index: 70;
+            width: 56px;
+            height: 56px;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 22px rgba(16, 24, 40, 0.18);
+            transition: transform .15s ease;
+        }
+
+        .whatsapp-fab:active {
+            transform: scale(.96);
+        }
+
+        /* responsive tweaks for mascot */
+        @media (max-width: 640px) {
+            .mascot {
+                width: 92px;
+                height: 92px;
+                right: 14px;
+                bottom: 120px;
+            }
+        }
+    </style>
 </head>
 
-<body>
-   <header>
-        <nav class="search_bar">
-            <img src="../Imagens MyGluco/tugacriança.png" alt="Logo MyGluco" class="logo">
-            <ul class="nav-list">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="Dispositivos.html">Dispositivos</a></li>
-                <li><a href="Suporte.html">Suporte</a></li>
-                <li><a href="Sobrenos.html">Quem somos nós</a></li>
-            </ul>
-        </nav>
+<body
+    class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- BACKGROUND SHAPES (non-interactive) -->
+    <div class="pointer-events-none fixed inset-0 -z-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
+        </div>
+        <div
+            class="hidden md:block absolute -left-10 top-24 w-56 h-56 rounded-full bg-mgBlue/20 dark:bg-mgBlue/10 blur-3xl animate-float">
+        </div>
+        <div
+            class="hidden md:block absolute right-8 bottom-24 w-72 h-72 rounded-full bg-mgGreen/18 dark:bg-mgGreen/8 blur-3xl animate-float">
+        </div>
+        <!-- subtle wave line at bottom -->
+        <div class="absolute bottom-0 left-0 w-full footer-waves">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 60 C 240 10 360 110 720 60 C 1080 10 1320 110 1440 60 L1440 120 L0 120 Z" fill="#1E88E5">
+                </path>
+            </svg>
+        </div>
+    </div>
+
+
+
+    <!-- NAVBAR -->
+    <header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-md">
+        <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
+            <!-- Botão hambúrguer -->
+            <button id="hamburgerBtn"
+                class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none mr-3">
+                <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                <span class="block w-6 h-0.5 bg-current"></span>
+            </button>
+
+            <div class="flex items-center gap-3">
+                <img src="../Imagens MyGluco/tugacriança.png" alt="MyGluco logo"
+                    class="w-12 h-12 object-contain rounded-full logo-glow" />
+                <div>
+                    <div class="text-xl font-extrabold text-mgBlue dark:text-mgBlue">MyGluco</div>
+                    <div class="text-xs text-gray-600 dark:text-gray-300 -mt-0.5">Monitoramento de carboidratos
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <nav id="mainNav" class="hidden md:flex md:items-center md:gap-8">
+                <a href="../index.html" class="text-gray-700 dark:text-gray-200 hover:text-mgBlue">Início</a>
+                <a href="Dispositivos.html" class="text-gray-700 dark:text-gray-200 hover:text-mgBlue">Dispositivos</a>
+                <a href="Suporte.html" class="text-mgBlue dark:text-mgGreen font-semibold">Suporte</a>
+                <a href="Sobrenos.html" class="text-gray-700 dark:text-gray-200 hover:text-mgBlue">Quem somos</a>
+                <button id="darkToggle"
+                    class="ml-3 p-2 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
+            </nav>
+            </div>
+            </div>
+
+            <!-- mobile panel -->
+            <div id="mobilePanel" class="md:hidden fixed inset-0 z-40 hidden">
+                <div class="absolute inset-0 bg-black/40" id="mobileBackdrop"></div>
+                <div class="absolute left-0 top-0 w-64 h-full bg-white/60 dark:bg-gray-800/70 backdrop-blur-lg p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" />
+                            <div class="font-bold text-lg text-mgBlue dark:text-mgGreen">MyGluco</div>
+                        </div>
+                        <button id="closeMobile" class="text-gray-700 dark:text-gray-200">✕</button>
+                    </div>
+                    <ul class="flex flex-col gap-4 text-base">
+                        <li><a href="../index.html" class="block">Início</a></li>
+                        <li><a href="Dispositivos.html" class="block">Dispositivos</a></li>
+                        <li><a href="Suporte.html" class="block font-semibold">Suporte</a></li>
+                        <li><a href="Sobrenos.html" class="block">Quem somos</a></li>
+                    </ul>
+
+                    <div class="mt-6">
+                        <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar
+                            Tema</button>
+                    </div>
+                </div>
+            </div>
     </header>
-    
-    <section id="introducao" class="introducao">
-        <h2>Bem-vindo ao Suporte MyGluco</h2>
-        <p>Estamos aqui para ajudar você a aproveitar ao máximo o MyGluco. Se você tiver alguma dúvida ou precisar de assistência, consulte as seções abaixo.</p>
-    </section>
 
-    <section id="contatos" class="contatos">
-        <h2>Entre em contato conosco</h2>
-        <p>Se precisar de ajuda, fale com a gente pelos meios abaixo:</p>
-        <h4>Email</h4>
-        <p>suporte@mygluco.com</p>
-        <h4>Telefone</h4>
-        <p>+55 (11) 98509-9046</p>
-    </section>
+    <!-- ONDA DECORATIVA SUPERIOR -->
+    <div class="relative w-full overflow-hidden -mt-2">
+        <svg class="w-full h-20 animate-wave opacity-25 dark:opacity-15" viewBox="0 0 1440 120"
+            preserveAspectRatio="none">
+            <path d="M0 50 C 240 0 360 100 720 50 C 1080 0 1320 100 1440 50 L1440 120 L0 120 Z"
+                class="fill-mgBlue dark:fill-mgGreen"></path>
+        </svg>
+    </div>
 
-    <section id="faq" class="faq">
-        <h2>Perguntas Frequentes (FAQ)</h2>
-        <p>Confira as respostas rápidas para dúvidas comuns:</p>
-        <ul>
-            <li>
-                <strong>Como redefinir minha senha?</strong>
-                <p>Na página de login, clique em "Esqueci minha senha" e siga as instruções enviadas ao seu e-mail.</p>
-            </li>
-            <li>
-                <strong>Como atualizar minhas informações de perfil?</strong>
-                <p>Vá em "Configurações" no aplicativo para atualizar seus dados.</p>
-            </li>
-            <li>
-                <strong>Encontrei um bug. O que faço?</strong>
-                <p>Reporte através do nosso <a href="https://www.myglico.com/bug-report">formulário de bugs</a>.</p>
-            </li>
-        </ul>
-    </section>
 
-    <section id="recursos" class="recursos">
-        <h2>Recursos</h2>
-        <p>Mais informações e suporte:</p>
-        <ul>
-            <li><a href="https://www.myglico.com/user-guide">User Guide</a></li>
-            <li><a href="https://www.myglico.com/community">Fórum da Comunidade</a></li>
-        </ul>
-    </section>
+    <main class="max-w-6xl mx-auto px-6 pt-28 pb-28">
 
-    <footer>
-        <p>&copy; 2025 MyGluco. Todos os direitos reservados.</p>
+        <!-- hero intro -->
+        <section id="introducao"
+            class="reveal bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-8 rounded-2xl shadow-lg border border-white/20 dark:border-gray-700/30">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-mgBlue dark:text-mgGreen">Bem-vindo ao Suporte MyGluco
+            </h1>
+            <p class="mt-2 text-gray-700 dark:text-gray-200 leading-relaxed">Estamos aqui para ajudar você a aproveitar
+                ao máximo o MyGluco. Se tiver dúvidas, tente a FAQ abaixo ou fale direto com a gente.</p>
+            <div class="mt-4 flex flex-wrap gap-3">
+                <a href="#contatos"
+                    class="inline-block px-4 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition">Entrar
+                    em contato</a>
+                <a href="#faq" class="inline-block px-4 py-2 bg-white/30 dark:bg-white/5 rounded-xl">Ver FAQ</a>
+            </div>
+        </section>
+
+        <!-- contacts -->
+        <section id="contatos" class="mt-8 reveal grid md:grid-cols-2 gap-6">
+            <div
+                class="bg-white/60 dark:bg-gray-800/40 p-6 rounded-2xl backdrop-blur-xl shadow-lg border border-white/20 dark:border-gray-700/30">
+                <h2 class="text-xl font-bold text-mgBlue dark:text-mgGreen">Entre em contato conosco</h2>
+                <p class="mt-2 text-gray-700 dark:text-gray-200">Se precisar de ajuda, fale com a gente pelos meios
+                    abaixo:</p>
+
+                <dl class="mt-4 space-y-3 text-sm text-gray-800 dark:text-gray-200">
+                    <div>
+                        <dt class="font-semibold">Email</dt>
+                        <dd>suporte@mygluco.com</dd>
+                    </div>
+                    <div>
+                        <dt class="font-semibold">Telefone</dt>
+                        <dd>+55 (11) 98509-9046</dd>
+                    </div>
+                </dl>
+
+                <div class="mt-4 flex gap-3">
+                    <a class="inline-flex items-center gap-2 px-3 py-2 bg-white/30 dark:bg-white/5 rounded-xl"
+                        href="mailto:suporte@mygluco.com">✉️ Enviar email</a>
+                    <a class="inline-flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-xl"
+                        href="tel:+5511985099046">📞 Ligar</a>
+                </div>
+            </div>
+
+            <div
+                class="bg-white/40 dark:bg-gray-800/30 p-6 rounded-2xl backdrop-blur-xl shadow-lg border border-white/10">
+                <h3 class="font-semibold text-lg">Documentos e guias rápidos</h3>
+                <ul class="mt-3 space-y-2 text-sm">
+                    <li><a href="#" class="text-mgBlue dark:text-mgGreen hover:underline">Guia de instalação</a></li>
+                    <li><a href="#" class="text-mgBlue dark:text-mgGreen hover:underline">Como restaurar backups</a>
+                    </li>
+                    <li><a href="#" class="text-mgBlue dark:text-mgGreen hover:underline">Como sincronizar com Google
+                            Agenda</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FAQ accordion -->
+        <section id="faq" class="mt-8 reveal">
+            <div
+                class="bg-white/60 dark:bg-gray-800/40 p-6 rounded-2xl backdrop-blur-xl shadow-lg border border-white/20 dark:border-gray-700/30">
+                <h2 class="text-2xl font-bold text-center">Perguntas Frequentes (FAQ)</h2>
+                <p class="text-center mt-2 text-sm text-gray-600 dark:text-gray-300">Confira respostas rápidas para
+                    dúvidas comuns</p>
+
+                <div class="mt-6 space-y-3">
+                    <!-- item -->
+                    <div class="faq-item border border-white/10 rounded-xl overflow-hidden">
+                        <button
+                            class="faq-btn w-full text-left px-4 py-3 bg-white/30 dark:bg-white/5 flex justify-between items-center"
+                            aria-expanded="false">
+                            <span class="font-semibold">Como redefinir minha senha?</span>
+                            <span class="chev">+</span>
+                        </button>
+                        <div class="faq-panel px-4 py-3 bg-white/5 text-sm text-gray-700 dark:text-gray-200 hidden">
+                            Na página de login, clique em "Esqueci minha senha" e siga as instruções enviadas ao seu
+                            e-mail.
+                        </div>
+                    </div>
+
+                    <!-- item -->
+                    <div class="faq-item border border-white/10 rounded-xl overflow-hidden">
+                        <button
+                            class="faq-btn w-full text-left px-4 py-3 bg-white/30 dark:bg-white/5 flex justify-between items-center"
+                            aria-expanded="false">
+                            <span class="font-semibold">Como atualizar minhas informações de perfil?</span>
+                            <span class="chev">+</span>
+                        </button>
+                        <div class="faq-panel px-4 py-3 bg-white/5 text-sm text-gray-700 dark:text-gray-200 hidden">
+                            Vá em "Configurações" no aplicativo para atualizar seus dados.
+                        </div>
+                    </div>
+
+                    <!-- item -->
+                    <div class="faq-item border border-white/10 rounded-xl overflow-hidden">
+                        <button
+                            class="faq-btn w-full text-left px-4 py-3 bg-white/30 dark:bg-white/5 flex justify-between items-center"
+                            aria-expanded="false">
+                            <span class="font-semibold">Encontrei um bug. O que faço?</span>
+                            <span class="chev">+</span>
+                        </button>
+                        <div class="faq-panel px-4 py-3 bg-white/5 text-sm text-gray-700 dark:text-gray-200 hidden">
+                            Reporte através do nosso <a href="https://www.myglico.com/bug-report"
+                                class="text-mgBlue dark:text-mgGreen underline">formulário de bugs</a>.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- resources -->
+        <section id="recursos" class="mt-8 reveal grid md:grid-cols-2 gap-6">
+            <div class="bg-white/40 dark:bg-gray-800/30 p-6 rounded-2xl shadow-lg border border-white/10">
+                <h3 class="font-semibold">Recursos</h3>
+                <p class="mt-2 text-sm text-gray-700 dark:text-gray-200">Mais informações e suporte:</p>
+                <ul class="mt-3 space-y-2">
+                    <li><a href="https://www.myglico.com/user-guide" class="text-mgBlue dark:text-mgGreen">User
+                            Guide</a></li>
+                    <li><a href="https://www.myglico.com/community" class="text-mgBlue dark:text-mgGreen">Fórum da
+                            Comunidade</a></li>
+                </ul>
+            </div>
+
+            <div class="bg-white/40 dark:bg-gray-800/30 p-6 rounded-2xl shadow-lg border border-white/10 flex flex-col">
+                <h3 class="font-semibold">Precisa de atendimento rápido?</h3>
+                <p class="mt-2 text-sm">Use o botão verde no canto inferior direito para falar conosco pelo WhatsApp.
+                </p>
+                <div class="mt-4">
+                    <a class="inline-block px-4 py-2 bg-mgGreen text-white rounded-xl shadow"
+                        href="https://wa.me/5511985099046" target="_blank">Abrir WhatsApp</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- footer com ondas sutis -->
+    <footer class="mt-16 pb-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div
+                class="bg-white/30 dark:bg-gray-800/20 backdrop-blur-xl p-6 rounded-2xl text-center border border-white/10 shadow-inner">
+                <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG"
+                    class="w-16 mx-auto mb-4 inline-block animate-float" alt="Mindsync logo">
+                <p class="text-sm opacity-80">© 2025 MyGluco. Todos os direitos reservados.</p>
+            </div>
+        </div>
     </footer>
 
+    <!-- WhatsApp floating button -->
+    <a class="whatsapp-fab bg-green-500 text-white" href="https://wa.me/5511985099046" target="_blank" title="WhatsApp">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" class="inline-block">
+            <path d="M20.5 3.5L3.5 20.5" stroke="white" stroke-width="0" />
+            <path
+                d="M20.5 3.5C18.9 2 16.8 1.25 14.7 1.25 7.9 1.25 2.5 6.65 2.5 13.45c0 2.3.6 4.45 1.75 6.35L2 23l3.45-1.15C7.1 23.75 10 24.5 12.65 24.5c6.8 0 12.2-5.4 12.2-12.3 0-2.1-.75-4.15-2.35-5.55z"
+                fill="white"></path>
+        </svg>
+    </a>
+
+    <!-- SCRIPTS: animations, hamburger, mascot follower, accordion, dark toggle -->
     <script>
-        window.addEventListener("load", function () {
+        // Remove preload class after load for transitions
+        window.addEventListener("load", () => {
             document.documentElement.classList.remove("preload");
-            document.body.classList.add("page-loaded");
+        });
+
+        // IntersectionObserver reveal
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add("in");
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+        // Mobile menu
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const mobilePanel = document.getElementById("mobilePanel");
+        const mobileBackdrop = document.getElementById("mobileBackdrop");
+        const closeMobile = document.getElementById("closeMobile");
+        hamburgerBtn && hamburgerBtn.addEventListener("click", () => {
+            mobilePanel.classList.remove("hidden");
+        });
+        closeMobile && closeMobile.addEventListener("click", () => mobilePanel.classList.add("hidden"));
+        mobileBackdrop && mobileBackdrop.addEventListener("click", () => mobilePanel.classList.add("hidden"));
+
+        // Dark toggle (desktop + mobile)
+        const darkToggle = document.getElementById("darkToggle");
+        const darkToggleMobile = document.getElementById("darkToggleMobile");
+        function toggleDark() {
+            document.documentElement.classList.toggle("dark");
+            // persist preference
+            localStorage.setItem("mygluco-theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+        }
+        darkToggle && darkToggle.addEventListener("click", toggleDark);
+        darkToggleMobile && darkToggleMobile.addEventListener("click", () => { toggleDark(); mobilePanel.classList.add("hidden"); });
+
+        // Restore theme on load
+        (function restoreTheme() {
+            const saved = localStorage.getItem("mygluco-theme");
+            if (saved === "dark") document.documentElement.classList.add("dark");
+        })();
+
+        // FAQ accordion
+        document.querySelectorAll(".faq-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const panel = btn.nextElementSibling;
+                const expanded = btn.getAttribute("aria-expanded") === "true";
+                // close other panels (optional)
+                document.querySelectorAll(".faq-btn").forEach(b => {
+                    b.setAttribute("aria-expanded", "false");
+                    if (b.nextElementSibling) b.nextElementSibling.classList.add("hidden");
+                    b.querySelector(".chev") && (b.querySelector(".chev").textContent = "+");
+                });
+
+                if (!expanded) {
+                    btn.setAttribute("aria-expanded", "true");
+                    panel.classList.remove("hidden");
+                    btn.querySelector(".chev") && (btn.querySelector(".chev").textContent = "—");
+                } else {
+                    btn.setAttribute("aria-expanded", "false");
+                    panel.classList.add("hidden");
+                    btn.querySelector(".chev") && (btn.querySelector(".chev").textContent = "+");
+                }
+            });
+        });
+
+        // Mascot follow (lightweight)
+        const mascotEl = document.getElementById("mascot");
+        let lastMove = 0;
+        if (mascotEl) {
+            let mx = 0, my = 0;
+            window.addEventListener("pointermove", (e) => {
+                const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+                const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+
+                // target relative offsets (small movement)
+                const offsetX = Math.min(40, Math.max(-40, (e.clientX - vw * 0.85) / 10));
+                const offsetY = Math.min(40, Math.max(-40, (e.clientY - vh * 0.85) / 10));
+                mx = offsetX; my = offsetY;
+                mascotEl.style.setProperty('--mx', mx + 'px');
+                mascotEl.style.setProperty('--my', my + 'px');
+                // apply transform
+                mascotEl.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+                // small tilt when moving quickly
+                const now = Date.now();
+                if (now - lastMove < 80) mascotEl.classList.add("tilt");
+                else mascotEl.classList.remove("tilt");
+                lastMove = now;
+            });
+            // reset position when pointer leaves
+            window.addEventListener("pointerleave", () => {
+                mascotEl.style.transform = '';
+            });
+        }
+
+        // gentle hover glow on logo
+        document.querySelectorAll(".logo-glow").forEach(img => {
+            img.addEventListener("mouseenter", () => img.style.transform = "scale(1.05)");
+            img.addEventListener("mouseleave", () => img.style.transform = "scale(1)");
+        });
+
+        // small accessibility: close mobile on escape
+        window.addEventListener("keydown", (ev) => {
+            if (ev.key === "Escape") mobilePanel && mobilePanel.classList.add("hidden");
+        });
+
+        // lazy init reveals for content already in view
+        document.querySelectorAll(".reveal").forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add("in");
         });
     </script>
 </body>
+
 </html>

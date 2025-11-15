@@ -67,31 +67,88 @@
     </div>
 
 
-    <!-- NAVBAR -->
-    <header class="w-full shadow-md bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl fixed top-0 z-50 animate-fadein">
-        <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
-            <div class="flex items-center gap-3">
-                <img src="Imagens MyGluco/tugacriança.png" alt="Logo" class="w-12 h-12 object-contain animate-float/>
-        <span class=" text-2xl font-extrabold text-mgBlue drop-shadow">MyGluco</span>
+    <!-- MOBILE PANEL -->
+    <div id="mobilePanel"
+        class="fixed inset-0 z-50 hidden transition-transform duration-300 transform -translate-x-full">
+
+        <!-- Fundo escuro -->
+        <div id="mobileBackdrop" class="absolute inset-0 bg-black/40"></div>
+
+        <!-- Painel lateral -->
+        <div
+            class="absolute left-0 top-0 w-64 h-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg p-6 flex flex-col">
+            <!-- Cabeçalho do menu -->
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <img src="Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" />
+                    <span class="font-bold text-lg text-mgBlue dark:text-mgGreen">MyGluco</span>
+                </div>
+                <button id="closeMobile" class="text-gray-700 dark:text-gray-200 text-xl">✕</button>
             </div>
 
-            <ul class="hidden md:flex gap-8 font-medium">
+            <!-- Links do menu -->
+            <ul class="flex flex-col gap-4 text-base">
+                <li><a href="index.html" class="block hover:text-mgBlue transition">Início</a></li>
+                <li><a href="Sub-paginas/dispositivos.html" class="block hover:text-mgBlue transition">Dispositivos</a>
+                </li>
+                <li><a href="Sub-paginas/Suporte.html" class="block hover:text-mgBlue transition">Suporte</a></li>
+                <li><a href="Sub-paginas/Sobrenos.html" class="block hover:text-mgBlue transition">Quem Somos</a></li>
+            </ul>
+
+            <!-- Botão dark mode -->
+            <div class="mt-6">
+                <button id="darkToggleMobile"
+                    class="w-full py-2 rounded-lg bg-mgBlue text-white hover:bg-mgGreen transition-all">
+                    Alternar Tema
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <header class="w-full shadow-md bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl fixed top-0 z-50 animate-fadein">
+        <nav class="max-w-6xl mx-auto flex items-center justify-between p-4 relative">
+
+            <!-- Esquerda: hambúrguer + logo -->
+            <div class="flex items-center gap-4">
+                <!-- Botão hamburguer mobile -->
+                <button id="hamburgerBtn"
+                    class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none">
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current"></span>
+                </button>
+
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <img src="Imagens MyGluco/tugacriança.png" alt="Logo" class="w-12 h-12 object-contain" />
+                    <span class="text-2xl font-extrabold text-mgBlue drop-shadow">MyGluco</span>
+                </div>
+            </div>
+
+            <!-- Menu desktop centralizado -->
+            <ul class="hidden md:flex gap-8 font-medium absolute left-1/2 transform -translate-x-1/2">
                 <li><a href="index.html" class="hover:text-mgBlue transition">Início</a></li>
                 <li><a href="Sub-paginas/dispositivos.html" class="hover:text-mgBlue transition">Dispositivos</a></li>
                 <li><a href="Sub-paginas/Suporte.html" class="hover:text-mgBlue transition">Suporte</a></li>
                 <li><a href="Sub-paginas/Sobrenos.html" class="hover:text-mgBlue transition">Quem Somos</a></li>
             </ul>
 
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDark()"
-                    class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:scale-125 transition-all">🌙</button>
+            <!-- Direita: dark mode + login -->
+            <div class="flex items-center gap-3">
+                <button id="darkToggle" onclick="toggleDark()"
+                    class="p-2 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
                 <button onclick="openModal()"
                     class="px-4 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition-all hover:scale-105">
                     Login / Cadastro
                 </button>
             </div>
+
         </nav>
     </header>
+
+
+
 
     <div class="pt-28"></div>
 
@@ -166,7 +223,7 @@
     </section>
 
     <!-- FOOTER -->
-   <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
+    <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
 
 
         <img src="Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float" />
@@ -198,6 +255,62 @@
         function toggleDark() {
             document.documentElement.classList.toggle("dark");
         }
+
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const mobilePanel = document.getElementById("mobilePanel");
+        const mobileBackdrop = document.getElementById("mobileBackdrop");
+        const closeMobile = document.getElementById("closeMobile");
+        const darkToggleMobile = document.getElementById("darkToggleMobile");
+
+        // Abrir menu
+        hamburgerBtn.addEventListener("click", () => mobilePanel.classList.remove("hidden"));
+
+        // Fechar menu
+        closeMobile.addEventListener("click", () => mobilePanel.classList.add("hidden"));
+        mobileBackdrop.addEventListener("click", () => mobilePanel.classList.add("hidden"));
+
+        // Alternar dark mode pelo menu mobile
+        darkToggleMobile.addEventListener("click", () => {
+            document.documentElement.classList.toggle("dark");
+            localStorage.setItem("mygluco-theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
+            mobilePanel.classList.add("hidden");
+        });
+
+        // Fechar menu com ESC
+        window.addEventListener("keydown", ev => { if (ev.key === "Escape") mobilePanel.classList.add("hidden"); });
+
+        hamburgerBtn.addEventListener("click", () => {
+            mobilePanel.classList.remove("hidden");
+            mobilePanel.classList.remove("-translate-x-full");
+        });
+
+        closeMobile.addEventListener("click", () => {
+            mobilePanel.classList.add("-translate-x-full");
+            setTimeout(() => mobilePanel.classList.add("hidden"), 300);
+        });
+
+        function toggleDark() {
+            const isDark = document.documentElement.classList.toggle("dark");
+            localStorage.setItem("mygluco-theme", isDark ? "dark" : "light");
+        }
+
+        function toggleDark() {
+            const hidden = document.documentElement.classList.toggle("dark");
+            localStorage.setItem("mygluco-theme", hidden ? "dark" : "light");   
+        }
+            
+
+        // Aplicar preferência ao carregar
+        window.onload = () => {
+            if (localStorage.getItem("mygluco-theme") === "dark") {
+                document.documentElement.classList.add("dark");
+            }
+        };
+
+        
+
+
+
     </script>
 </body>
 
