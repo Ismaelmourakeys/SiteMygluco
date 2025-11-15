@@ -1,128 +1,194 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora de Carboidratos - MyGluco</title>
 
-  <!-- Firebase App + Firestore -->
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            mgBlue: "#1E88E5",
+            mgGreen: "#43A047",
+            mgWhite: "#F8FAFC"
+          },
+          animation: {
+            float: "float 4s ease-in-out infinite",
+            fadein: "fadein 1.3s ease forwards",
+            glow: "glow 3s ease-in-out infinite"
+          },
+          keyframes: {
+            float: {
+              "0%,100%": { transform: "translateY(0)" },
+              "50%": { transform: "translateY(-12px)" }
+            },
+            fadein: {
+              from: { opacity: 0, transform: "translateY(20px)" },
+              to: { opacity: 1, transform: "translateY(0)" }
+            },
+            glow: {
+              "0%,100%": { filter: "drop-shadow(0 0 0px #1E88E5)" },
+              "50%": { filter: "drop-shadow(0 0 12px #43A047)" }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="calculo.css">
 </head>
-<body>
 
-<header>
-  <nav class="search_bar">
-    <img src="../Imagens MyGluco/tugacriança.png" alt="Logo MyGluco" class="logo"> 
-    <ul class="nav-list"> 
-      <li><a href="../index.html">Início</a></li>
-      <li><a href="Dispositivos.html">Dispositivos</a></li>
-      <li><a href="Suporte.html">Suporte</a></li>
-      <li><a href="Sobrenos.html">Quem Somos Nós</a></li>
-    </ul>
-  </nav>
-</header>
+<body class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-all duration-500 min-h-screen">
 
-<main>
-  <h1>Descubra o seu nível de carboidratos</h1>
-  <p>Calcule a quantidade ideal de carboidratos para o seu dia a dia, considerando seu perfil e necessidades nutricionais.</p>
-  <p>Esta ferramenta é especialmente útil para pessoas com diabetes, ajudando a controlar a ingestão de carboidratos e a manter a glicemia estável.</p>
-  <p>Preencha os campos abaixo e obtenha uma estimativa personalizada.</p>
-  <h3>Para mais informações, consulte um profissional de saúde ou nutricionista.</h3>
+  <!-- BACKGROUND ANIMADO -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800"></div>
 
-  <br><br>
+    <div class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float"></div>
+    <div class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300"></div>
 
-  <div class="container-principal">
+    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
+      <path fill="#1E88E5" fill-opacity="0.15"
+        d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z"></path>
+    </svg>
+  </div>
 
-    <!-- Bloco da calculadora + tartaruga -->
-    <div class="bloco-calculo">
-      <section class="calculadora-carbo">
-        <h2>Calculadora de Carboidratos</h2>
 
-        <form id="carboForm" onsubmit="return false;">
-          <label for="sexo">Sexo:</label>
-          <select id="sexo">
-            <option value="masculino">Masculino</option>
-            <option value="feminino">Feminino</option>
-          </select>
+  <!-- NAV -->
+  <header class="w-full shadow-md bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl fixed top-0 z-50 animate-fadein">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center gap-3">
+        <img src="../Imagens MyGluco/tugacriança.png" class="w-12 h-12" />
+        <span class="text-2xl font-extrabold text-mgBlue drop-shadow">MyGluco</span>
+      </div>
 
-          <label>Peso (kg):</label>
-          <input type="number" id="peso" placeholder="Ex: 70">
+      <ul class="hidden md:flex gap-8 font-medium">
+        <li><a href="../index.html" class="hover:text-mgBlue transition">Início</a></li>
+        <li><a href="Dispositivos.html" class="hover:text-mgBlue transition">Dispositivos</a></li>
+        <li><a href="Suporte.html" class="hover:text-mgBlue transition">Suporte</a></li>
+        <li><a href="Sobrenos.html" class="hover:text-mgBlue transition">Quem Somos Nós</a></li>
+      </ul>
 
-          <label>Altura (cm):</label>
-          <input type="number" id="altura" placeholder="Ex: 175">
+      <button onclick="toggleDark()" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:scale-125 transition">🌙</button>
+    </nav>
+  </header>
 
-          <label>Idade (anos):</label>
-          <input type="number" id="idade" placeholder="Ex: 30">
+  <div class="pt-28"></div>
 
-          <label for="atividade">Nível de atividade:</label>
-          <select id="atividade">
-            <option value="1.2">Sedentário</option>
-            <option value="1.375">Levemente ativo</option>
-            <option value="1.55">Moderadamente ativo</option>
-            <option value="1.725">Muito ativo</option>
-            <option value="1.9">Extremamente ativo</option>
-          </select>
 
-          <label for="tipoDiabetes">Tipo de Diabetes:</label>
-          <select id="tipoDiabetes">
-            <option value="tipo1">Tipo 1</option>
-            <option value="tipo2">Tipo 2</option>
-            <option value="gestacional">Gestacional</option>
-            <option value="nao_sabe">Não sabe</option>
-          </select>
+  <!-- TITLE -->
+  <section class="max-w-5xl mx-auto p-6 text-center animate-fadein">
+    <h1 class="text-5xl font-extrabold text-mgBlue dark:text-mgGreen">Descubra seu nível de carboidratos</h1>
+    <p class="mt-4 text-lg opacity-80">Calcule a quantidade ideal de carboidratos considerando seu perfil nutricional.</p>
+  </section>
 
-          <label for="meta">Meta Calórica:</label>
-          <select id="meta">
-            <option value="manter">Manter Peso</option>
-            <option value="perder">Perder Peso</option>
-            <option value="ganhar">Ganhar Peso</option>
-          </select>
 
-          <label>Glicemia em Jejum (mg/dL):</label>
-          <input type="number" id="glicemiaJejum" placeholder="Opcional">
+  <!-- MAIN GRID -->
+  <main class="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10 animate-fadein">
 
-          <label>Glicemia Pós-Refeição (2h) (mg/dL):</label>
-          <input type="number" id="glicemiaPos" placeholder="Opcional">
+    <!-- CALCULATOR -->
+    <section class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+      <h2 class="text-3xl font-bold text-center mb-6">Calculadora</h2>
 
-          <br>
+      <form id="carboForm" class="space-y-4">
 
-          <button type="button" onclick="calcularCarboidratos()">Calcular</button>
-          <button type="button" onclick="mostrarGrafico()">Ver Gráfico dos Resultados</button>
-          <button type="button" onclick="mostrarHistorico()">Ver Histórico de Cálculos</button>
-        </form>
+        <div>
+          <label class="font-semibold">Sexo:</label>
+          <select id="sexo" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-mgBlue"></select>
+        </div>
 
-        <div class="resultado" id="resultado"></div>
-      </section>
+        <div>
+          <label class="font-semibold">Peso (kg):</label>
+          <input id="peso" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+        </div>
 
-      <!--<img src="Imagens MyGluco/Tuga calculadora (melhorado).png" alt="Logo Flutuante" class="logo-flutuante">-->
-    </div>
+        <div>
+          <label class="font-semibold">Altura (cm):</label>
+          <input id="altura" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+        </div>
 
-    <!-- Bloco do gráfico e histórico -->
-    <div class="area-visual">
-      <div class="grafico-container">
-        <h2>Gráfico de Carboidratos Calculados</h2>
+        <div>
+          <label class="font-semibold">Idade:</label>
+          <input id="idade" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+        </div>
+
+        <div>
+          <label class="font-semibold">Atividade:</label>
+          <select id="atividade" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none"></select>
+        </div>
+
+        <div>
+          <label class="font-semibold">Tipo de Diabetes:</label>
+          <select id="tipoDiabetes" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none"></select>
+        </div>
+
+        <div>
+          <label class="font-semibold">Meta Calórica:</label>
+          <select id="meta" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none"></select>
+        </div>
+
+        <div>
+          <label class="font-semibold">Glicemia em Jejum:</label>
+          <input id="glicemiaJejum" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+        </div>
+
+        <div>
+          <label class="font-semibold">Glicemia Pós–Refeição:</label>
+          <input id="glicemiaPos" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+        </div>
+
+        <button type="button" onclick="calcularCarboidratos()" class="w-full bg-mgGreen text-white p-3 rounded-xl mt-4 hover:bg-mgBlue transition">Calcular</button>
+      </form>
+
+      <div id="resultado" class="mt-6 text-center text-xl font-semibold"></div>
+    </section>
+
+
+    <!-- GRAPH + HISTORY -->
+    <section class="space-y-8">
+
+      <!-- GRAPH -->
+      <div class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+        <h2 class="text-2xl font-bold mb-4 text-center">Gráfico</h2>
         <canvas id="graficoCarbo"></canvas>
       </div>
 
-      <div id="filtroContainer">
-        <label for="filtroData">Filtrar por data:</label>
-        <input type="date" id="filtroData">
-        <button onclick="aplicarFiltro()">🔍 Filtrar</button>
+      <!-- FILTER -->
+      <div class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+        <label class="font-semibold">Filtrar por data:</label>
+        <div class="flex gap-3 mt-2">
+          <input type="date" id="filtroData" class="p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none w-full" />
+          <button onclick="aplicarFiltro()" class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">🔍</button>
+        </div>
       </div>
 
-      <div id="historicoResultados"></div>
-    </div>
-  </div>
-</main>
+      <!-- HISTORY -->
+      <div id="historicoResultados" class="space-y-4"></div>
+    </section>
 
-<script src="calculo.js"></script>
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
+    <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float" />
+    <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
+  </footer>
+
+
+  <!-- PAGE JS -->
+  <script src="calculo.js"></script>
+
 </body>
 </html>
-
