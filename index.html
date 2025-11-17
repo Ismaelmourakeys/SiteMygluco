@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="pt-br" class="scroll-smooth preload">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="MyGluco - Monitoramento de carboidratos" />
+    <meta name="author" content="Mindsync" />
+    <meta name="keywords" content="MyGluco, carboidratos, monitoramento, saúde, dieta, diabetes" />
+    <meta name="image" content="../Imagens MyGluco" />
+
+    <title>MyGluco</title>
+
+    <!-- Tailwind CDN (dev) -->
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         tailwind.config = {
+            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
@@ -15,42 +24,40 @@
                         mgGreen: "#43A047",
                         mgWhite: "#F8FAFC"
                     },
+                    keyframes: {
+                        float: { "0%,100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-10px)" } },
+                        wave: { "0%": { transform: "translateX(0)" }, "50%": { transform: "translateX(-20px)" }, "100%": { transform: "translateX(0)" } },
+                        breathe: {
+                            "0%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" },
+                            "50%": { filter: "drop-shadow(0 0 18px rgba(30,136,229,0.28))" },
+                            "100%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" }
+                        }
+                    },
                     animation: {
                         float: "float 4s ease-in-out infinite",
-                        fadein: "fadein 1.3s ease forwards",
-                        glow: "glow 3s ease-in-out infinite",
-                    },
-                    keyframes: {
-                        float: {
-                            "0%, 100%": { transform: "translateY(0px)" },
-                            "50%": { transform: "translateY(-12px)" }
-                        },
-                        fadein: {
-                            from: { opacity: 0, transform: "translateY(20px)" },
-                            to: { opacity: 1, transform: "translateY(0)" }
-                        },
-                        glow: {
-                            "0%,100%": { filter: "drop-shadow(0 0 0px #1E88E5)" },
-                            "50%": { filter: "drop-shadow(0 0 12px #43A047)" }
-                        }
+                        wave: "wave 6s ease-in-out infinite",
+                        breathe: "breathe 3s ease-in-out infinite"
                     }
                 }
-            },
-            darkMode: "class",
+            }
         };
     </script>
-    <title>MyGluco</title>
+
+    <style>
+        /* hide transitions while preloading */
+        .preload * {
+            transition: none !important;
+        }
+    </style>
 </head>
 
 <body
-    class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-all duration-500">
+    class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300">
 
-    <!-- BACKGROUND MODERNO -->
+    <!-- BACKGROUND MODERNO (unchanged) -->
     <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
         </div>
-
-        <!-- Elementos geométricos suaves -->
         <div
             class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float">
         </div>
@@ -58,7 +65,6 @@
             class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300">
         </div>
 
-        <!-- Ondas animadas no rodapé -->
         <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
             <path fill="#1E88E5" fill-opacity="0.15"
                 d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z">
@@ -67,66 +73,27 @@
     </div>
 
 
-    <!-- MOBILE PANEL -->
-    <div id="mobilePanel"
-        class="fixed inset-0 z-50 hidden transition-transform duration-300 transform -translate-x-full">
-
-        <!-- Fundo escuro -->
-        <div id="mobileBackdrop" class="absolute inset-0 bg-black/40"></div>
-
-        <!-- Painel lateral -->
-        <div
-            class="absolute left-0 top-0 w-64 h-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg p-6 flex flex-col">
-            <!-- Cabeçalho do menu -->
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center gap-3">
-                    <img src="Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" />
-                    <span class="font-bold text-lg text-mgBlue dark:text-mgGreen">MyGluco</span>
-                </div>
-                <button id="closeMobile" class="text-gray-700 dark:text-gray-200 text-xl">✕</button>
-            </div>
-
-            <!-- Links do menu -->
-            <ul class="flex flex-col gap-4 text-base">
-                <li><a href="index.html" class="block hover:text-mgBlue transition">Início</a></li>
-                <li><a href="Sub-paginas/dispositivos.html" class="block hover:text-mgBlue transition">Dispositivos</a>
-                </li>
-                <li><a href="Sub-paginas/Suporte.html" class="block hover:text-mgBlue transition">Suporte</a></li>
-                <li><a href="Sub-paginas/Sobrenos.html" class="block hover:text-mgBlue transition">Quem Somos</a></li>
-            </ul>
-
-            <!-- Botão dark mode -->
-            <div class="mt-6">
-                <button id="darkToggleMobile"
-                    class="w-full py-2 rounded-lg bg-mgBlue text-white hover:bg-mgGreen transition-all">
-                    Alternar Tema
-                </button>
-            </div>
-        </div>
-    </div>
-
-
-    <header class="w-full shadow-md bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl fixed top-0 z-50 animate-fadein">
-        <nav class="max-w-6xl mx-auto flex items-center justify-between p-4 relative">
-
-            <!-- Esquerda: hambúrguer + logo -->
+    <!-- NAVBAR -->
+    <header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-md">
+        <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
             <div class="flex items-center gap-4">
-                <!-- Botão hamburguer mobile -->
-                <button id="hamburgerBtn"
-                    class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none">
+
+                <!-- hamburguer (mobile) -->
+                <button id="hamburgerBtn" aria-controls="mobilePanel" aria-expanded="false"
+                    class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none mr-3">
                     <span class="block w-6 h-0.5 bg-current mb-1"></span>
                     <span class="block w-6 h-0.5 bg-current mb-1"></span>
                     <span class="block w-6 h-0.5 bg-current"></span>
                 </button>
 
-                <!-- Logo -->
+                <!-- logo -->
                 <div class="flex items-center gap-3">
                     <img src="Imagens MyGluco/tugacriança.png" alt="Logo" class="w-12 h-12 object-contain" />
                     <span class="text-2xl font-extrabold text-mgBlue drop-shadow">MyGluco</span>
                 </div>
             </div>
 
-            <!-- Menu desktop centralizado -->
+            <!-- desktop menu -->
             <ul class="hidden md:flex gap-8 font-medium absolute left-1/2 transform -translate-x-1/2">
                 <li><a href="index.html" class="hover:text-mgBlue transition">Início</a></li>
                 <li><a href="Sub-paginas/dispositivos.html" class="hover:text-mgBlue transition">Dispositivos</a></li>
@@ -134,184 +101,265 @@
                 <li><a href="Sub-paginas/Sobrenos.html" class="hover:text-mgBlue transition">Quem Somos</a></li>
             </ul>
 
-            <!-- Direita: dark mode + login -->
+            <!-- right -->
             <div class="flex items-center gap-3">
-                <button id="darkToggle" onclick="toggleDark()"
-                    class="p-2 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
+
+
                 <button onclick="openModal()"
-                    class="px-4 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition-all hover:scale-105">
-                    Login / Cadastro
+                    class="px-2 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition-all hover:scale-105">Login
+                    / Cadastro</button>
+                <button id="darkToggle"
+                    class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/70 dark:bg-gray-700/70 backdrop-blur-md shadow text-xl transition">
+                    🌙
                 </button>
             </div>
 
         </nav>
     </header>
 
+    <!-- coloque FORA do <header> (por exemplo logo após o fechamento do header) -->
+    <button id="darkToggleFloating"
+        class="md:hidden fixed top-20 right-3 z-[60] p-2 rounded-full bg-white/80 dark:bg-gray-700/80 shadow-lg backdrop-blur-md text-xl">
+        🌙
+    </button>
 
 
+    <<!-- mobile panel (lateral) -->
+        <div id="mobilePanel" class="md:hidden fixed inset-0 z-50 hidden" aria-hidden="true">
+            <div id="mobileBackdrop" class="absolute inset-0 bg-black/40"></div>
 
-    <div class="pt-28"></div>
+            <div class="absolute left-0 top-0 w-64 h-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-6 z-[60]">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" alt="MyGluco">
+                        <div class="font-extrabold text-lg text-mgBlue dark:text-mgGreen">MyGluco</div>
+                    </div>
+                    <button id="closeMobile" aria-label="Fechar menu"
+                        class="text-gray-700 dark:text-gray-200 text-xl">✕</button>
+                </div>
 
-    <!-- Saudação -->
-    <h3 id="saudacao" class="text-center text-2xl font-semibold animate-fadein"></h3>
+                <ul class="flex flex-col gap-4 text-base">
+                    <li><a href="../index.html" class="block">Início</a></li>
+                    <li><a href="/Sub-paginas/Dispositivos.html" class="block">Dispositivos</a></li>
+                    <li><a href="/Sub-paginas/Suporte.html" class="block font-semibold">Suporte</a></li>
+                    <li><a href="/Sub-paginas/Sobrenos.html" class="block">Quem somos</a></li>
+                    <li><a href="/Sub-paginas/Termos.html" class="block">Termos</a></li>
+                    <li><a href="/Sub-paginas/Privacidade.html" class="block">Privacidade</a></li>
+                </ul>
 
-    <!-- MODAL LOGIN -->
-    <div id="modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
-        <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl w-80 animate-fadein">
-            <h2 class="text-2xl font-bold mb-4 text-center">Login / Cadastro</h2>
-            <input id="username" type="text" placeholder="Digite seu nome"
-                class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700 border-none mb-4" />
-            <button onclick="saveUser()"
-                class="w-full bg-mgGreen text-white p-2 rounded-lg hover:bg-mgBlue transition-all">Entrar</button>
-            <button onclick="closeModal()" class="w-full mt-3 text-red-500">Fechar</button>
+
+                <div class="mt-6">
+                    <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar
+                        Tema</button>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- HERO SECTION -->
-    <main class="max-w-6xl mx-auto p-6 flex flex-col md:flex-row items-center justify-between gap-10 animate-fadein">
-        <div class="md:w-1/2">
-            <h1 class="text-6xl font-extrabold text-mgBlue dark:text-mgGreen drop-shadow-md">MyGluco</h1>
-            <p class="text-xl mt-4 opacity-80">Venha e calcule sua meta de carboidratos para monitorar a sua
-                alimentação.</p>
-            <a href="Sub-paginas/calculo.html"
-                class="inline-block mt-6 px-6 py-3 bg-mgGreen text-white rounded-xl text-lg shadow-xl hover:bg-mgBlue transition-all hover:scale-105 animate-glow;">
-                Simule Aqui!
+        <div class="pt-28"></div>
+
+        <!-- Saudação -->
+        <h3 id="saudacao" class="text-center text-2xl font-semibold animate-fadein"></h3>
+
+        <!-- MODAL LOGIN -->
+        <div id="modal"
+            class="hidden fixed inset-0 bg-black/60 backdrop-blur-x10 flex items-center justify-center z-50">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl w-80 animate-fadein">
+                <h2 class="text-2xl font-bold mb-4 text-center">Login / Cadastro</h2>
+                <input id="username" type="text" placeholder="Digite seu nome"
+                    class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700 border-none mb-4" />
+                <button onclick="saveUser()"
+                    class="w-full bg-mgGreen text-white p-2 rounded-lg hover:bg-mgBlue transition-all">
+                    Entrar
+                </button>
+                <button onclick="closeModal()" class="w-full mt-3 text-red-500">Fechar</button>
+            </div>
+        </div>
+
+        <!-- HERO SECTION -->
+        <main
+            class="max-w-6xl mx-auto p-6 flex flex-col md:flex-row items-center justify-between gap-10 animate-fadein">
+            <div class="md:w-1/2">
+                <h1 class="text-6xl font-extrabold text-mgBlue dark:text-mgGreen drop-shadow-md">MyGluco</h1>
+                <p class="text-xl mt-4 opacity-80">Venha e calcule sua meta de carboidratos para monitorar a sua
+                    alimentação.</p>
+                <a href="Sub-paginas/calculo.html"
+                    class="inline-block mt-6 px-6 py-3 bg-mgGreen text-white rounded-xl text-lg shadow-xl hover:bg-mgBlue transition-all hover:scale-105 animate-glow;">
+                    Simule Aqui!
+                </a>
+            </div>
+
+            <img src="Imagens MyGluco/tuga_calculadora.png"
+                class="w-72 md:w-96 drop-shadow-2xl transform -scale-x-100 transition-transform duration-500 nimate-float"
+                alt="Mascote" />
+        </main>
+
+        <!-- DESCRIÇÃO / SECTIONS (mantive conteúdo original) -->
+        <section class="max-w-6xl mx-auto p-6">
+            <h3 class="text-4xl font-bold mb-6 text-center">O que o MyGluco faz por você?</h3>
+
+            <div class="space-y-4 text-lg leading-relaxed">
+                <li>O MyGluco é um aplicativo que ajuda você a monitorar sua ingestão de carboidratos.</li>
+                <li>O aplicativo é projetado para ser intuitivo.</li>
+                <li>Com o MyGluco, você pode definir metas diárias de carboidratos, acompanhar sua ingestão e receber
+                    dicas
+                    personalizadas para manter uma alimentação saudável.</li>
+                <li>Além disso, o MyGluco oferece lembretes para ajudar você a manter o foco em seus objetivos de saúde.
+                </li>
+            </div>
+
+            <h3 class="text-4xl font-bold mt-10 mb-6 text-center">Com o MyGluco, você pode:</h3>
+
+            <ul class="grid md:grid-cols-2 gap-6 text-lg">
+                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Calcular
+                    sua
+                    meta diária</li>
+                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Acompanhar
+                    ingestão de carboidratos</li>
+                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Dicas de
+                    alimentação saudável</li>
+                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Exercícios
+                    físicos</li>
+                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Gráficos
+                    de
+                    progresso</li>
+                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Lembretes
+                    personalizados</li>
+            </ul>
+
+            <h3 class="text-4xl font-bold mt-16 text-center">Baixe agora o nosso aplicativo!</h3>
+            <a href="#"
+                class="block text-center mt-4 px-8 py-3 bg-mgBlue text-white rounded-xl shadow-xl w-fit mx-auto hover:bg-mgGreen transition-all hover:scale-110">
+                Clique Aqui Para Fazer o Download!
             </a>
-        </div>
+        </section>
 
-        <img src="Imagens MyGluco/tuga_calculadora.png"
-            class="w-72 md:w-96 drop-shadow-2xl transform -scale-x-100 transition-transform duration-500 nimate-float"
-            alt="Mascote" />
-    </main>
+        <!-- FOOTER -->
+        <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
+            <img src="Sugestões de logotipo/Logotipo mindsync (prototipo).PNG"
+                class="w-16 mx-auto mb-4 animate-float" />
+            <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
 
-    <!-- DESCRIÇÃO -->
-    <section class="max-w-6xl mx-auto p-6">
-        <h3 class="text-4xl font-bold mb-6 text-center">O que o MyGluco faz por você?</h3>
+            <p>
+                Desenvolvido por Mindsync —
+                <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> •
+                <a href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a>
+            </p>
+        </footer>
 
-        <div class="space-y-4 text-lg leading-relaxed">
+        <!-- SCRIPTS CONSOLIDADOS -->
+        <script>
+            // remove preload blockers after load
+            window.addEventListener('load', () => document.documentElement.classList.remove('preload'));
 
-            <li>O MyGluco é um aplicativo que ajuda você a monitorar sua ingestão de carboidratos.</li>
-            <li>O aplicativo é projetado para ser intuitivo.</li>
-            <li>Com o MyGluco, você pode definir metas diárias de carboidratos, acompanhar sua ingestão e receber dicas
-                personalizadas para manter uma alimentação saudável.</li>
-            <li>Além disso, o MyGluco oferece lembretes para ajudar você a manter o foco em seus objetivos de saúde.
-            </li>
-        </div>
+            // Helpers
+            const $ = (id) => document.getElementById(id);
+            const exists = (el) => el !== null && el !== undefined;
 
-        <h3 class="text-4xl font-bold mt-10 mb-6 text-center">Com o MyGluco, você pode:</h3>
+            // Elements
+            const hamburgerBtn = $('hamburgerBtn');
+            const mobilePanel = $('mobilePanel');
+            const mobileBackdrop = $('mobileBackdrop');
+            const closeMobile = $('closeMobile');
+            const darkToggle = $('darkToggle');
+            const darkToggleMobile = $('darkToggleMobile');
 
-        <ul class="grid md:grid-cols-2 gap-6 text-lg">
-            <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Calcular sua
-                meta diária</li>
-            <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Acompanhar
-                ingestão de carboidratos</li>
-            <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Dicas de
-                alimentação saudável</li>
-            <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Exercícios
-                físicos</li>
-            <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Gráficos de
-                progresso</li>
-            <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Lembretes
-                personalizados</li>
-        </ul>
+            // --- Mobile panel functions (Suporte-like) ---
+            const openPanel = () => {
+                if (!exists(mobilePanel) || !exists(hamburgerBtn)) return;
+                mobilePanel.classList.remove('hidden');
+                mobilePanel.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('overflow-hidden');
+                hamburgerBtn.setAttribute('aria-expanded', 'true');
+            };
 
-        <h3 class="text-4xl font-bold mt-16 text-center">Baixe agora o nosso aplicativo!</h3>
-        <a href="#"
-            class="block text-center mt-4 px-8 py-3 bg-mgBlue text-white rounded-xl shadow-xl w-fit mx-auto hover:bg-mgGreen transition-all hover:scale-110">
-            Clique Aqui Para Fazer o Download!
-        </a>
-    </section>
+            const closePanel = () => {
+                if (!exists(mobilePanel) || !exists(hamburgerBtn)) return;
+                mobilePanel.classList.add('hidden');
+                mobilePanel.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('overflow-hidden');
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+            };
 
-    <!-- FOOTER -->
-    <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
+            if (exists(hamburgerBtn)) hamburgerBtn.addEventListener('click', openPanel);
+            if (exists(closeMobile)) closeMobile.addEventListener('click', closePanel);
+            if (exists(mobileBackdrop)) mobileBackdrop.addEventListener('click', closePanel);
 
+            // Close mobile panel on Escape
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closePanel();
+            });
 
-        <img src="Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float" />
-        <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
-    </footer>
-
-
-    <script>
-        function openModal() { document.getElementById("modal").classList.remove("hidden"); }
-        function closeModal() { document.getElementById("modal").classList.add("hidden"); }
-
-        function saveUser() {
-            const username = document.getElementById("username").value;
-            if (!username) return alert("Digite seu nome.");
-            localStorage.setItem("username", username);
-            document.getElementById("saudacao").innerText = `Olá, ${username}! Bem-vindo!`;
-            closeModal();
-        }
-
-        window.onload = () => {
-            const user = localStorage.getItem("username");
-            if (user) {
-                document.getElementById("saudacao").innerText = `Olá, ${user}! Bem-vindo!`;
-            } else {
-                openModal();
+            // Close mobile panel when a link inside it is clicked (better UX)
+            if (exists(mobilePanel)) {
+                mobilePanel.querySelectorAll('a').forEach(a => {
+                    a.addEventListener('click', () => closePanel());
+                });
             }
-        };
 
-        function toggleDark() {
-            document.documentElement.classList.toggle("dark");
-        }
+            // --- Dark mode (desktop + mobile) ---
+            function applyTheme(isDark) {
+                if (isDark) document.documentElement.classList.add('dark');
+                else document.documentElement.classList.remove('dark');
 
-        const hamburgerBtn = document.getElementById("hamburgerBtn");
-        const mobilePanel = document.getElementById("mobilePanel");
-        const mobileBackdrop = document.getElementById("mobileBackdrop");
-        const closeMobile = document.getElementById("closeMobile");
-        const darkToggleMobile = document.getElementById("darkToggleMobile");
-
-        // Abrir menu
-        hamburgerBtn.addEventListener("click", () => mobilePanel.classList.remove("hidden"));
-
-        // Fechar menu
-        closeMobile.addEventListener("click", () => mobilePanel.classList.add("hidden"));
-        mobileBackdrop.addEventListener("click", () => mobilePanel.classList.add("hidden"));
-
-        // Alternar dark mode pelo menu mobile
-        darkToggleMobile.addEventListener("click", () => {
-            document.documentElement.classList.toggle("dark");
-            localStorage.setItem("mygluco-theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
-            mobilePanel.classList.add("hidden");
-        });
-
-        // Fechar menu com ESC
-        window.addEventListener("keydown", ev => { if (ev.key === "Escape") mobilePanel.classList.add("hidden"); });
-
-        hamburgerBtn.addEventListener("click", () => {
-            mobilePanel.classList.remove("hidden");
-            mobilePanel.classList.remove("-translate-x-full");
-        });
-
-        closeMobile.addEventListener("click", () => {
-            mobilePanel.classList.add("-translate-x-full");
-            setTimeout(() => mobilePanel.classList.add("hidden"), 300);
-        });
-
-        function toggleDark() {
-            const isDark = document.documentElement.classList.toggle("dark");
-            localStorage.setItem("mygluco-theme", isDark ? "dark" : "light");
-        }
-
-        function toggleDark() {
-            const hidden = document.documentElement.classList.toggle("dark");
-            localStorage.setItem("mygluco-theme", hidden ? "dark" : "light");   
-        }
-            
-
-        // Aplicar preferência ao carregar
-        window.onload = () => {
-            if (localStorage.getItem("mygluco-theme") === "dark") {
-                document.documentElement.classList.add("dark");
+                // update toggle icons/text
+                if (exists(darkToggle)) darkToggle.textContent = isDark ? '☀️' : '🌙';
+                if (exists(darkToggleFloating))
+                    darkToggleFloating.textContent = isDark ? '☀️' : '🌙';
+                if (exists(darkToggle)) darkToggle.setAttribute('aria-pressed', String(isDark));
             }
-        };
 
-        
+            function toggleTheme() {
+                const isDarkNow = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('mygluco-theme', isDarkNow ? 'dark' : 'light');
+                applyTheme(isDarkNow);
+            }
 
+            if (exists(darkToggle)) darkToggle.addEventListener('click', toggleTheme);
+            if (exists(darkToggleMobile)) darkToggleMobile.addEventListener('click', () => {
+                toggleTheme();
+                closePanel();
+            });
 
+            // Restore theme on load (DOMContentLoaded)
+            window.addEventListener('DOMContentLoaded', () => {
+                const saved = localStorage.getItem('mygluco-theme');
+                const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const initialDark = saved ? (saved === 'dark') : systemPrefersDark;
+                applyTheme(initialDark);
+            });
 
-    </script>
+            // --- Modal / Saudação / Save user ---
+            function openModal() { $('modal') && $('modal').classList.remove('hidden'); }
+            function closeModal() { $('modal') && $('modal').classList.add('hidden'); }
+
+            function saveUser() {
+                const username = $('username') && $('username').value.trim();
+                if (!username) return alert('Digite seu nome.');
+                localStorage.setItem('username', username);
+                const saud = $('saudacao');
+                if (saud) saud.innerText = `Olá, ${username}! Bem-vindo!`;
+                closeModal();
+            }
+
+            window.addEventListener('load', () => {
+                const user = localStorage.getItem('username');
+                if (user && $('saudacao')) {
+                    $('saudacao').innerText = `Olá, ${user}! Bem-vindo!`;
+                } else {
+                    // open modal only if no username
+                    if (!user) openModal();
+                }
+            });
+
+            // Dark mode floating button (mobile)
+            const darkToggleFloating = $('darkToggleFloating');
+            if (exists(darkToggleFloating)) {
+                darkToggleFloating.addEventListener('click', () => {
+                    toggleTheme();
+                });
+            }
+
+        </script>
 </body>
 
 </html>

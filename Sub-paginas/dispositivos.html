@@ -1,133 +1,311 @@
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="pt-br" class="scroll-smooth preload">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dispositivo</title>
-    <link rel="stylesheet" href="dispositivos.CSS">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dispositivos - MyGluco</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            mgBlue: "#1E88E5",
+            mgGreen: "#43A047",
+            mgWhite: "#F8FAFC"
+          },
+          keyframes: {
+            float: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } }
+          },
+          animation: {
+            float: "float 4s ease-in-out infinite"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .preload * {
+      transition: none !important;
+    }
+  </style>
 </head>
 
-<body>
-      <header>
-        <nav class="search_bar">
-            <img src="../Imagens MyGluco/tugacriança.png" alt="Logo MyGluco" class="logo">
-            <ul class="nav-list">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="Dispositivos.html">Dispositivos</a></li>
-                <li><a href="Suporte.html">Suporte</a></li>
-                <li><a href="Sobrenos.html">Quem somos nós</a></li>
-            </ul>
-        </nav>
-    </header>
+<body
+  class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 transition-colors duration-300">
 
-    <h1> DISPONIBILIDADE PARA VÁRIOS DISPOSITIVOS MOBILE  </h1>
+  <!-- BACKGROUND SHAPES -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800"></div>
+    <div
+      class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float">
+    </div>
+    <div
+      class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300">
+    </div>
+    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
+      <path fill="#1E88E5" fill-opacity="0.12"
+        d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z">
+      </path>
+    </svg>
+  </div>
 
-  <section class="mobile"> 
-  <div class="texto">
-    <h2> IOS </h2>
-    <p>
-      No iOS, o Mygluco sincroniza dados de glicemia, atividades físicas e dieta automaticamente, garantindo que todas as informações fiquem centralizadas e seguras. O app envia notificações personalizadas para lembrar o usuário de medir a glicose, tomar medicamentos e registrar refeições. Além disso, o Mygluco conta com gráficos interativos e relatórios detalhados, facilitando o acompanhamento da saúde e possibilitando o compartilhamento desses dados com médicos e familiares diretamente pelo iPhone ou iPad.
-    </p>
+  <!-- HEADER -->
+  <header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl0 shadow-md">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center gap-3">
+        <!-- hamburger -->
+        <button id="hamburgerBtn"
+          class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none mr-3">
+          <span class="block w-6 h-0.5 bg-current mb-1"></span>
+          <span class="block w-6 h-0.5 bg-current mb-1"></span>
+          <span class="block w-6 h-0.5 bg-current"></span>
+        </button>
 
-    <!-- bolinhas-->
-    <div class="info">
-      <div class="circle">
-        <span>570 MB</span>
-        <p>Memoria</p>
+        <!-- logo -->
+        <div class="flex items-center gap-3">
+          <img src="../Imagens MyGluco/tugacriança.png" alt="MyGluco"
+            class="w-12 h-12 object-contain rounded-full logo-glow" />
+          <div>
+            <div class="text-xl font-extrabold text-mgBlue dark:text-mgBlue">MyGluco</div>
+            <div class="text-xs text-gray-600 dark:text-gray-300 -mt-0.5">Monitoramento de carboidratos</div>
+          </div>
+        </div>
       </div>
-      <div class="circle">
-        <span> PT-BR </span>
-        <p>Idiomas</p>
+
+      <!-- desktop menu -->
+      <ul class="hidden md:flex gap-10 text-lg font-medium mx-auto">
+        <li><a href="../index.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Início</a></li>
+        <li><a href="Dispositivos.html" class="text-mgBlue dark:text-mgBlue font-semibold">Dispositivos</a></li>
+        <li><a href="Suporte.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Suporte</a></li>
+        <li><a href="Sobrenos.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Quem somos</a></li>
+      </ul>
+
+      <!-- dark toggle -->
+      <button id="darkToggle" class="p-2 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
+    </nav>
+
+    <!-- mobile panel -->
+    <div id="mobilePanel" class="md:hidden fixed inset-0 z-40 hidden">
+      <div class="absolute inset-0 bg-black/40" id="mobileBackdrop"></div>
+      <div class="absolute left-0 top-0 w-64 h-full bg-white/60 dark:bg-gray-800/70 backdrop-blur-lg p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" />
+            <div class="font-extrabold text-lg text-mgBlue dark:text-mgGreen">MyGluco</div>
+          </div>
+          <button id="closeMobile" class="text-gray-700 dark:text-gray-200">✕</button>
+        </div>
+        <ul class="flex flex-col gap-4 text-base">
+          <li><a href="../index.html" class="block">Início</a></li>
+          <li><a href="Dispositivos.html" class="block font-semibold">Dispositivos</a></li>
+          <li><a href="Suporte.html" class="block">Suporte</a></li>
+          <li><a href="Sobrenos.html" class="block">Quem somos</a></li>
+        </ul>
+
+        <div class="mt-6">
+          <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar Tema</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- MOBILE PANEL (mesmo padrão do Suporte / index) -->
+  <div id="mobilePanel" class="md:hidden fixed inset-0 z-50 hidden" aria-hidden="true">
+    <!-- backdrop (baixo z do painel para permitir panel acima) -->
+    <div id="mobileBackdrop" class="absolute inset-0 bg-black/40"></div>
+
+    <!-- painel lateral (com z acima da imagem e do header) -->
+    <div class="absolute left-0 top-0 w-64 h-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg p-6 z-[60]">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" alt="MyGluco">
+          <div class="font-bold text-lg text-mgBlue dark:text-mgGreen">MyGluco</div>
+        </div>
+        <button id="closeMobile" aria-label="Fechar menu" class="text-gray-700 dark:text-gray-200 text-xl">✕</button>
+      </div>
+
+      <ul class="flex flex-col gap-4 text-base">
+        <li><a href="../index.html" class="block">Início</a></li>
+        <li><a href="Dispositivos.html" class="block font-semibold">Dispositivos</a></li>
+        <li><a href="Suporte.html" class="block">Suporte</a></li>
+        <li><a href="Sobrenos.html" class="block">Quem somos</a></li>
+      </ul>
+
+      <div class="mt-6">
+        <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar Tema</button>
       </div>
     </div>
   </div>
 
-  <div class="imagem">
-    <img src="../Imagens MyGluco/celulares.png" alt="Imagem de dispositivos" style="height: auto; width: 200vw; display: block;">
-  </div>
-</section>
-  
+  <div class="pt-28"></div>
 
+  <!-- MAIN CONTENT (padrão) -->
+  <main class="max-w-6xl mx-auto p-6 space-y-8">
+    <section class="grid md:grid-cols-2 gap-6 items-center">
+      <div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-mgBlue dark:text-mgGreen mb-4">Disponibilidade para vários
+          dispositivos</h1>
+        <p class="text-lg text-gray-700 dark:text-gray-200 leading-relaxed">
+          O MyGluco está disponível para iOS e Android, integrando sincronização, notificações e gráficos interativos
+          para facilitar o monitoramento da sua alimentação e glicemia.
+        </p>
 
- <!-- android --> 
-    <section class="nota">
-     <h2> PENSAMOS EM VOCÊ</h2>
-     <img src="../Imagens MyGluco/pessoas.png"  height="50%" width="50%" class="pessoas">
+        <div class="mt-6 grid grid-cols-2 gap-4">
+          <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+            <div class="text-sm text-gray-500">Tamanho</div>
+            <div class="text-lg font-semibold">~570 MB</div>
+          </div>
+          <div class="bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+            <div class="text-sm text-gray-500">Idiomas</div>
+            <div class="text-lg font-semibold">PT-BR</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center">
+        <img src="../Imagens MyGluco/celulares.png" alt="Dispositivos" class="w-full max-w-sm rounded-xl shadow-xl">
+      </div>
     </section>
-  <section class="mobile-samsung"> 
-  <!-- Imagem  -->
-  <div class="imagem">
 
-    <img src="../Imagens MyGluco/samsung s20.png" alt="Imagem de dispositivos">
-    
-  </div>
+    <section class="bg-white/60 dark:bg-gray-800/40 p-6 rounded-2xl shadow-lg">
+      <h2 class="text-2xl font-semibold text-mgBlue dark:text-mgGreen mb-3">iOS</h2>
+      <p class="text-gray-700 dark:text-gray-200 leading-relaxed">
+        No iOS, o MyGluco sincroniza dados de glicemia, atividades físicas e dieta automaticamente...
+      </p>
+    </section>
 
-  <!-- Texto e bolinhas  -->
-  <div class="texto-samsung">
-    <h2>ANDROID</h2>
+    <section class="bg-white/60 dark:bg-gray-800/40 p-6 rounded-2xl shadow-lg">
+      <h2 class="text-2xl font-semibold text-mgBlue dark:text-mgGreen mb-3">Android</h2>
+      <p class="text-gray-700 dark:text-gray-200 leading-relaxed">
+        No Android, o MyGluco integra-se com o Google Fit para sincronizar dados automaticamente...
+      </p>
+
+      <ul class="mt-4 list-disc ml-5 text-gray-700 dark:text-gray-200 space-y-1">
+        <li>Registro diário de glicose, insulina e medicamentos</li>
+        <li>Alertas e lembretes personalizados</li>
+        <li>Integração com Google Fit</li>
+        <li>Gráficos e relatórios</li>
+      </ul>
+    </section>
+
+    <section class="text-center">
+      <a href="#"
+        class="inline-block px-6 py-3 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition">Baixar App</a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-12 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
+    <img src="../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float"
+      alt="Mindsync">
+    <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
     <p>
-      No Android, o Mygluco integra-se com o Google Fit para sincronizar dados de glicemia, atividades físicas e alimentação automaticamente, mantendo todas as informações organizadas e seguras em um só lugar. O aplicativo envia notificações personalizadas para lembrar o usuário de medir a glicose, tomar medicamentos e registrar refeições. Além disso, o Mygluco apresenta gráficos interativos e relatórios detalhados, facilitando o acompanhamento da saúde e possibilitando o compartilhamento dos dados com médicos e familiares diretamente pelo smartphone ou tablet Android.
+      Desenvolvido por Mindsync —
+      <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> •
+      <a href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a>
     </p>
-    <p>
-      Registro diário de níveis de glicose, insulina e medicamentos
+  </footer>
 
-      Alertas e lembretes personalizados
-      
-      Monitoramento da alimentação com sugestões de refeições balanceadas
-      
-      Integração com o Google Fit para coleta automática de dados
-      
-      Gráficos e relatórios para análise detalhada da condição
-      
-      Compartilhamento seguro de informações com profissionais de saúde
-    </p>
+  <!-- SCRIPTS -->
+  <script>
+    // remove preload after load
+    window.addEventListener('load', () => document.documentElement.classList.remove('preload'));
 
-    <!-- bolinhas -->
-    <div class="info">
-      <div class="circle">
-        <span>570 MB</span>
-        <p>Memoria</p>
-      </div>
-      <div class="circle">
-        <span> PT-BR </span>
-        <p>Idiomas</p>
-      </div>
-    </div>
-  </div>
-</section>
+    // helpers
+    const $ = id => document.getElementById(id);
+    const exists = el => el !== null && el !== undefined;
 
-     
-<script>
-  
-  const slides = document.querySelectorAll(".slide");
-let currentIndex = 0;
+    const hamburgerBtn = $('hamburgerBtn');
+    const mobilePanel = $('mobilePanel');
+    const mobileBackdrop = $('mobileBackdrop');
+    const closeMobile = $('closeMobile');
+    const darkToggle = $('darkToggle');
+    const darkToggleMobile = $('darkToggleMobile');
 
-document.querySelector(".next").addEventListener("click", () => {
-    changeSlide(currentIndex + 1);
-});
-
-document.querySelector(".prev").addEventListener("click", () => {
-    changeSlide(currentIndex - 1);
-});
-
-function changeSlide(index) {
-    if (index < 0) {
-        index = slides.length - 1;
-    } else if (index >= slides.length) {
-        index = 0;
+    // open/close mobile panel (keeps high z and hides body scroll)
+    function openPanel() {
+      if (!exists(mobilePanel)) return;
+      mobilePanel.classList.remove('hidden');
+      mobilePanel.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('overflow-hidden');
+      if (exists(hamburgerBtn)) hamburgerBtn.setAttribute('aria-expanded', 'true');
     }
-    document.querySelector(".slider").style.transform = `translateX(-${index * 100}%)`;
-    currentIndex = index;
-}
+    function closePanel() {
+      if (!exists(mobilePanel)) return;
+      mobilePanel.classList.add('hidden');
+      mobilePanel.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('overflow-hidden');
+      if (exists(hamburgerBtn)) hamburgerBtn.setAttribute('aria-expanded', 'false');
+    }
 
+    if (exists(hamburgerBtn)) hamburgerBtn.addEventListener('click', openPanel);
+    if (exists(closeMobile)) closeMobile.addEventListener('click', closePanel);
+    if (exists(mobileBackdrop)) mobileBackdrop.addEventListener('click', closePanel);
 
-   window.addEventListener("load", function() {
-    document.body.classList.remove("preload");
-    document.body.classList.add("page-loaded");
-  });
+    // close on ESC
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
 
+    // close panel when clicking a link inside (UX)
+    if (exists(mobilePanel)) {
+      mobilePanel.querySelectorAll('a').forEach(a => a.addEventListener('click', closePanel));
+    }
 
-</script>
-  
+    // theme handling
+    function applyTheme(isDark) {
+      if (isDark) document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+
+      // update buttons
+      const desktopBtn = $('darkToggle');
+      const mobileBtn = $('darkToggleMobile');
+      if (desktopBtn) desktopBtn.textContent = isDark ? '☀️' : '🌙';
+      if (mobileBtn) mobileBtn.textContent = (isDark ? '☀️' : '🌙') + ' Alternar Tema';
+      if (desktopBtn) desktopBtn.setAttribute('aria-pressed', String(isDark));
+    }
+
+    function toggleTheme() {
+      const isDarkNow = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('mygluco-theme', isDarkNow ? 'dark' : 'light');
+      applyTheme(isDarkNow);
+    }
+
+    // attach theme handlers
+    if (exists(darkToggle)) darkToggle.addEventListener('click', toggleTheme);
+    if (exists(darkToggleMobile)) darkToggleMobile.addEventListener('click', () => { toggleTheme(); closePanel(); });
+
+    // restore theme on DOMContentLoaded
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('mygluco-theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const startDark = saved ? (saved === 'dark') : prefersDark;
+      applyTheme(startDark);
+    });
+
+    // modal & greeting (kept simple)
+    function openModal() { const m = $('modal'); if (m) m.classList.remove('hidden'); }
+    function closeModal() { const m = $('modal'); if (m) m.classList.add('hidden'); }
+
+    function saveUser() {
+      const inp = $('username');
+      if (!inp) return;
+      const name = inp.value.trim();
+      if (!name) return alert('Digite seu nome.');
+      localStorage.setItem('username', name);
+      const s = $('saudacao'); if (s) s.innerText = `Olá, ${name}! Bem-vindo!`;
+      closeModal();
+    }
+
+    window.addEventListener('load', () => {
+      const user = localStorage.getItem('username');
+      if (user) { const s = $('saudacao'); if (s) s.innerText = `Olá, ${user}! Bem-vindo!`; }
+      else { /* optionally open modal */ }
+    });
+  </script>
 </body>
+
 </html>

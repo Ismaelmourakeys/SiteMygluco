@@ -171,70 +171,91 @@
 
 
     <!-- NAVBAR -->
-    <header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-md">
+    <header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl0 shadow-md">
         <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
             <!-- Botão hambúrguer -->
-            <button id="hamburgerBtn"
-                class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none mr-3">
-                <span class="block w-6 h-0.5 bg-current mb-1"></span>
-                <span class="block w-6 h-0.5 bg-current mb-1"></span>
-                <span class="block w-6 h-0.5 bg-current"></span>
-            </button>
-
             <div class="flex items-center gap-3">
-                <img src="../Imagens MyGluco/tugacriança.png" alt="MyGluco logo"
-                    class="w-12 h-12 object-contain rounded-full logo-glow" />
-                <div>
-                    <div class="text-xl font-extrabold text-mgBlue dark:text-mgBlue">MyGluco</div>
-                    <div class="text-xs text-gray-600 dark:text-gray-300 -mt-0.5">Monitoramento de carboidratos
-                    </div>
-                </div>
-            </div>
-            </div>
+                <button id="hamburgerBtn"
+                    class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none mr-3">
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current"></span>
+                </button>
 
-            <nav id="mainNav" class="hidden md:flex md:items-center md:gap-8">
-                <a href="../index.html" class="text-gray-700 dark:text-gray-200 hover:text-mgBlue">Início</a>
-                <a href="Dispositivos.html" class="text-gray-700 dark:text-gray-200 hover:text-mgBlue">Dispositivos</a>
-                <a href="Suporte.html" class="text-mgBlue dark:text-mgGreen font-semibold">Suporte</a>
-                <a href="Sobrenos.html" class="text-gray-700 dark:text-gray-200 hover:text-mgBlue">Quem somos</a>
-                <button id="darkToggle"
-                    class="ml-3 p-2 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
-            </nav>
-            </div>
-            </div>
 
-            <!-- mobile panel -->
-            <div id="mobilePanel" class="md:hidden fixed inset-0 z-40 hidden">
-                <div class="absolute inset-0 bg-black/40" id="mobileBackdrop"></div>
-                <div class="absolute left-0 top-0 w-64 h-full bg-white/60 dark:bg-gray-800/70 backdrop-blur-lg p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <div class="flex items-center gap-3">
-                            <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" />
-                            <div class="font-bold text-lg text-mgBlue dark:text-mgGreen">MyGluco</div>
+                <!-- logo -->
+                <div class="flex items-center gap-3">
+                    <img src="../Imagens MyGluco/tugacriança.png" alt="MyGluco"
+                        class="w-12 h-12 object-contain rounded-full logo-glow" />
+                    <div>
+                        <div class="text-xl font-extrabold text-mgBlue dark:text-mgBlue">MyGluco</div>
+                        <div class="text-xs text-gray-600 dark:text-gray-300 -mt-0.5">Monitoramento de carboidratos
                         </div>
-                        <button id="closeMobile" class="text-gray-700 dark:text-gray-200">✕</button>
-                    </div>
-                    <ul class="flex flex-col gap-4 text-base">
-                        <li><a href="../index.html" class="block">Início</a></li>
-                        <li><a href="Dispositivos.html" class="block">Dispositivos</a></li>
-                        <li><a href="Suporte.html" class="block font-semibold">Suporte</a></li>
-                        <li><a href="Sobrenos.html" class="block">Quem somos</a></li>
-                    </ul>
-
-                    <div class="mt-6">
-                        <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar
-                            Tema</button>
                     </div>
                 </div>
             </div>
+
+
+            <ul class="hidden md:flex gap-10 text-lg font-medium mx-auto">
+                <li><a href="../index.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Início</a></li>
+                <li><a href="Dispositivos.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Dispositivos</a>
+                </li>
+                <li><a href="Suporte.html" class="text-mgBlue dark:text-mgBlue font-semibold">Suporte</a></li>
+                <li><a href="Sobrenos.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Quem somos</a></li>
+            </ul>
+
+            <!-- DIREITA -->
+            <button id="darkToggle"
+                class="p-2 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
+        </nav>
+
+        </nav>
+        </div>
+
+        <!-- mobile panel -->
+        <div id="mobilePanel" class="md:hidden fixed inset-0 z-40 hidden">
+            <div class="absolute inset-0 bg-black/40" id="mobileBackdrop"></div>
+            <div class="absolute left-0 top-0 w-64 h-full bg-white/60 dark:bg-gray-800/70 backdrop-blur-lg p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" />
+                        <div class="font-extrabold text-lg text-mgBlue dark:text-mgGreen">MyGluco</div>
+                    </div>
+                    <button id="closeMobile" class="text-gray-700 dark:text-gray-200">✕</button>
+                </div>
+                <ul class="flex flex-col gap-4 text-base">
+                    <li><a href="../index.html" class="block">Início</a></li>
+                    <li><a href="Dispositivos.html" class="block">Dispositivos</a></li>
+                    <li><a href="Suporte.html" class="block font-semibold">Suporte</a></li>
+                    <li><a href="Sobrenos.html" class="block">Quem somos</a></li>
+                </ul>
+
+                <div class="mt-6">
+                    <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">🌙 Alternar
+                        Tema</button>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <!-- ONDA DECORATIVA SUPERIOR -->
-    <div class="relative w-full overflow-hidden -mt-2">
-        <svg class="w-full h-20 animate-wave opacity-25 dark:opacity-15" viewBox="0 0 1440 120"
-            preserveAspectRatio="none">
-            <path d="M0 50 C 240 0 360 100 720 50 C 1080 0 1320 100 1440 50 L1440 120 L0 120 Z"
-                class="fill-mgBlue dark:fill-mgGreen"></path>
+    <!-- BACKGROUND MODERNO -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
+        </div>
+
+        <!-- Elementos geométricos suaves -->
+        <div
+            class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float">
+        </div>
+        <div
+            class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300">
+        </div>
+
+        <!-- Ondas animadas no rodapé -->
+        <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
+            <path fill="#1E88E5" fill-opacity="0.15"
+                d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z">
+            </path>
         </svg>
     </div>
 
@@ -266,12 +287,16 @@
 
                 <dl class="mt-4 space-y-3 text-sm text-gray-800 dark:text-gray-200">
                     <div>
-                        <dt class="font-semibold">Email</dt>
+                        <dt class="font-extrabold text-mgGreen">Email</dt>
                         <dd>suporte@mygluco.com</dd>
                     </div>
                     <div>
-                        <dt class="font-semibold">Telefone</dt>
-                        <dd>+55 (11) 98509-9046</dd>
+                        <dt class="font-extrabold text-mgGreen">Instagram da equipe</dt>
+                        <dd>Ismaelmourakeys</dd>
+                        <dd>kevenxle</dd>
+                        <dd>kauayzx</dd>
+                        <dd>wuhmaf</dd>
+                        <dd>riquw_wzx</dd>
                     </div>
                 </dl>
 
@@ -279,7 +304,7 @@
                     <a class="inline-flex items-center gap-2 px-3 py-2 bg-white/30 dark:bg-white/5 rounded-xl"
                         href="mailto:suporte@mygluco.com">✉️ Enviar email</a>
                     <a class="inline-flex items-center gap-2 px-3 py-2 bg-green-600 text-white rounded-xl"
-                        href="tel:+5511985099046">📞 Ligar</a>
+                        href="">📞 Ligar</a>
                 </div>
             </div>
 
@@ -369,7 +394,7 @@
                 </p>
                 <div class="mt-4">
                     <a class="inline-block px-4 py-2 bg-mgGreen text-white rounded-xl shadow"
-                        href="https://wa.me/5511985099046" target="_blank">Abrir WhatsApp</a>
+                        href="" target="_blank">Abrir WhatsApp</a>
                 </div>
             </div>
         </section>
@@ -385,6 +410,12 @@
                 <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG"
                     class="w-16 mx-auto mb-4 inline-block animate-float" alt="Mindsync logo">
                 <p class="text-sm opacity-80">© 2025 MyGluco. Todos os direitos reservados.</p>
+
+                <p>
+                    Desenvolvido por Mindsync —
+                    <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> •
+                    <a href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -401,12 +432,12 @@
 
     <!-- SCRIPTS: animations, hamburger, mascot follower, accordion, dark toggle -->
     <script>
-        // Remove preload class after load for transitions
+        // Remove preload class after load
         window.addEventListener("load", () => {
             document.documentElement.classList.remove("preload");
         });
 
-        // IntersectionObserver reveal
+        /* ========= REVEAL ANIMATION ========= */
         const io = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 if (e.isIntersecting) e.target.classList.add("in");
@@ -415,101 +446,97 @@
 
         document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-        // Mobile menu
+
+        /* ========= MOBILE MENU ========= */
         const hamburgerBtn = document.getElementById("hamburgerBtn");
         const mobilePanel = document.getElementById("mobilePanel");
         const mobileBackdrop = document.getElementById("mobileBackdrop");
         const closeMobile = document.getElementById("closeMobile");
-        hamburgerBtn && hamburgerBtn.addEventListener("click", () => {
+
+        if (hamburgerBtn) hamburgerBtn.addEventListener("click", () => {
             mobilePanel.classList.remove("hidden");
         });
-        closeMobile && closeMobile.addEventListener("click", () => mobilePanel.classList.add("hidden"));
-        mobileBackdrop && mobileBackdrop.addEventListener("click", () => mobilePanel.classList.add("hidden"));
 
-        // Dark toggle (desktop + mobile)
-        const darkToggle = document.getElementById("darkToggle");
-        const darkToggleMobile = document.getElementById("darkToggleMobile");
-        function toggleDark() {
-            document.documentElement.classList.toggle("dark");
-            // persist preference
-            localStorage.setItem("mygluco-theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
-        }
-        darkToggle && darkToggle.addEventListener("click", toggleDark);
-        darkToggleMobile && darkToggleMobile.addEventListener("click", () => { toggleDark(); mobilePanel.classList.add("hidden"); });
+        if (closeMobile) closeMobile.addEventListener("click", () => {
+            mobilePanel.classList.add("hidden");
+        });
 
-        // Restore theme on load
+        if (mobileBackdrop) mobileBackdrop.addEventListener("click", () => {
+            mobilePanel.classList.add("hidden");
+        });
+
+
+        /* ========= DARK MODE ========= */
+
+        // restaure tema ao carregar
         (function restoreTheme() {
             const saved = localStorage.getItem("mygluco-theme");
             if (saved === "dark") document.documentElement.classList.add("dark");
         })();
 
-        // FAQ accordion
+        const darkToggle = document.getElementById("darkToggle");
+        const darkToggleMobile = document.getElementById("darkToggleMobile");
+
+        function toggleDark() {
+            const isDark = document.documentElement.classList.toggle("dark");
+            localStorage.setItem("mygluco-theme", isDark ? "dark" : "light");
+
+            if (darkToggle)
+                darkToggle.textContent = isDark ? "☀️" : "🌙";
+
+            if (darkToggleMobile)
+                darkToggleMobile.textContent = (isDark ? "☀️" : "🌙") + " Alternar Tema";
+        }
+
+        if (darkToggle)
+            darkToggle.addEventListener("click", toggleDark);
+
+        if (darkToggleMobile)
+            darkToggleMobile.addEventListener("click", () => {
+                toggleDark();
+                mobilePanel.classList.add("hidden");
+            });
+
+
+        /* ========= FAQ ACCORDION ========= */
         document.querySelectorAll(".faq-btn").forEach(btn => {
             btn.addEventListener("click", () => {
                 const panel = btn.nextElementSibling;
                 const expanded = btn.getAttribute("aria-expanded") === "true";
-                // close other panels (optional)
+
+                // fecha tudo antes
                 document.querySelectorAll(".faq-btn").forEach(b => {
                     b.setAttribute("aria-expanded", "false");
-                    if (b.nextElementSibling) b.nextElementSibling.classList.add("hidden");
-                    b.querySelector(".chev") && (b.querySelector(".chev").textContent = "+");
+                    b.nextElementSibling.classList.add("hidden");
+                    b.querySelector(".chev").textContent = "+";
                 });
 
                 if (!expanded) {
                     btn.setAttribute("aria-expanded", "true");
                     panel.classList.remove("hidden");
-                    btn.querySelector(".chev") && (btn.querySelector(".chev").textContent = "—");
-                } else {
-                    btn.setAttribute("aria-expanded", "false");
-                    panel.classList.add("hidden");
-                    btn.querySelector(".chev") && (btn.querySelector(".chev").textContent = "+");
+                    btn.querySelector(".chev").textContent = "—";
                 }
             });
         });
 
-        // Mascot follow (lightweight)
-        const mascotEl = document.getElementById("mascot");
-        let lastMove = 0;
-        if (mascotEl) {
-            let mx = 0, my = 0;
-            window.addEventListener("pointermove", (e) => {
-                const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-                const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
 
-                // target relative offsets (small movement)
-                const offsetX = Math.min(40, Math.max(-40, (e.clientX - vw * 0.85) / 10));
-                const offsetY = Math.min(40, Math.max(-40, (e.clientY - vh * 0.85) / 10));
-                mx = offsetX; my = offsetY;
-                mascotEl.style.setProperty('--mx', mx + 'px');
-                mascotEl.style.setProperty('--my', my + 'px');
-                // apply transform
-                mascotEl.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
-                // small tilt when moving quickly
-                const now = Date.now();
-                if (now - lastMove < 80) mascotEl.classList.add("tilt");
-                else mascotEl.classList.remove("tilt");
-                lastMove = now;
-            });
-            // reset position when pointer leaves
-            window.addEventListener("pointerleave", () => {
-                mascotEl.style.transform = '';
-            });
-        }
-
-        // gentle hover glow on logo
+        /* ========= LOGO HOVER ========= */
         document.querySelectorAll(".logo-glow").forEach(img => {
             img.addEventListener("mouseenter", () => img.style.transform = "scale(1.05)");
             img.addEventListener("mouseleave", () => img.style.transform = "scale(1)");
         });
 
-        // small accessibility: close mobile on escape
+
+        /* ========= ESC FECHA MENU MOBILE ========= */
         window.addEventListener("keydown", (ev) => {
-            if (ev.key === "Escape") mobilePanel && mobilePanel.classList.add("hidden");
+            if (ev.key === "Escape") mobilePanel?.classList.add("hidden");
         });
 
-        // lazy init reveals for content already in view
+
+        /* ========= REVEAL PARA ELEMENTOS JÁ VISÍVEIS ========= */
         document.querySelectorAll(".reveal").forEach(el => {
-            if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add("in");
+            if (el.getBoundingClientRect().top < window.innerHeight * 0.9)
+                el.classList.add("in");
         });
     </script>
 </body>

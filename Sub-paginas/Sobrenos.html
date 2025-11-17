@@ -1,112 +1,295 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nós - MyGluco</title>
-    <link rel="stylesheet" href="Sobrenos.css">
-</head>
-<body>
 
-    <header>
-        <nav class="search_bar">
-            <img src="../Imagens MyGluco/tugacriança.png" alt="Logo MyGluco" class="logo">
-            <ul class="nav-list">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="Dispositivos.html">Dispositivos</a></li>
-                <li><a href="Suporte.html">Suporte</a></li>
-                <li><a href="Sobrenos.html">Quem somos nós</a></li>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Configura cores personalizadas -->
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        mgBlue: "#1E88E5",
+                        mgGreen: "#43A047",
+                        mgWhite: "#F8FAFC"
+                    },
+                    keyframes: {
+                        float: {
+                            "0%,100%": { transform: "translateY(0px)" },
+                            "50%": { transform: "translateY(-10px)" }
+                        },
+                        wave: {
+                            "0%": { transform: "translateX(0)" },
+                            "50%": { transform: "translateX(-20px)" },
+                            "100%": { transform: "translateX(0)" }
+                        },
+                        breathe: {
+                            "0%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" },
+                            "50%": { filter: "drop-shadow(0 0 18px rgba(30,136,229,0.28))" },
+                            "100%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" }
+                        }
+                    },
+                    animation: {
+                        float: "float 4s ease-in-out infinite",
+                        wave: "wave 6s ease-in-out infinite",
+                        breathe: "breathe 3s ease-in-out infinite"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+    <!-- NAVBAR -->
+    <header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl6 shadow-md">
+        <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
+            <div class="flex items-center gap-3">
+                <!-- Botão mobile -->
+                <button id="hamburgerBtn"
+                    class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-200 focus:outline-none">
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current"></span>
+                </button>
+
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <img src="../Imagens MyGluco/tugacriança.png" class="w-12 h-12 rounded-full object-cover" />
+
+                    <div>
+                        <div class="text-xl font-extrabold text-mgBlue">MyGluco</div>
+                        <div class="text-xs text-gray-600 dark:text-gray-300 -mt-0.5">Monitoramento de carboidratos
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu Desktop -->
+            <ul class="hidden md:flex gap-10 text-lg font-medium">
+                <li><a href="../index.html" class="hover:text-mgBlue transition">Início</a></li>
+                <li><a href="Dispositivos.html" class="hover:text-mgBlue transition">Dispositivos</a></li>
+                <li><a href="Suporte.html" class="hover:text-mgBlue transition">Suporte</a></li>
+                <li><a href="Sobrenos.html" class="text-mgBlue font-semibold">Quem somos</a></li>
             </ul>
+
+            <button id="darkToggle"
+                class="p-2 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
         </nav>
+
+        <!-- Painel mobile -->
+        <div id="mobilePanel" class="md:hidden fixed inset-0 z-40 hidden">
+            <div id="mobileBackdrop" class="absolute inset-0 bg-black/40"></div>
+
+            <div class="absolute left-0 top-0 w-64 h-full bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" />
+                        <span class="font-bold text-lg text-mgBlue dark:text-mgGreen">MyGluco</span>
+                    </div>
+                    <button id="closeMobile" class="text-gray-700 dark:text-gray-200">✕</button>
+                </div>
+
+                <ul class="flex flex-col gap-4 text-base">
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="Dispositivos.html">Dispositivos</a></li>
+                    <li><a href="Suporte.html">Suporte</a></li>
+                    <li><a href="Sobrenos.html" class="font-semibold">Quem somos</a></li>
+                </ul>
+
+                <div class="mt-6">
+                    <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar
+                        Tema</button>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <section class="sobre-nos">
-            <h1>
-                <strong>Sobre Nós</strong>
+    <!-- BACKGROUND MODERNO -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
+        </div>
 
-            </h1>
+        <!-- Elementos geométricos suaves -->
+        <div
+            class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float">
+        </div>
+        <div
+            class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300">
+        </div>
+
+        <!-- Ondas animadas no rodapé -->
+        <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
+            <path fill="#1E88E5" fill-opacity="0.15"
+                d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z">
+            </path>
+        </svg>
+    </div>
+
+    <!-- CONTEÚDO -->
+    <main class="max-w-5xl mx-auto px-6 pt-32 pb-20 space-y-16">
+
+        <!-- Título -->
+        <section class="text-center">
+            <h1 class="text-4xl font-bold text-mgBlue dark:text-mgGreen mb-4">Sobre Nós</h1>
+            <p class="text-lg leading-relaxed">
+                Somos a Mindsinc, uma equipe dedicada a criar soluções tecnológicas que ajudam pessoas a monitorar saúde
+                e bem-estar.
+                Nosso principal produto, o MyGluco, facilita o cálculo e acompanhamento dos carboidratos — essencial
+                para o controle glicêmico.
+            </p>
+        </section>
+
+        <!-- História -->
+        <section class="space-y-4">
+            <h2 class="text-3xl font-semibold text-mgBlue dark:text-mgGreen">Nossa História</h2>
             <p>
-                Somos a Empresa Mindsinc, uma equipe dedicada a desenvolver soluções tecnológicas que ajudam as pessoas a monitorar sua saúde e bem-estar. Nosso principal produto, o MyGluco, é um aplicativo inovador que permite aos usuários calcular e monitorar sua ingestão de carboidratos, essencial para o controle glicêmico.</p>
-           
-                <p>O MyGluco foi criado com o objetivo de facilitar o acompanhamento da alimentação, especialmente para pessoas com diabetes. Acreditamos que a tecnologia pode ser uma aliada poderosa na promoção de hábitos saudáveis e na melhoria da qualidade de vida.</p>
-
-                <p>Com uma interface amigável e recursos avançados, o MyGluco se destaca como uma ferramenta indispensável para quem busca um estilo de vida mais saudável.</p>
-
-                <p>Estamos comprometidos em fornecer a melhor experiência possível aos nossos usuários, e estamos sempre abertos a feedback e sugestões.</p>
-        </section>
-            
-            <h2>Nossa História</h2>
-            <p>Fundado por um grupo de profissionais de saúde e tecnologia, o MyGluco nasceu da necessidade de uma solução acessível e eficaz para o gerenciamento da alimentação. Desde o início, nosso objetivo tem sido empoderar os usuários com informações e ferramentas que promovam uma vida saudável.</p>
-
-        <section class="valores">
-            <h2>Nossos Valores</h2>
-            <p>
-                Inovação: Estamos sempre buscando novas maneiras de melhorar nosso aplicativo e oferecer mais funcionalidades.</p>
-                <p>Transparência: Acreditamos na importância de fornecer informações claras e precisas aos nossos usuários.</p>
-                <p>Empatia: Nos preocupamos com a saúde e bem-estar dos nossos usuários, oferecendo suporte e recursos úteis.</p>
+                Fundado por profissionais da área da saúde e tecnologia, o MyGluco nasceu da necessidade
+                de uma ferramenta acessível e eficiente para o gerenciamento alimentar.
+            </p>
         </section>
 
-        <h2>Nossa Equipe</h2>
-        <p>Contamos com uma equipe dedicada de desenvolvedores que trabalham continuamente para melhorar o aplicativo e oferecer a melhor experiência possível aos nossos usuários.</p>
-        <figure> 
-                <img class="grupo_mindsync" src="../Imagens MyGluco/Foto do grupo - Mindsync.jpeg" alt="Equipe Mindsync">
+        <!-- Valores -->
+        <section class="space-y-4">
+            <h2 class="text-3xl font-semibold text-mgBlue dark:text-mgGreen">Nossos Valores</h2>
 
-        <figcaption class="grupo_mindsync">
-                    <strong> <h2>Equipe Mindsync Company's </h2> </strong>
-
-                <b>Compenentes:</b>  
-                Carlos Henrique,
-                Kauâ Sousa,
-                Keven Romão,
-                Matheus Fernandes,
-                Ismael Moura e
-                Renan Munari.
-                
-
-                </figcaption>
-            </figure>
-        </section>
-        
-        <br><br>
-       
-        <section class="contato" id="contato">
-            <h2>Entre em Contato</h2>
-            <p>Se você tiver alguma dúvida, sugestão ou feedback, não hesite em nos contatar. Estamos aqui para ajudar!</p>
-            <p>Email: Mindsync@gmail.com</p>
-            <p>Whatsapp: (11) 98509-9046</p>
-        </section>
-<br>
-        <section class="redes-sociais">
-            <h2>Siga-nos</h2>
-            <p>Fique por dentro das novidades e atualizações do MyGluco seguindo nossas redes sociais:</p>
-            <ul>
-                <li><a href="https://www.facebook.com/MyGluco">Facebook</a></li>
-                <li><a href="https://www.instagram.com/MyGluco">Instagram</a></li>
-                <li><a href="https://www.twitter.com/MyGluco">Twitter</a></li>
+            <ul class="space-y-3 list-disc ml-6">
+                <li><b>Inovação:</b> buscamos sempre melhorar e oferecer mais funcionalidades.</li>
+                <li><b>Transparência:</b> prezamos por informações claras e precisas.</li>
+                <li><b>Empatia:</b> cuidamos do bem-estar dos nossos usuários.</li>
             </ul>
-        
+        </section>
+
+        <!-- Equipe -->
+        <section class="text-center space-y-6">
+            <h2 class="text-3xl font-semibold text-mgBlue dark:text-mgGreen">Nossa Equipe</h2>
+
+            <img src="../Imagens MyGluco/Foto do grupo - Mindsync.jpeg"
+                class="rounded-xl shadow-xl mx-auto w-full max-w-3xl">
+
+            <figcaption class="text-lg mt-3">
+                <strong class="text-xl">Equipe Mindsync Company</strong><br>
+                <span class="opacity-80">Carlos Henrique · Kauâ Sousa · Keven Romão · Matheus Fernandes · Ismael Moura ·
+                    Renan Munari</span>
+            </figcaption>
+        </section>
+
+        <!-- Contato -->
+        <section id="contato" class="space-y-3">
+            <h2 class="text-3xl font-semibold text-mgBlue dark:text-mgGreen">Entre em Contato</h2>
+            <p>Email: <b>Mindsync@gmail.com</b></p>
+            <p>Whatsapp: <b>(11) 98509-9046</b></p>
+        </section>
+
+        <!-- Redes sociais -->
+        <section class="space-y-3">
+            <h2 class="text-3xl font-semibold text-mgBlue dark:text-mgGreen">Siga-nos</h2>
+            <p>Fique por dentro das novidades do MyGluco:</p>
+
+            <ul class="list-disc ml-6 space-y-2">
+                <li><a href="#" class="text-mgBlue dark:text-mgGreen underline">Facebook</a></li>
+                <li><a href="#" class="text-mgBlue dark:text-mgGreen underline">Instagram</a></li>
+                <li><a href="#" class="text-mgBlue dark:text-mgGreen underline">Twitter</a></li>
+            </ul>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <img src="../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" alt="Logo Mindsync" class="footer-logo">
-            <p>&copy; 2025 MyGluco. Todos os direitos reservados.</p>
-            <p>Desenvolvido por Mindsync</p>
-            <p>Para mais informações, consulte nosso <a href="Termos.html">Termos de Uso</a> e <a href="Privacidade.html">Política de Privacidade</a>.</p>
-        </div>
+    <!-- Rodapé -->
+    <footer class="bg-gray-200 dark:bg-gray-800 py-8 mt-10">
+        <div class="text-center space-y-2">
+            <img src="../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG"
+                class="w-20 mx-auto rounded-lg shadow">
 
+            <p>&copy; 2025 MyGluco. Todos os direitos reservados.</p>
+
+            <p>
+                Desenvolvido por Mindsync —
+                <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> •
+                <a href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a>
+            </p>
+        </div>
     </footer>
 
 
     <script>
-  window.addEventListener("load", function () {
-    document.body.classList.add("page-loaded");
-  });
-</script>
+            (function () {
+                const hamburgerBtn = document.getElementById("hamburgerBtn");
+                const mobilePanel = document.getElementById("mobilePanel");
+                const mobileBackdrop = document.getElementById("mobileBackdrop");
+                const closeMobile = document.getElementById("closeMobile");
+                const darkToggle = document.getElementById("darkToggle");
+                const darkToggleMobile = document.getElementById("darkToggleMobile");
 
+                const exists = (el) => el !== null && el !== undefined;
 
+                /* ========= MENU MOBILE ========= */
+                const openPanel = () => {
+                    mobilePanel.classList.remove("hidden");
+                    document.body.classList.add("overflow-hidden");
+                };
+
+                const closePanel = () => {
+                    mobilePanel.classList.add("hidden");
+                    document.body.classList.remove("overflow-hidden");
+                };
+
+                if (exists(hamburgerBtn)) hamburgerBtn.addEventListener("click", openPanel);
+                if (exists(closeMobile)) closeMobile.addEventListener("click", closePanel);
+                if (exists(mobileBackdrop)) mobileBackdrop.addEventListener("click", closePanel);
+
+                /* ========= DARK MODE ========= */
+
+                function setTheme(isDark) {
+                    if (isDark) {
+                        document.documentElement.classList.add("dark");
+                    } else {
+                        document.documentElement.classList.remove("dark");
+                    }
+
+                    if (exists(darkToggle)) {
+                        darkToggle.textContent = isDark ? "☀️" : "🌙";
+                    }
+
+                    if (exists(darkToggleMobile)) {
+                        darkToggleMobile.textContent = (isDark ? "☀️" : "🌙") + " Alternar Tema";
+                    }
+                }
+
+                function toggleTheme() {
+                    const isDark = !document.documentElement.classList.contains("dark");
+                    setTheme(isDark);
+                    localStorage.setItem("mygluco-theme", isDark ? "dark" : "light");
+                }
+
+                // Eventos
+                if (exists(darkToggle)) darkToggle.addEventListener("click", toggleTheme);
+                if (exists(darkToggleMobile)) {
+                    darkToggleMobile.addEventListener("click", () => {
+                        toggleTheme();
+                        closePanel();
+                    });
+                }
+
+                /* ========= CARREGAR TEMA SALVO ========= */
+                window.addEventListener("DOMContentLoaded", () => {
+                    const saved = localStorage.getItem("mygluco-theme");
+                    const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+                    const isDark = saved ? saved === "dark" : systemDark;
+
+                    setTheme(isDark);
+                });
+            })();
+    </script>
 
 </body>
+
 </html>

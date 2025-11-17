@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR" class="scroll-smooth preload">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Calculadora de Carboidratos - MyGluco</title>
 
-  <!-- Tailwind -->
+  <!-- Tailwind (dev CDN; em produção use build) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -23,25 +24,69 @@
             glow: "glow 3s ease-in-out infinite"
           },
           keyframes: {
-            float: {
-              "0%,100%": { transform: "translateY(0)" },
-              "50%": { transform: "translateY(-12px)" }
-            },
-            fadein: {
-              from: { opacity: 0, transform: "translateY(20px)" },
-              to: { opacity: 1, transform: "translateY(0)" }
-            },
-            glow: {
-              "0%,100%": { filter: "drop-shadow(0 0 0px #1E88E5)" },
-              "50%": { filter: "drop-shadow(0 0 12px #43A047)" }
-            }
+            float: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-12px)" } },
+            fadein: { from: { opacity: 0, transform: "translateY(20px)" }, to: { opacity: 1, transform: "translateY(0)" } },
+            glow: { "0%,100%": { filter: "drop-shadow(0 0 0px #1E88E5)" }, "50%": { filter: "drop-shadow(0 0 12px #43A047)" } }
           }
         }
       }
-    }
+    };
   </script>
 
-  <!-- Firebase -->
+  <style>
+    /* Preload => hide transitions until full load */
+    .preload * {
+      transition: none !important;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Poppins", "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .logo-glow {
+      transition: transform .2s ease, box-shadow .3s ease;
+      will-change: transform, box-shadow;
+      animation: breathe 3s ease-in-out infinite;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px) scale(.995);
+      transition: all .7s cubic-bezier(.2, .9, .2, 1);
+      will-change: transform, opacity;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* small hamburger animation helpers */
+    .hamburger span {
+      display: block;
+      height: 2px;
+      width: 22px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .2s ease;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  </style>
+
+  <!-- Firebase (compat libs kept as in seu código) -->
   <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
 
@@ -49,63 +94,116 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-all duration-500 min-h-screen">
+<body
+  class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300 min-h-screen">
 
-  <!-- BACKGROUND ANIMADO -->
+  <!-- BACKGROUND SHAPES -->
   <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800"></div>
-
-    <div class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float"></div>
-    <div class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300"></div>
-
+    <div
+      class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float">
+    </div>
+    <div
+      class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300">
+    </div>
     <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
-      <path fill="#1E88E5" fill-opacity="0.15"
-        d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z"></path>
+      <path fill="#1E88E5" fill-opacity="0.12"
+        d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z">
+      </path>
     </svg>
   </div>
 
-
-  <!-- NAV -->
-  <header class="w-full shadow-md bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl fixed top-0 z-50 animate-fadein">
+  <!-- NAVBAR PADRÃO (estilo Suporte) -->
+  <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-x10 shadow-sm">
     <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <!-- esquerda: hamburger (mobile) + logo -->
       <div class="flex items-center gap-3">
-        <img src="../Imagens MyGluco/tugacriança.png" class="w-12 h-12" />
-        <span class="text-2xl font-extrabold text-mgBlue drop-shadow">MyGluco</span>
+        <button id="hamburgerBtn" aria-controls="mobilePanel" aria-expanded="false"
+          class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none hamburger">
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="flex items-center gap-3">
+          <img src="../Imagens MyGluco/tugacriança.png" alt="Logo" class="w-12 h-12 object-contain" />
+          <span class="text-2xl font-extrabold text-mgBlue drop-shadow">MyGluco</span>
+        </div>
+      </div>
       </div>
 
-      <ul class="hidden md:flex gap-8 font-medium">
-        <li><a href="../index.html" class="hover:text-mgBlue transition">Início</a></li>
-        <li><a href="Dispositivos.html" class="hover:text-mgBlue transition">Dispositivos</a></li>
-        <li><a href="Suporte.html" class="hover:text-mgBlue transition">Suporte</a></li>
-        <li><a href="Sobrenos.html" class="hover:text-mgBlue transition">Quem Somos Nós</a></li>
+      <!-- desktop links (centralizados) -->
+      <ul class="hidden md:flex gap-10 text-lg font-medium mx-auto">
+        <li><a href="../index.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Início</a></li>
+        <li><a href="Dispositivos.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Dispositivos</a></li>
+        <li><a href="Suporte.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Suporte</a></li>
+        <li><a href="Sobrenos.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Quem somos</a></li>
       </ul>
 
-      <button onclick="toggleDark()" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:scale-125 transition">🌙</button>
+      <!-- direita: botão tema (desktop) -->
+      <div class="flex items-center gap-3">
+
+        <button onclick="openModal()"
+          class="px-2 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition-all hover:scale-105">Login
+          / Cadastro</button>
+        <button id="darkToggle"
+          class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
+      </div>
     </nav>
+
+    <!-- mobile panel (lateral) -->
+    <div id="mobilePanel" class="md:hidden fixed inset-0 z-50 hidden" aria-hidden="true">
+      <div id="mobileBackdrop" class="absolute inset-0 bg-black/40"></div>
+
+      <div class="absolute left-0 top-0 w-64 h-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-6 z-[60]">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" alt="MyGluco">
+            <div class="font-extrabold text-lg text-mgBlue dark:text-mgGreen">MyGluco</div>
+          </div>
+          <button id="closeMobile" aria-label="Fechar menu" class="text-gray-700 dark:text-gray-200 text-xl">✕</button>
+        </div>
+
+        <ul class="flex flex-col gap-4 text-base">
+          <li><a href="../index.html" class="block">Início</a></li>
+          <li><a href="Dispositivos.html" class="block">Dispositivos</a></li>
+          <li><a href="Suporte.html" class="block font-semibold">Suporte</a></li>
+          <li><a href="Sobrenos.html" class="block">Quem somos</a></li>
+          <li><a href="Termos.html" class="block">Termos</a></li>
+          <li><a href="Privacidade.html" class="block">Privacidade</a></li>
+        </ul>
+
+        <div class="flex items-center gap-3">
+          
+          <button id="darkToggle"
+            class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/70 dark:bg-gray-700/70 backdrop-blur-x10 shadow text-xl transition">
+            🌙
+          </button>
+        </div>
+
+      </div>
+    </div>
   </header>
 
   <div class="pt-28"></div>
 
-
-  <!-- TITLE -->
+  <!-- título -->
   <section class="max-w-5xl mx-auto p-6 text-center animate-fadein">
     <h1 class="text-5xl font-extrabold text-mgBlue dark:text-mgGreen">Descubra seu nível de carboidratos</h1>
-    <p class="mt-4 text-lg opacity-80">Calcule a quantidade ideal de carboidratos considerando seu perfil nutricional.</p>
+    <p class="mt-4 text-lg opacity-80">Calcule a quantidade ideal de carboidratos considerando seu perfil nutricional.
+    </p>
   </section>
 
-
-  <!-- MAIN GRID -->
+  <!-- main grid -->
   <main class="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10 animate-fadein">
-
-    <!-- CALCULATOR -->
-    <section class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+    <!-- calculator -->
+    <section
+      class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
       <h2 class="text-3xl font-bold text-center mb-6">Calculadora</h2>
 
       <form id="carboForm" class="space-y-4">
-
         <div>
           <label class="font-semibold">Sexo:</label>
-          <select id="sexo" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-mgBlue"></select>
+          <select id="sexo"
+            class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-mgBlue"></select>
         </div>
 
         <div>
@@ -140,50 +238,61 @@
 
         <div>
           <label class="font-semibold">Glicemia em Jejum:</label>
-          <input id="glicemiaJejum" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+          <input id="glicemiaJejum" type="number"
+            class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
         </div>
 
         <div>
           <label class="font-semibold">Glicemia Pós–Refeição:</label>
-          <input id="glicemiaPos" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+          <input id="glicemiaPos" type="number"
+            class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
         </div>
 
-        <button type="button" onclick="calcularCarboidratos()" class="w-full bg-mgGreen text-white p-3 rounded-xl mt-4 hover:bg-mgBlue transition">Calcular</button>
+        <button type="button" id="calcularBtn"
+          class="w-full bg-mgGreen text-white p-3 rounded-xl mt-4 hover:bg-mgBlue transition">Calcular</button>
       </form>
 
       <div id="resultado" class="mt-6 text-center text-xl font-semibold"></div>
     </section>
 
-
-    <!-- GRAPH + HISTORY -->
+    <!-- graph + history -->
     <section class="space-y-8">
-
-      <!-- GRAPH -->
-      <div class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+      <div
+        class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
         <h2 class="text-2xl font-bold mb-4 text-center">Gráfico</h2>
         <canvas id="graficoCarbo"></canvas>
       </div>
 
-      <!-- FILTER -->
-      <div class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+      <div
+        class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
         <label class="font-semibold">Filtrar por data:</label>
         <div class="flex gap-3 mt-2">
           <input type="date" id="filtroData" class="p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none w-full" />
-          <button onclick="aplicarFiltro()" class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">🔍</button>
+          <button id="filtrarBtn"
+            class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">🔍</button>
         </div>
       </div>
 
-      <!-- HISTORY -->
+      <div class="flex flex-wrap gap-3">
+        <button id="mostrarGraficoBtn"
+          class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Gráfico</button>
+        <button id="mostrarHistoricoBtn"
+          class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Histórico</button>
+        <button id="limparFiltroBtn"
+          class="px-4 py-2 bg-gray-500 text-white rounded-xl hover:bg-gray-700 transition">Limpar Filtro</button>
+      </div>
+
       <div id="historicoResultados" class="space-y-4"></div>
     </section>
-
   </main>
 
-
-  <!-- FOOTER -->
+  <!-- footer -->
   <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
-    <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float" />
+    <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float"
+      alt="Mindsync" />
     <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
+    <p>Desenvolvido por Mindsync — <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> • <a
+        href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a></p>
   </footer>
 
 
@@ -191,4 +300,5 @@
   <script src="calculo.js"></script>
 
 </body>
+
 </html>
