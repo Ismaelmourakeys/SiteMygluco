@@ -13,16 +13,8 @@
       darkMode: "class",
       theme: {
         extend: {
-          colors: {
-            mgBlue: "#1E88E5",
-            mgGreen: "#43A047",
-            mgWhite: "#F8FAFC"
-          },
-          animation: {
-            float: "float 4s ease-in-out infinite",
-            fadein: "fadein 1.3s ease forwards",
-            glow: "glow 3s ease-in-out infinite"
-          },
+          colors: { mgBlue: "#1E88E5", mgGreen: "#43A047", mgWhite: "#F8FAFC" },
+          animation: { float: "float 4s ease-in-out infinite", fadein: "fadein 1.3s ease forwards", glow: "glow 3s ease-in-out infinite" },
           keyframes: {
             float: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-12px)" } },
             fadein: { from: { opacity: 0, transform: "translateY(20px)" }, to: { opacity: 1, transform: "translateY(0)" } },
@@ -35,91 +27,41 @@
 
   <style>
     /* Preload => hide transitions until full load */
-    .preload * {
-      transition: none !important;
-    }
-
-    body {
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Poppins", "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    .logo-glow {
-      transition: transform .2s ease, box-shadow .3s ease;
-      will-change: transform, box-shadow;
-      animation: breathe 3s ease-in-out infinite;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(14px) scale(.995);
-      transition: all .7s cubic-bezier(.2, .9, .2, 1);
-      will-change: transform, opacity;
-    }
-
-    .reveal.in {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    /* small hamburger animation helpers */
-    .hamburger span {
-      display: block;
-      height: 2px;
-      width: 22px;
-      background: currentColor;
-      border-radius: 2px;
-      transition: transform .25s ease, opacity .2s ease;
-    }
-
-    .hamburger.open span:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.open span:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
-    }
+    .preload * { transition: none !important; }
+    body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Poppins", "Segoe UI", Roboto, "Helvetica Neue", Arial; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    .logo-glow { transition: transform .2s ease, box-shadow .3s ease; will-change: transform, box-shadow; animation: breathe 3s ease-in-out infinite; }
+    .reveal { opacity: 0; transform: translateY(14px) scale(.995); transition: all .7s cubic-bezier(.2,.9,.2,1); will-change: transform, opacity; }
+    .reveal.in { opacity: 1; transform: translateY(0) scale(1); }
+    .hamburger span { display:block; height:2px; width:22px; background:currentColor; border-radius:2px; transition: transform .25s ease, opacity .2s ease; }
+    .hamburger.open span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2){ opacity:0; }
+    .hamburger.open span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
   </style>
 
-  <!-- Firebase (compat libs kept as in seu código) -->
+  <!-- Firebase compat libs (Auth + Firestore) -->
   <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body
-  class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300 min-h-screen">
+<body class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300 min-h-screen">
 
   <!-- BACKGROUND SHAPES -->
   <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800"></div>
-    <div
-      class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float">
-    </div>
-    <div
-      class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300">
-    </div>
-    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
-      <path fill="#1E88E5" fill-opacity="0.12"
-        d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z">
-      </path>
-    </svg>
+    <div class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float"></div>
+    <div class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300"></div>
+    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320"><path fill="#1E88E5" fill-opacity="0.12" d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z"></path></svg>
   </div>
 
-  <!-- NAVBAR PADRÃO (estilo Suporte) -->
+  <!-- NAVBAR -->
   <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-x10 shadow-sm">
     <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
-      <!-- esquerda: hamburger (mobile) + logo -->
       <div class="flex items-center gap-3">
-        <button id="hamburgerBtn" aria-controls="mobilePanel" aria-expanded="false"
-          class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none hamburger">
+        <button id="hamburgerBtn" aria-controls="mobilePanel" aria-expanded="false" class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none hamburger">
           <span></span><span></span><span></span>
         </button>
 
@@ -128,9 +70,7 @@
           <span class="text-2xl font-extrabold text-mgBlue drop-shadow">MyGluco</span>
         </div>
       </div>
-      </div>
 
-      <!-- desktop links (centralizados) -->
       <ul class="hidden md:flex gap-10 text-lg font-medium mx-auto">
         <li><a href="../index.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Início</a></li>
         <li><a href="Dispositivos.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Dispositivos</a></li>
@@ -138,18 +78,14 @@
         <li><a href="Sobrenos.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Quem somos</a></li>
       </ul>
 
-      <!-- direita: botão tema (desktop) -->
       <div class="flex items-center gap-3">
-
-        <button onclick="openModal()"
-          class="px-2 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition-all hover:scale-105">Login
-          / Cadastro</button>
-        <button id="darkToggle"
-          class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
+        <!-- user area will be populated dynamically -->
+        <div id="userArea" class="flex items-center gap-3"></div>
+        <button id="darkToggle" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
       </div>
     </nav>
 
-    <!-- mobile panel (lateral) -->
+    <!-- mobile panel -->
     <div id="mobilePanel" class="md:hidden fixed inset-0 z-50 hidden" aria-hidden="true">
       <div id="mobileBackdrop" class="absolute inset-0 bg-black/40"></div>
 
@@ -171,14 +107,9 @@
           <li><a href="Privacidade.html" class="block">Privacidade</a></li>
         </ul>
 
-        <div class="flex items-center gap-3">
-          
-          <button id="darkToggle"
-            class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/70 dark:bg-gray-700/70 backdrop-blur-x10 shadow text-xl transition">
-            🌙
-          </button>
+        <div class="mt-6">
+          <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar Tema</button>
         </div>
-
       </div>
     </div>
   </header>
@@ -188,22 +119,20 @@
   <!-- título -->
   <section class="max-w-5xl mx-auto p-6 text-center animate-fadein">
     <h1 class="text-5xl font-extrabold text-mgBlue dark:text-mgGreen">Descubra seu nível de carboidratos</h1>
-    <p class="mt-4 text-lg opacity-80">Calcule a quantidade ideal de carboidratos considerando seu perfil nutricional.
-    </p>
+    <p class="mt-4 text-lg opacity-80">Calcule a quantidade ideal de carboidratos considerando seu perfil nutricional.</p>
+    <p>Faça login para salvar seus resultados e acompanhar seu progresso, o que te proporciona uma experiência personalizada.</p>
   </section>
 
   <!-- main grid -->
   <main class="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10 animate-fadein">
     <!-- calculator -->
-    <section
-      class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+    <section class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
       <h2 class="text-3xl font-bold text-center mb-6">Calculadora</h2>
 
-      <form id="carboForm" class="space-y-4">
+      <form id="carboForm" class="space-y-4" onsubmit="return false">
         <div>
           <label class="font-semibold">Sexo:</label>
-          <select id="sexo"
-            class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-mgBlue"></select>
+          <select id="sexo" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-mgBlue"></select>
         </div>
 
         <div>
@@ -238,18 +167,15 @@
 
         <div>
           <label class="font-semibold">Glicemia em Jejum:</label>
-          <input id="glicemiaJejum" type="number"
-            class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+          <input id="glicemiaJejum" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
         </div>
 
         <div>
           <label class="font-semibold">Glicemia Pós–Refeição:</label>
-          <input id="glicemiaPos" type="number"
-            class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+          <input id="glicemiaPos" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
         </div>
 
-        <button type="button" id="calcularBtn"
-          class="w-full bg-mgGreen text-white p-3 rounded-xl mt-4 hover:bg-mgBlue transition">Calcular</button>
+        <button type="button" id="calcularBtn" class="w-full bg-mgGreen text-white p-3 rounded-xl mt-4 hover:bg-mgBlue transition">Calcular</button>
       </form>
 
       <div id="resultado" class="mt-6 text-center text-xl font-semibold"></div>
@@ -257,29 +183,23 @@
 
     <!-- graph + history -->
     <section class="space-y-8">
-      <div
-        class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+      <div class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
         <h2 class="text-2xl font-bold mb-4 text-center">Gráfico</h2>
         <canvas id="graficoCarbo"></canvas>
       </div>
 
-      <div
-        class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+      <div class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
         <label class="font-semibold">Filtrar por data:</label>
         <div class="flex gap-3 mt-2">
           <input type="date" id="filtroData" class="p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none w-full" />
-          <button id="filtrarBtn"
-            class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">🔍</button>
+          <button id="filtrarBtn" class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">🔍</button>
         </div>
       </div>
 
       <div class="flex flex-wrap gap-3">
-        <button id="mostrarGraficoBtn"
-          class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Gráfico</button>
-        <button id="mostrarHistoricoBtn"
-          class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Histórico</button>
-        <button id="limparFiltroBtn"
-          class="px-4 py-2 bg-gray-500 text-white rounded-xl hover:bg-gray-700 transition">Limpar Filtro</button>
+        <button id="mostrarGraficoBtn" class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Gráfico</button>
+        <button id="mostrarHistoricoBtn" class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Histórico</button>
+        <button id="limparFiltroBtn" class="px-4 py-2 bg-gray-500 text-white rounded-xl hover:bg-gray-700 transition">Limpar Filtro</button>
       </div>
 
       <div id="historicoResultados" class="space-y-4"></div>
@@ -288,17 +208,424 @@
 
   <!-- footer -->
   <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
-    <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float"
-      alt="Mindsync" />
+    <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float" alt="Mindsync" />
     <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
-    <p>Desenvolvido por Mindsync — <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> • <a
-        href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a></p>
+    <p>Desenvolvido por Mindsync — <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> • <a href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a></p>
   </footer>
 
+  <!-- AUTH MODAL -->
+  <div id="authModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl w-96">
+      <h2 id="authTitle" class="text-2xl font-bold mb-4 text-center">Entrar</h2>
+
+      <div class="flex gap-2 mb-4 justify-center">
+        <button id="btnModeLogin" class="px-3 py-1 rounded-lg bg-gray-100">Login</button>
+        <button id="btnModeRegister" class="px-3 py-1 rounded-lg">Cadastrar</button>
+      </div>
+
+      <form id="authForm" class="space-y-3" onsubmit="return false">
+        <input id="authName" type="text" placeholder="Nome (apenas para cadastro)" class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hidden" />
+        <input id="authEmail" type="email" placeholder="Email" class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700" required />
+        <input id="authPassword" type="password" placeholder="Senha (mín 6 caracteres)" class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700" required />
+        <div class="flex items-center justify-between gap-3">
+          <button id="authSubmit" type="button" class="w-full bg-mgBlue text-white p-2 rounded-lg">Entrar</button>
+        </div>
+      </form>
+
+      <div class="mt-3 text-sm text-center">
+        <button id="closeAuth" class="text-red-500">Fechar</button>
+      </div>
+      <div id="authError" class="mt-2 text-sm text-red-500 hidden"></div>
+    </div>
+  </div>
 
   <!-- PAGE JS -->
-  <script src="calculo.js"></script>
+  <script>
+    // Remove preload
+    window.addEventListener('load', () => document.documentElement.classList.remove('preload'));
+
+    // ---------- FIREBASE CONFIG ----------
+    const firebaseConfig = {
+      apiKey: "AIzaSyANqckgjqZxDE8-7HOdlrT8c8zRqM0teUE",
+      authDomain: "mygluco-80306.firebaseapp.com",
+      projectId: "mygluco-80306",
+      storageBucket: "mygluco-80306.appspot.com",
+      messagingSenderId: "947177446073",
+      appId: "1:947177446073:web:486a6fe53b4ebc9b891968"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // ---------- HELPERS ----------
+    const $ = id => document.getElementById(id);
+    const exists = el => el !== null && el !== undefined;
+
+    // DOM elements
+    const sexoEl = $('sexo'), atividadeEl = $('atividade'), tipoDiabetesEl = $('tipoDiabetes'), metaEl = $('meta');
+    const calcularBtn = $('calcularBtn'), resultadoEl = $('resultado');
+    const graficoCanvas = $('graficoCarbo');
+    const historicoResultados = $('historicoResultados');
+    const filtroData = $('filtroData'), filtrarBtn = $('filtrarBtn'), mostrarGraficoBtn = $('mostrarGraficoBtn'), mostrarHistoricoBtn = $('mostrarHistoricoBtn'), limparFiltroBtn = $('limparFiltroBtn');
+
+    // auth UI
+    const userArea = $('userArea');
+    const authModal = $('authModal'), openAuthModalBut = null; // we open via code
+    const btnModeLogin = $('btnModeLogin'), btnModeRegister = $('btnModeRegister');
+    const authTitle = $('authTitle'), authName = $('authName'), authEmail = $('authEmail'), authPassword = $('authPassword'), authSubmit = $('authSubmit'), authError = $('authError'), closeAuth = $('closeAuth');
+
+    // chart instance
+    let graficoInstance = null;
+
+    // ---------- preencher selects ----------
+    function preencherSelects() {
+      if (sexoEl) sexoEl.innerHTML = '<option value="masculino">Masculino</option><option value="feminino">Feminino</option>';
+      if (atividadeEl) atividadeEl.innerHTML = `
+        <option value="1.2">Sedentário</option>
+        <option value="1.375">Leve (1-3x/semana)</option>
+        <option value="1.55">Moderado (3-5x/semana)</option>
+        <option value="1.725">Intenso (6-7x/semana)</option>
+        <option value="1.9">Muito intenso (2 treinos/dia)</option>`;
+      if (tipoDiabetesEl) tipoDiabetesEl.innerHTML = `
+        <option value="nenhum">Nenhum</option>
+        <option value="tipo1">Tipo 1</option>
+        <option value="tipo2">Tipo 2</option>
+        <option value="gestacional">Gestacional</option>`;
+      if (metaEl) metaEl.innerHTML = `<option value="manter">Manter peso</option><option value="perder">Perder peso</option><option value="ganhar">Ganhar peso</option>`;
+    }
+
+    // ---------- AUTH modal logic ----------
+    let authMode = 'login'; // 'login' | 'register'
+    function openAuthModal(mode = 'login') {
+      authMode = mode;
+      updateAuthUI();
+      authModal.classList.remove('hidden');
+    }
+    function closeAuthModal() {
+      authModal.classList.add('hidden');
+      authError.classList.add('hidden');
+      authError.innerText = '';
+      authEmail.value = '';
+      authPassword.value = '';
+      authName.value = '';
+    }
+
+    function updateAuthUI() {
+      if (authMode === 'login') {
+        authTitle.innerText = 'Entrar';
+        authName.classList.add('hidden');
+        authSubmit.innerText = 'Entrar';
+        btnModeLogin.classList.add('bg-gray-100');
+        btnModeRegister.classList.remove('bg-gray-100');
+      } else {
+        authTitle.innerText = 'Cadastrar';
+        authName.classList.remove('hidden');
+        authSubmit.innerText = 'Cadastrar';
+        btnModeRegister.classList.add('bg-gray-100');
+        btnModeLogin.classList.remove('bg-gray-100');
+      }
+    }
+
+    btnModeLogin?.addEventListener('click', () => { authMode = 'login'; updateAuthUI(); });
+    btnModeRegister?.addEventListener('click', () => { authMode = 'register'; updateAuthUI(); });
+    closeAuth?.addEventListener('click', closeAuthModal);
+
+    authSubmit?.addEventListener('click', async () => {
+      authError.classList.add('hidden');
+      authError.innerText = '';
+      const email = authEmail.value?.trim();
+      const password = authPassword.value;
+      const name = authName.value?.trim();
+
+      if (!email || !password) {
+        authError.innerText = 'Email e senha são obrigatórios.';
+        authError.classList.remove('hidden');
+        return;
+      }
+
+      if (authMode === 'register') {
+        if (!name) { authError.innerText = 'Informe seu nome.'; authError.classList.remove('hidden'); return; }
+        try {
+          const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+          await userCredential.user.updateProfile({ displayName: name });
+          // create minimal user doc
+          await db.collection('usuarios').doc(userCredential.user.uid).set({
+            name, email, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+          closeAuthModal();
+        } catch (err) {
+          authError.innerText = err.message || 'Erro ao cadastrar.';
+          authError.classList.remove('hidden');
+        }
+      } else {
+        try {
+          await auth.signInWithEmailAndPassword(email, password);
+          closeAuthModal();
+        } catch (err) {
+          authError.innerText = err.message || 'Erro ao entrar.';
+          authError.classList.remove('hidden');
+        }
+      }
+    });
+
+    // create logout button
+    function createLogoutButton() {
+      const btn = document.createElement('button');
+      btn.id = 'logoutBtn';
+      btn.className = 'px-3 py-2 bg-red-500 text-white rounded-xl shadow';
+      btn.innerText = 'Logout';
+      btn.addEventListener('click', () => auth.signOut());
+      return btn;
+    }
+
+    // ---------- Auth state change ----------
+    auth.onAuthStateChanged(async (user) => {
+      userArea.innerHTML = '';
+      if (user) {
+        // show user info + logout
+        const display = document.createElement('div');
+        display.className = 'flex items-center gap-3';
+        const pic = document.createElement('div');
+        pic.className = 'w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm';
+        pic.innerText = (user.displayName || user.email || '').slice(0,1).toUpperCase();
+        display.appendChild(pic);
+        const nameEl = document.createElement('div');
+        nameEl.className = 'text-sm';
+        nameEl.innerText = user.displayName || user.email;
+        display.appendChild(nameEl);
+        userArea.appendChild(display);
+
+        userArea.appendChild(createLogoutButton());
+      } else {
+        // show open auth button
+        const btn = document.createElement('button');
+        btn.id = 'openAuthButton';
+        btn.className = 'px-3 py-2 bg-mgBlue text-white rounded-xl shadow';
+        btn.innerText = 'Login / Cadastro';
+        btn.addEventListener('click', () => openAuthModal('login'));
+        userArea.appendChild(btn);
+      }
+      // whenever auth state changes, refresh chart/historico to reflect the current user
+      mostrarHistorico();
+      mostrarGrafico();
+    });
+
+    // ---------- calculation logic ----------
+    function calcularCarboidratos() {
+      const sexo = sexoEl.value;
+      const peso = parseFloat($('peso').value);
+      const altura = parseFloat($('altura').value);
+      const idade = parseInt($('idade').value);
+      const atividade = parseFloat(atividadeEl.value);
+      const tipoDiabetes = tipoDiabetesEl.value;
+      const meta = metaEl.value;
+      const glicemiaJejum = parseFloat($('glicemiaJejum').value);
+      const glicemiaPos = parseFloat($('glicemiaPos').value);
+
+      if (isNaN(peso) || isNaN(altura) || isNaN(idade)) {
+        resultadoEl.innerText = 'Por favor, preencha Peso, Altura e Idade.';
+        return;
+      }
+
+      let tmb = sexo === 'masculino' ? 10*peso + 6.25*altura - 5*idade + 5 : 10*peso + 6.25*altura - 5*idade - 161;
+      let fatorMeta = meta === 'perder' ? 0.85 : meta === 'ganhar' ? 1.15 : 1;
+      const caloriasTotais = tmb * atividade * fatorMeta;
+
+      let percentualCarbo = 0.5;
+      if (!isNaN(glicemiaJejum) && !isNaN(glicemiaPos)) {
+        if (glicemiaJejum > 130 || glicemiaPos > 180) percentualCarbo = 0.4;
+        else if (glicemiaJejum < 80 || glicemiaPos < 90) percentualCarbo = 0.55;
+      }
+      if (tipoDiabetes === 'tipo1') percentualCarbo -= 0.05;
+      if (tipoDiabetes === 'gestacional') percentualCarbo = 0.45;
+      percentualCarbo = Math.max(0.35, Math.min(0.55, percentualCarbo));
+
+      const caloriasDeCarbo = caloriasTotais * percentualCarbo;
+      const gramasCarbo = caloriasDeCarbo / 4;
+      const cafe = gramasCarbo * 0.2;
+      const almoco = gramasCarbo * 0.35;
+      const jantar = gramasCarbo * 0.3;
+      const lanches = gramasCarbo * 0.15;
+
+      // show results
+      resultadoEl.innerHTML = `
+        <p><strong>TMB:</strong> ${tmb.toFixed(2)} kcal/dia</p>
+        <p><strong>Calorias Totais:</strong> ${caloriasTotais.toFixed(2)} kcal/dia</p>
+        <p><strong>Carboidratos Sugeridos:</strong> ${gramasCarbo.toFixed(0)} g/dia</p>
+        <h4 class="mt-2">Divisão por Refeições:</h4>
+        <ul class="list-disc list-inside">
+          <li><strong>Café:</strong> ${cafe.toFixed(0)} g</li>
+          <li><strong>Almoço:</strong> ${almoco.toFixed(0)} g</li>
+          <li><strong>Jantar:</strong> ${jantar.toFixed(0)} g</li>
+          <li><strong>Lanches:</strong> ${lanches.toFixed(0)} g</li>
+        </ul>
+      `;
+
+      // if user logged in => save result; else do NOT persist (so refresh resets)
+      const user = auth.currentUser;
+      if (!user) {
+        // not logged in: do not save; user requested that when not logged in data resets on refresh
+        return;
+      }
+
+      // save to firestore under usuarios/{uid}/resultadosCarboidrato
+      const timestamp = firebase.firestore.Timestamp.now();
+      db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato').add({
+        tmb, calorias: caloriasTotais, carboidratos: gramasCarbo,
+        sexo, peso: isNaN(peso) ? null : peso, altura: isNaN(altura) ? null : altura, idade: isNaN(idade) ? null : idade,
+        atividade, tipoDiabetes, meta,
+        glicemiaJejum: isNaN(glicemiaJejum) ? null : glicemiaJejum,
+        glicemiaPos: isNaN(glicemiaPos) ? null : glicemiaPos,
+        timestamp
+      }).then(() => {
+        mostrarHistorico();
+        mostrarGrafico();
+      }).catch(err => console.error('Erro ao salvar resultado:', err));
+    }
+
+    // ---------- chart & history ----------
+    function mostrarGrafico() {
+      const user = auth.currentUser;
+      if (!user) {
+        // clear chart if exists
+        if (graficoInstance) { graficoInstance.destroy(); graficoInstance = null; }
+        return;
+      }
+
+      db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato').orderBy('timestamp','desc').limit(10).get()
+      .then(qs => {
+        const labels = [], data = [];
+        qs.forEach(doc => {
+          const d = doc.data();
+          labels.push(new Date(d.timestamp.toDate()).toLocaleString());
+          data.push(Number(d.carboidratos || 0));
+        });
+        labels.reverse(); data.reverse();
+
+        if (!graficoCanvas) return;
+        const ctx = graficoCanvas.getContext('2d');
+        if (graficoInstance) graficoInstance.destroy();
+        graficoInstance = new Chart(ctx, {
+          type: 'line',
+          data: { labels, datasets: [{ label: 'Carboidratos (g/dia)', data, borderColor: 'orange', backgroundColor: 'rgba(255,165,0,0.2)', fill: true, tension: .3 }] },
+          options: { responsive: true, scales: { y: { beginAtZero: true }, x: {} }, plugins: { legend: { display: true } } }
+        });
+      }).catch(err => console.error('Erro ao carregar gráfico:', err));
+    }
+
+    function mostrarHistorico() {
+      const user = auth.currentUser;
+      historicoResultados.innerHTML = '';
+      if (!user) return;
+
+      db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato').orderBy('timestamp','desc').limit(50).get()
+      .then(qs => {
+        let html = '<h3 class="text-lg font-semibold mb-2">Últimos Cálculos:</h3><ul>';
+        qs.forEach(doc => {
+          const d = doc.data();
+          const id = doc.id;
+          html += `
+            <li class="mb-4 p-3 bg-white/30 dark:bg-gray-700/30 rounded-xl shadow">
+              <div><strong>Data:</strong> ${new Date(d.timestamp.toDate()).toLocaleString()}</div>
+              <div><strong>TMB:</strong> ${Number(d.tmb).toFixed(2)} kcal</div>
+              <div><strong>Calorias:</strong> ${Number(d.calorias).toFixed(2)} kcal</div>
+              <div><strong>Carboidratos:</strong> ${Number(d.carboidratos).toFixed(2)} g</div>
+              <div class="mt-2"><button onclick="deletarHistorico('${id}')" class="bg-red-500 text-white px-3 py-1 rounded-xl">Excluir</button></div>
+            </li>
+          `;
+        });
+        html += '</ul>';
+        historicoResultados.innerHTML = html;
+      }).catch(err => console.error('Erro ao carregar histórico:', err));
+    }
+
+    window.deletarHistorico = function(id) {
+      const user = auth.currentUser;
+      if (!user) return alert('Faça login para excluir.');
+      if (!confirm('Tem certeza que deseja excluir?')) return;
+      db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato').doc(id).delete()
+      .then(()=> { mostrarHistorico(); mostrarGrafico(); })
+      .catch(err => console.error('Erro ao excluir:', err));
+    };
+
+    // ---------- filtros ----------
+    function aplicarFiltro() {
+      const user = auth.currentUser;
+      if (!user) return alert('Faça login para aplicar filtros.');
+
+      const dataStr = filtroData.value;
+      if (!dataStr) return mostrarHistorico();
+
+      const inicio = new Date(dataStr + 'T00:00:00');
+      const fim = new Date(dataStr + 'T23:59:59');
+
+      db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato')
+        .where('timestamp', '>=', firebase.firestore.Timestamp.fromDate(inicio))
+        .where('timestamp', '<=', firebase.firestore.Timestamp.fromDate(fim))
+        .orderBy('timestamp','desc')
+        .get()
+        .then(qs => {
+          let html = '<h3 class="text-lg font-semibold mb-2">Resultados Filtrados:</h3><ul>';
+          qs.forEach(doc => {
+            const d = doc.data();
+            html += `
+              <li class="mb-4 p-3 bg-white/30 dark:bg-gray-700/30 rounded-xl shadow">
+                <div><strong>Data:</strong> ${new Date(d.timestamp.toDate()).toLocaleString()}</div>
+                <div><strong>TMB:</strong> ${Number(d.tmb).toFixed(2)} kcal</div>
+                <div><strong>Carboidratos:</strong> ${Number(d.carboidratos).toFixed(2)} g</div>
+              </li>
+            `;
+          });
+          html += '</ul>';
+          historicoResultados.innerHTML = html;
+        }).catch(err => console.error('Erro ao aplicar filtro:', err));
+    }
+
+    function limparFiltro() { filtroData.value = ''; mostrarHistorico(); }
+
+    // ---------- event listeners ----------
+    document.addEventListener('DOMContentLoaded', () => {
+      preencherSelects();
+      updateAuthUI();
+      // initial loads (if logged in listener will call mostrarHistorico/mostrarGrafico)
+      mostrarHistorico();
+      mostrarGrafico();
+    });
+
+    calcularBtn?.addEventListener('click', calcularCarboidratos);
+    mostrarGraficoBtn?.addEventListener('click', mostrarGrafico);
+    mostrarHistoricoBtn?.addEventListener('click', mostrarHistorico);
+    filtrarBtn?.addEventListener('click', aplicarFiltro);
+    limparFiltroBtn?.addEventListener('click', limparFiltro);
+
+    // mobile panel behaviour
+    const hamburgerBtn = $('hamburgerBtn'), mobilePanel = $('mobilePanel'), mobileBackdrop = $('mobileBackdrop'), closeMobile = $('closeMobile');
+    hamburgerBtn?.addEventListener('click', () => {
+      if (!mobilePanel) return;
+      mobilePanel.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      hamburgerBtn.classList.toggle('open');
+    });
+    closeMobile?.addEventListener('click', () => { mobilePanel.classList.add('hidden'); document.body.classList.remove('overflow-hidden'); hamburgerBtn.classList.remove('open'); });
+    mobileBackdrop?.addEventListener('click', () => { mobilePanel.classList.add('hidden'); document.body.classList.remove('overflow-hidden'); hamburgerBtn.classList.remove('open'); });
+
+    // dark theme
+    const darkToggle = $('darkToggle'), darkToggleMobile = $('darkToggleMobile');
+    function applyTheme(isDark) { document.documentElement.classList.toggle('dark', !!isDark); }
+    function toggleTheme() { const isDark = !document.documentElement.classList.contains('dark'); localStorage.setItem('mygluco-theme', isDark ? 'dark' : 'light'); applyTheme(isDark); }
+    darkToggle?.addEventListener('click', toggleTheme);
+    darkToggleMobile?.addEventListener('click', () => { toggleTheme(); mobilePanel.classList.add('hidden'); });
+
+    // restore theme on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('mygluco-theme');
+      const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(saved ? saved === 'dark' : prefers);
+    });
+
+    // open auth modal from anywhere (function exposed)
+    window.openAuthModal = openAuthModal;
+  </script>
 
 </body>
-
 </html>

@@ -1,365 +1,373 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="scroll-smooth preload">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="MyGluco - Monitoramento de carboidratos" />
-    <meta name="author" content="Mindsync" />
-    <meta name="keywords" content="MyGluco, carboidratos, monitoramento, saúde, dieta, diabetes" />
-    <meta name="image" content="../Imagens MyGluco" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MyGluco</title>
 
-    <title>MyGluco</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Tailwind CDN (dev) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        mgBlue: "#1E88E5",
-                        mgGreen: "#43A047",
-                        mgWhite: "#F8FAFC"
-                    },
-                    keyframes: {
-                        float: { "0%,100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-10px)" } },
-                        wave: { "0%": { transform: "translateX(0)" }, "50%": { transform: "translateX(-20px)" }, "100%": { transform: "translateX(0)" } },
-                        breathe: {
-                            "0%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" },
-                            "50%": { filter: "drop-shadow(0 0 18px rgba(30,136,229,0.28))" },
-                            "100%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" }
-                        }
-                    },
-                    animation: {
-                        float: "float 4s ease-in-out infinite",
-                        wave: "wave 6s ease-in-out infinite",
-                        breathe: "breathe 3s ease-in-out infinite"
-                    }
-                }
-            }
-        };
-    </script>
-
-    <style>
-        /* hide transitions while preloading */
-        .preload * {
-            transition: none !important;
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: { mgBlue: "#1E88E5", mgGreen: "#43A047", mgWhite: "#F8FAFC" },
+          animation: { float: "float 4s ease-in-out infinite", breathe: "breathe 3s ease-in-out infinite" },
+          keyframes: {
+            float: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } },
+            breathe: { "0%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" }, "50%": { filter: "drop-shadow(0 0 18px rgba(30,136,229,0.28))" }, "100%": { filter: "drop-shadow(0 0 6px rgba(30,136,229,0.15))" } }
+          }
         }
-    </style>
+      }
+    }
+  </script>
+
+  <style>
+    .preload * { transition: none !important; }
+
+    /* glass modal specific */
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
+      backdrop-filter: blur(10px) saturate(120%);
+      -webkit-backdrop-filter: blur(10px) saturate(120%);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 8px 30px rgba(2,6,23,0.2);
+    }
+    .glass-dark {
+      background: linear-gradient(180deg, rgba(17,24,39,0.6), rgba(17,24,39,0.35));
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    }
+
+    /* modal inputs */
+    .input-glass { background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.35); }
+    .dark .input-glass { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); color: #fff; }
+
+    /* small decorative */
+    .avatar-letter { font-weight:700; color:#0f172a; }
+    .dark .avatar-letter { color: #e6eef9; }
+  </style>
 </head>
+<body class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300">
 
-<body
-    class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300">
+  <!-- BACKGROUND -->
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800"></div>
+    <div class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float"></div>
+    <div class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300"></div>
+    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320"><path fill="#1E88E5" fill-opacity="0.15" d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z"></path></svg>
+  </div>
 
-    <!-- BACKGROUND MODERNO (unchanged) -->
-    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800">
+  <!-- NAV -->
+  <header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-md">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <div class="flex items-center gap-3">
+        <button id="hamburgerBtn" class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none mr-3" aria-controls="mobilePanel" aria-expanded="false">
+          <span class="block w-6 h-0.5 bg-current mb-1"></span>
+          <span class="block w-6 h-0.5 bg-current mb-1"></span>
+          <span class="block w-6 h-0.5 bg-current"></span>
+        </button>
+        <div class="flex items-center gap-3">
+          <img src="Imagens MyGluco/tugacriança.png" alt="Logo" class="w-12 h-12 object-contain" />
+          <span class="text-2xl font-extrabold text-mgBlue">MyGluco</span>
         </div>
-        <div
-            class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float">
-        </div>
-        <div
-            class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300">
-        </div>
+      </div>
 
-        <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
-            <path fill="#1E88E5" fill-opacity="0.15"
-                d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z">
-            </path>
-        </svg>
+      <ul class="hidden md:flex gap-8 font-medium absolute left-1/2 transform -translate-x-1/2">
+        <li><a href="index.html" class="hover:text-mgBlue transition">Início</a></li>
+        <li><a href="Sub-paginas/dispositivos.html" class="hover:text-mgBlue transition">Dispositivos</a></li>
+        <li><a href="Sub-paginas/Suporte.html" class="hover:text-mgBlue transition">Suporte</a></li>
+        <li><a href="Sub-paginas/Sobrenos.html" class="hover:text-mgBlue transition">Quem Somos</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <div id="userArea" class="flex items-center gap-3">
+          <!-- preenchido via JS -->
+          <button id="openAuthModal" class="px-3 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition">Login / Cadastro</button>
+        </div>
+        <button id="darkToggle" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/70 dark:bg-gray-700/70 text-xl">🌙</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- mobile panel -->
+  <div id="mobilePanel" class="md:hidden fixed inset-0 z-50 hidden" aria-hidden="true">
+    <div id="mobileBackdrop" class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute left-0 top-0 w-64 h-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-6 z-[60]">
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3">
+          <img src="Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" alt="MyGluco">
+          <div class="font-extrabold text-lg text-mgBlue">MyGluco</div>
+        </div>
+        <button id="closeMobile" class="text-gray-700 dark:text-gray-200 text-xl">✕</button>
+      </div>
+      <ul class="flex flex-col gap-4 text-base">
+        <li><a href="index.html" class="block">Início</a></li>
+        <li><a href="Sub-paginas/dispositivos.html" class="block">Dispositivos</a></li>
+        <li><a href="Sub-paginas/Suporte.html" class="block">Suporte</a></li>
+        <li><a href="Sub-paginas/Sobrenos.html" class="block">Quem somos</a></li>
+        <li><a href="Sub-paginas/Termos.html" class="block">Termos</a></li>
+        <li><a href="Sub-paginas/Privacidade.html" class="block">Privacidade</a></li>
+      </ul>
+      <div class="mt-6">
+        <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar Tema</button>
+      </div>
     </div>
+  </div>
 
+  <div class="pt-28"></div>
 
-    <!-- NAVBAR -->
-    <header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-md">
-        <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
-            <div class="flex items-center gap-4">
+  <!-- Saudacao -->
+  <h3 id="saudacao" class="text-center text-2xl font-semibold animate-fadein"></h3>
 
-                <!-- hamburguer (mobile) -->
-                <button id="hamburgerBtn" aria-controls="mobilePanel" aria-expanded="false"
-                    class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none mr-3">
-                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
-                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
-                    <span class="block w-6 h-0.5 bg-current"></span>
-                </button>
+  <!-- AUTH MODAL (glass style - OPTION B) -->
+  <div id="authModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="w-full max-w-xl p-6 rounded-2xl glass dark:glass-dark">
+      <div class="flex items-center justify-between mb-4">
+        <h2 id="authTitle" class="text-2xl font-bold">Entrar</h2>
+        <button id="closeAuth" class="text-gray-700 dark:text-gray-200">✕</button>
+      </div>
 
-                <!-- logo -->
-                <div class="flex items-center gap-3">
-                    <img src="Imagens MyGluco/tugacriança.png" alt="Logo" class="w-12 h-12 object-contain" />
-                    <span class="text-2xl font-extrabold text-mgBlue drop-shadow">MyGluco</span>
-                </div>
-            </div>
+      <div class="flex gap-3 items-center mb-4">
+        <button id="btnModeLogin" class="px-3 py-1 rounded-full bg-white/30">Login</button>
+        <button id="btnModeRegister" class="px-3 py-1 rounded-full bg-white/10">Cadastrar</button>
+      </div>
 
-            <!-- desktop menu -->
-            <ul class="hidden md:flex gap-8 font-medium absolute left-1/2 transform -translate-x-1/2">
-                <li><a href="index.html" class="hover:text-mgBlue transition">Início</a></li>
-                <li><a href="Sub-paginas/dispositivos.html" class="hover:text-mgBlue transition">Dispositivos</a></li>
-                <li><a href="Sub-paginas/Suporte.html" class="hover:text-mgBlue transition">Suporte</a></li>
-                <li><a href="Sub-paginas/Sobrenos.html" class="hover:text-mgBlue transition">Quem Somos</a></li>
-            </ul>
-
-            <!-- right -->
-            <div class="flex items-center gap-3">
-
-
-                <button onclick="openModal()"
-                    class="px-2 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition-all hover:scale-105">Login
-                    / Cadastro</button>
-                <button id="darkToggle"
-                    class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/70 dark:bg-gray-700/70 backdrop-blur-md shadow text-xl transition">
-                    🌙
-                </button>
-            </div>
-
-        </nav>
-    </header>
-
-    <!-- coloque FORA do <header> (por exemplo logo após o fechamento do header) -->
-    <button id="darkToggleFloating"
-        class="md:hidden fixed top-20 right-3 z-[60] p-2 rounded-full bg-white/80 dark:bg-gray-700/80 shadow-lg backdrop-blur-md text-xl">
-        🌙
-    </button>
-
-
-    <<!-- mobile panel (lateral) -->
-        <div id="mobilePanel" class="md:hidden fixed inset-0 z-50 hidden" aria-hidden="true">
-            <div id="mobileBackdrop" class="absolute inset-0 bg-black/40"></div>
-
-            <div class="absolute left-0 top-0 w-64 h-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-6 z-[60]">
-                <div class="flex items-center justify-between mb-6">
-                    <div class="flex items-center gap-3">
-                        <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" alt="MyGluco">
-                        <div class="font-extrabold text-lg text-mgBlue dark:text-mgGreen">MyGluco</div>
-                    </div>
-                    <button id="closeMobile" aria-label="Fechar menu"
-                        class="text-gray-700 dark:text-gray-200 text-xl">✕</button>
-                </div>
-
-                <ul class="flex flex-col gap-4 text-base">
-                    <li><a href="../index.html" class="block">Início</a></li>
-                    <li><a href="/Sub-paginas/Dispositivos.html" class="block">Dispositivos</a></li>
-                    <li><a href="/Sub-paginas/Suporte.html" class="block font-semibold">Suporte</a></li>
-                    <li><a href="/Sub-paginas/Sobrenos.html" class="block">Quem somos</a></li>
-                    <li><a href="/Sub-paginas/Termos.html" class="block">Termos</a></li>
-                    <li><a href="/Sub-paginas/Privacidade.html" class="block">Privacidade</a></li>
-                </ul>
-
-
-                <div class="mt-6">
-                    <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar
-                        Tema</button>
-                </div>
-            </div>
+      <form id="authForm" class="grid gap-3">
+        <input id="authName" type="text" placeholder="Nome (só para cadastro)" class="p-3 rounded-xl input-glass hidden" />
+        <input id="authEmail" type="email" placeholder="Email" class="p-3 rounded-xl input-glass" required />
+        <input id="authPassword" type="password" placeholder="Senha (mín 6 caracteres)" class="p-3 rounded-xl input-glass" required />
+        <div class="flex gap-3">
+          <button id="authSubmit" type="button" class="flex-1 px-4 py-3 rounded-xl bg-mgBlue text-white hover:bg-mgGreen transition">Entrar</button>
+          <button id="continueGuest" type="button" class="px-4 py-3 rounded-xl border border-white/10 bg-white/10 text-sm">Continuar como convidado</button>
         </div>
+      </form>
 
-        <div class="pt-28"></div>
+      <div id="authError" class="mt-3 text-sm text-red-500 hidden"></div>
+      <p class="mt-4 text-xs text-gray-600 dark:text-gray-300">Ao continuar como convidado, seus cálculos NÃO serão salvos se atualizar a página.</p>
+    </div>
+  </div>
 
-        <!-- Saudação -->
-        <h3 id="saudacao" class="text-center text-2xl font-semibold animate-fadein"></h3>
+  <!-- HERO -->
+  <main class="max-w-6xl mx-auto p-6 flex flex-col md:flex-row items-center justify-between gap-10">
+    <div class="md:w-1/2">
+      <h1 class="text-6xl font-extrabold text-mgBlue">MyGluco</h1>
+      <p class="text-xl mt-4 opacity-80">Venha e calcule sua meta de carboidratos para monitorar a sua alimentação.</p>
+      <a href="Sub-paginas/calculo.html" id="goCalcBtn" class="inline-block mt-6 px-6 py-3 bg-mgGreen text-white rounded-xl text-lg shadow-xl hover:bg-mgBlue transition-all hover:scale-105">Simule Aqui!</a>
+    </div>
+    <img src="Imagens MyGluco/tuga_calculadora.png" class="w-72 md:w-96" alt="Mascote" />
+  </main>
 
-        <!-- MODAL LOGIN -->
-        <div id="modal"
-            class="hidden fixed inset-0 bg-black/60 backdrop-blur-x10 flex items-center justify-center z-50">
-            <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl w-80 animate-fadein">
-                <h2 class="text-2xl font-bold mb-4 text-center">Login / Cadastro</h2>
-                <input id="username" type="text" placeholder="Digite seu nome"
-                    class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700 border-none mb-4" />
-                <button onclick="saveUser()"
-                    class="w-full bg-mgGreen text-white p-2 rounded-lg hover:bg-mgBlue transition-all">
-                    Entrar
-                </button>
-                <button onclick="closeModal()" class="w-full mt-3 text-red-500">Fechar</button>
-            </div>
-        </div>
+  <!-- small features/sections kept -->
+  <section class="max-w-6xl mx-auto p-6">
+    <h3 class="text-4xl font-bold mb-6 text-center">O que o MyGluco faz por você?</h3>
+    <div class="space-y-4 text-lg leading-relaxed">
+      <li>O MyGluco é um aplicativo que ajuda você a monitorar sua ingestão de carboidratos.</li>
+      <li>O aplicativo é projetado para ser intuitivo.</li>
+      <li>Com o MyGluco, você pode definir metas diárias de carboidratos, acompanhar sua ingestão e receber dicas personalizadas.</li>
+      <li>Além disso, o MyGluco oferece lembretes para ajudar você a manter o foco em seus objetivos de saúde.</li>
+    </div>
+    <h3 class="text-4xl font-bold mt-10 mb-6 text-center">Com o MyGluco, você pode:</h3>
+    <ul class="grid md:grid-cols-2 gap-6 text-lg">
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Calcular sua meta diária</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Acompanhar ingestão de carboidratos</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Dicas de alimentação saudável</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Exercícios físicos</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Gráficos de progresso</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Lembretes personalizados</li>
+    </ul>
+  </section>
 
-        <!-- HERO SECTION -->
-        <main
-            class="max-w-6xl mx-auto p-6 flex flex-col md:flex-row items-center justify-between gap-10 animate-fadein">
-            <div class="md:w-1/2">
-                <h1 class="text-6xl font-extrabold text-mgBlue dark:text-mgGreen drop-shadow-md">MyGluco</h1>
-                <p class="text-xl mt-4 opacity-80">Venha e calcule sua meta de carboidratos para monitorar a sua
-                    alimentação.</p>
-                <a href="Sub-paginas/calculo.html"
-                    class="inline-block mt-6 px-6 py-3 bg-mgGreen text-white rounded-xl text-lg shadow-xl hover:bg-mgBlue transition-all hover:scale-105 animate-glow;">
-                    Simule Aqui!
-                </a>
-            </div>
+  <footer class="mt-20 bg-white/40 dark:bg-white/5 p-6 text-center">
+    <img src="Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float" />
+    <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
+  </footer>
 
-            <img src="Imagens MyGluco/tuga_calculadora.png"
-                class="w-72 md:w-96 drop-shadow-2xl transform -scale-x-100 transition-transform duration-500 nimate-float"
-                alt="Mascote" />
-        </main>
+  <!-- Firebase (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore-compat.js"></script>
 
-        <!-- DESCRIÇÃO / SECTIONS (mantive conteúdo original) -->
-        <section class="max-w-6xl mx-auto p-6">
-            <h3 class="text-4xl font-bold mb-6 text-center">O que o MyGluco faz por você?</h3>
+  <script>
+    // Remove preload blockers after load
+    window.addEventListener('load', () => document.documentElement.classList.remove('preload'));
 
-            <div class="space-y-4 text-lg leading-relaxed">
-                <li>O MyGluco é um aplicativo que ajuda você a monitorar sua ingestão de carboidratos.</li>
-                <li>O aplicativo é projetado para ser intuitivo.</li>
-                <li>Com o MyGluco, você pode definir metas diárias de carboidratos, acompanhar sua ingestão e receber
-                    dicas
-                    personalizadas para manter uma alimentação saudável.</li>
-                <li>Além disso, o MyGluco oferece lembretes para ajudar você a manter o foco em seus objetivos de saúde.
-                </li>
-            </div>
+    // --- FIREBASE CONFIG (sua config) ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyANqckgjqZxDE8-7HOdlrT8c8zRqM0teUE",
+      authDomain: "mygluco-80306.firebaseapp.com",
+      projectId: "mygluco-80306",
+      storageBucket: "mygluco-80306.appspot.com",
+      messagingSenderId: "947177446073",
+      appId: "1:947177446073:web:486a6fe53b4ebc9b891968"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-            <h3 class="text-4xl font-bold mt-10 mb-6 text-center">Com o MyGluco, você pode:</h3>
+    // helpers
+    const $ = (id) => document.getElementById(id);
+    const exists = el => el !== null && el !== undefined;
 
-            <ul class="grid md:grid-cols-2 gap-6 text-lg">
-                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Calcular
-                    sua
-                    meta diária</li>
-                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Acompanhar
-                    ingestão de carboidratos</li>
-                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Dicas de
-                    alimentação saudável</li>
-                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Exercícios
-                    físicos</li>
-                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Gráficos
-                    de
-                    progresso</li>
-                <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Lembretes
-                    personalizados</li>
-            </ul>
+    // dom refs
+    const authModal = $('authModal'), btnModeLogin = $('btnModeLogin'), btnModeRegister = $('btnModeRegister');
+    const authTitle = $('authTitle'), authName = $('authName'), authEmail = $('authEmail'), authPassword = $('authPassword');
+    const authSubmit = $('authSubmit'), authError = $('authError'), openAuthModal = $('openAuthModal'), closeAuth = $('closeAuth');
+    const userArea = $('userArea'), saudacao = $('saudacao'), goCalcBtn = $('goCalcBtn');
+    const continueGuest = $('continueGuest');
 
-            <h3 class="text-4xl font-bold mt-16 text-center">Baixe agora o nosso aplicativo!</h3>
-            <a href="#"
-                class="block text-center mt-4 px-8 py-3 bg-mgBlue text-white rounded-xl shadow-xl w-fit mx-auto hover:bg-mgGreen transition-all hover:scale-110">
-                Clique Aqui Para Fazer o Download!
-            </a>
-        </section>
+    let authMode = 'login';
 
-        <!-- FOOTER -->
-        <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
-            <img src="Sugestões de logotipo/Logotipo mindsync (prototipo).PNG"
-                class="w-16 mx-auto mb-4 animate-float" />
-            <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
+    function updateAuthUI() {
+      if (authMode === 'login') {
+        authTitle.innerText = 'Entrar';
+        authName.classList.add('hidden');
+        authSubmit.innerText = 'Entrar';
+        btnModeLogin.classList.add('bg-white/30');
+        btnModeRegister.classList.remove('bg-white/30');
+      } else {
+        authTitle.innerText = 'Cadastrar';
+        authName.classList.remove('hidden');
+        authSubmit.innerText = 'Cadastrar';
+        btnModeRegister.classList.add('bg-white/30');
+        btnModeLogin.classList.remove('bg-white/30');
+      }
+      authError.classList.add('hidden');
+      authError.innerText = '';
+    }
 
-            <p>
-                Desenvolvido por Mindsync —
-                <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> •
-                <a href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a>
-            </p>
-        </footer>
+    // open/close modal
+    openAuthModal?.addEventListener('click', () => { authMode = 'login'; updateAuthUI(); authModal.classList.remove('hidden'); });
+    closeAuth?.addEventListener('click', () => { authModal.classList.add('hidden'); });
 
-        <!-- SCRIPTS CONSOLIDADOS -->
-        <script>
-            // remove preload blockers after load
-            window.addEventListener('load', () => document.documentElement.classList.remove('preload'));
+    btnModeLogin.addEventListener('click', () => { authMode = 'login'; updateAuthUI(); });
+    btnModeRegister.addEventListener('click', () => { authMode = 'register'; updateAuthUI(); });
 
-            // Helpers
-            const $ = (id) => document.getElementById(id);
-            const exists = (el) => el !== null && el !== undefined;
+    // register/login
+    authSubmit.addEventListener('click', async () => {
+      authError.classList.add('hidden'); authError.innerText = '';
+      const email = (authEmail.value || '').trim();
+      const password = authPassword.value || '';
+      const name = (authName.value || '').trim();
 
-            // Elements
-            const hamburgerBtn = $('hamburgerBtn');
-            const mobilePanel = $('mobilePanel');
-            const mobileBackdrop = $('mobileBackdrop');
-            const closeMobile = $('closeMobile');
-            const darkToggle = $('darkToggle');
-            const darkToggleMobile = $('darkToggleMobile');
+      if (!email || !password) {
+        authError.innerText = 'Email e senha são obrigatórios.'; authError.classList.remove('hidden'); return;
+      }
+      if (authMode === 'register') {
+        if (!name) { authError.innerText = 'Informe seu nome.'; authError.classList.remove('hidden'); return; }
+        try {
+          const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+          await userCredential.user.updateProfile({ displayName: name });
+          await db.collection('usuarios').doc(userCredential.user.uid).set({
+            name, email, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+          authModal.classList.add('hidden');
+        } catch (err) {
+          authError.innerText = err.message || 'Erro ao cadastrar.'; authError.classList.remove('hidden');
+        }
+      } else {
+        try {
+          await auth.signInWithEmailAndPassword(email, password);
+          authModal.classList.add('hidden');
+        } catch (err) {
+          authError.innerText = err.message || 'Erro ao entrar.'; authError.classList.remove('hidden');
+        }
+      }
+    });
 
-            // --- Mobile panel functions (Suporte-like) ---
-            const openPanel = () => {
-                if (!exists(mobilePanel) || !exists(hamburgerBtn)) return;
-                mobilePanel.classList.remove('hidden');
-                mobilePanel.setAttribute('aria-hidden', 'false');
-                document.body.classList.add('overflow-hidden');
-                hamburgerBtn.setAttribute('aria-expanded', 'true');
-            };
+    // continue as guest (will NOT save anything to Firestore on cálculo page)
+    continueGuest.addEventListener('click', () => {
+      authModal.classList.add('hidden');
+      // navigate as guest: do NOT save any user info; calculation page should detect no auth and not save
+      const proceed = confirm('Continuar como convidado? Seus cálculos NÃO serão salvos ao atualizar a página.');
+      if (proceed) window.location.href = 'Sub-paginas/calculo.html';
+    });
 
-            const closePanel = () => {
-                if (!exists(mobilePanel) || !exists(hamburgerBtn)) return;
-                mobilePanel.classList.add('hidden');
-                mobilePanel.setAttribute('aria-hidden', 'true');
-                document.body.classList.remove('overflow-hidden');
-                hamburgerBtn.setAttribute('aria-expanded', 'false');
-            };
+    // create logout btn
+    function createLogoutButton() {
+      const btn = document.createElement('button');
+      btn.id = 'logoutBtn';
+      btn.className = 'px-3 py-2 bg-red-500 text-white rounded-xl shadow';
+      btn.innerText = 'Logout';
+      btn.addEventListener('click', () => auth.signOut());
+      return btn;
+    }
 
-            if (exists(hamburgerBtn)) hamburgerBtn.addEventListener('click', openPanel);
-            if (exists(closeMobile)) closeMobile.addEventListener('click', closePanel);
-            if (exists(mobileBackdrop)) mobileBackdrop.addEventListener('click', closePanel);
+    // auth state change
+    auth.onAuthStateChanged(async (user) => {
+      userArea.innerHTML = '';
+      if (user) {
+        // show avatar + name + logout
+        const display = document.createElement('div');
+        display.className = 'flex items-center gap-3';
+        const img = document.createElement('div');
+        img.className = 'w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center avatar-letter';
+        img.innerText = (user.displayName || user.email || '').slice(0,1).toUpperCase();
+        display.appendChild(img);
+        const nameEl = document.createElement('div');
+        nameEl.className = 'text-sm';
+        nameEl.innerText = user.displayName || user.email;
+        display.appendChild(nameEl);
+        userArea.appendChild(display);
+        userArea.appendChild(createLogoutButton());
+        if (saudacao) saudacao.innerText = `Olá, ${user.displayName || user.email}! Bem-vindo!`;
+      } else {
+        const btn = document.createElement('button');
+        btn.id = 'openAuthModalMobile';
+        btn.className = 'px-3 py-2 bg-mgBlue text-white rounded-xl shadow';
+        btn.innerText = 'Login / Cadastro';
+        btn.addEventListener('click', () => { authMode = 'login'; updateAuthUI(); authModal.classList.remove('hidden'); });
+        userArea.appendChild(btn);
+        if (saudacao) saudacao.innerText = '';
+      }
+    });
 
-            // Close mobile panel on Escape
-            window.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') closePanel();
-            });
+    // goCalcBtn behavior: if not logged -> ask; if logged -> go
+    goCalcBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const user = auth.currentUser;
+      if (user) {
+        window.location.href = 'Sub-paginas/calculo.html';
+      } else {
+        // open modal with message
+        authMode = 'login';
+        updateAuthUI();
+        authModal.classList.remove('hidden');
+        // show note (already present) — user can choose 'Continuar como convidado'
+      }
+    });
 
-            // Close mobile panel when a link inside it is clicked (better UX)
-            if (exists(mobilePanel)) {
-                mobilePanel.querySelectorAll('a').forEach(a => {
-                    a.addEventListener('click', () => closePanel());
-                });
-            }
+    // mobile menu behaviour
+    const hamburgerBtn = $('hamburgerBtn'), mobilePanel = $('mobilePanel'), mobileBackdrop = $('mobileBackdrop'), closeMobile = $('closeMobile');
+    hamburgerBtn?.addEventListener('click', () => {
+      if (!mobilePanel) return;
+      mobilePanel.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      hamburgerBtn.setAttribute('aria-expanded','true');
+    });
+    closeMobile?.addEventListener('click', () => {
+      mobilePanel.classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+      hamburgerBtn.setAttribute('aria-expanded','false');
+    });
+    mobileBackdrop?.addEventListener('click', () => { mobilePanel.classList.add('hidden'); document.body.classList.remove('overflow-hidden'); });
 
-            // --- Dark mode (desktop + mobile) ---
-            function applyTheme(isDark) {
-                if (isDark) document.documentElement.classList.add('dark');
-                else document.documentElement.classList.remove('dark');
+    // dark theme
+    const darkToggle = $('darkToggle'), darkToggleMobile = $('darkToggleMobile');
+    function applyTheme(isDark) { document.documentElement.classList.toggle('dark', !!isDark); }
+    function toggleTheme() { const isDark = !document.documentElement.classList.contains('dark'); localStorage.setItem('mygluco-theme', isDark ? 'dark' : 'light'); applyTheme(isDark); }
+    darkToggle?.addEventListener('click', toggleTheme);
+    darkToggleMobile?.addEventListener('click', () => { toggleTheme(); mobilePanel.classList.add('hidden'); });
 
-                // update toggle icons/text
-                if (exists(darkToggle)) darkToggle.textContent = isDark ? '☀️' : '🌙';
-                if (exists(darkToggleFloating))
-                    darkToggleFloating.textContent = isDark ? '☀️' : '🌙';
-                if (exists(darkToggle)) darkToggle.setAttribute('aria-pressed', String(isDark));
-            }
+    // init UI on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('mygluco-theme');
+      const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(saved ? saved === 'dark' : prefers);
+      updateAuthUI();
+    });
 
-            function toggleTheme() {
-                const isDarkNow = document.documentElement.classList.toggle('dark');
-                localStorage.setItem('mygluco-theme', isDarkNow ? 'dark' : 'light');
-                applyTheme(isDarkNow);
-            }
-
-            if (exists(darkToggle)) darkToggle.addEventListener('click', toggleTheme);
-            if (exists(darkToggleMobile)) darkToggleMobile.addEventListener('click', () => {
-                toggleTheme();
-                closePanel();
-            });
-
-            // Restore theme on load (DOMContentLoaded)
-            window.addEventListener('DOMContentLoaded', () => {
-                const saved = localStorage.getItem('mygluco-theme');
-                const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const initialDark = saved ? (saved === 'dark') : systemPrefersDark;
-                applyTheme(initialDark);
-            });
-
-            // --- Modal / Saudação / Save user ---
-            function openModal() { $('modal') && $('modal').classList.remove('hidden'); }
-            function closeModal() { $('modal') && $('modal').classList.add('hidden'); }
-
-            function saveUser() {
-                const username = $('username') && $('username').value.trim();
-                if (!username) return alert('Digite seu nome.');
-                localStorage.setItem('username', username);
-                const saud = $('saudacao');
-                if (saud) saud.innerText = `Olá, ${username}! Bem-vindo!`;
-                closeModal();
-            }
-
-            window.addEventListener('load', () => {
-                const user = localStorage.getItem('username');
-                if (user && $('saudacao')) {
-                    $('saudacao').innerText = `Olá, ${user}! Bem-vindo!`;
-                } else {
-                    // open modal only if no username
-                    if (!user) openModal();
-                }
-            });
-
-            // Dark mode floating button (mobile)
-            const darkToggleFloating = $('darkToggleFloating');
-            if (exists(darkToggleFloating)) {
-                darkToggleFloating.addEventListener('click', () => {
-                    toggleTheme();
-                });
-            }
-
-        </script>
+  </script>
 </body>
-
 </html>
