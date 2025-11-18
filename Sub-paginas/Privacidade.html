@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth preload">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacidade - MyGluco</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        mgBlue: "#1E88E5",
+                        mgGreen: "#43A047",
+                        mgWhite: "#F8FAFC"
+                    },
+                    keyframes: {
+                        float: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } }
+                    },
+                    animation: {
+                        float: "float 4s ease-in-out infinite"
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        .preload * {
+            transition: none !important;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- NAVBAR PADRONIZADA -->
+    <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-x20 shadow-sm">
+        <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
+            <div class="flex items-center gap-3">
+                <button id="hamburgerBtn"
+                    class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none">
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-current"></span>
+                </button>
+
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <img src="../Imagens MyGluco/tugacriança.png" alt="MyGluco logo"
+                        class="w-12 h-12 object-contain rounded-full logo-glow" />
+                    <div>
+                        <div class="text-xl font-extrabold text-mgBlue dark:text-mgBlue">MyGluco</div>
+                        <div class="text-xs text-gray-600 dark:text-gray-300 -mt-0.5">Monitoramento de carboidratos
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <ul class="hidden md:flex gap-10 text-lg font-medium">
+                <li><a href="../index.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Início</a></li>
+                <li><a href="Dispositivos.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Dispositivos</a></li>
+                <li><a href="Suporte.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Suporte</a></li>
+                <li><a href="Sobrenos.html" class="hover:text-mgBlue dark:hover:text-mgBlue">Quem somos</a></li>
+                <li><a href="Termo.html" class="text-mgBlue dark:text-mgBlue font-semibold">Termos</a></li>
+            </ul>
+
+            <!-- Dark Mode -->
+            <button id="darkToggle"
+                class="p-2 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
+        </nav>
+
+        <!-- Mobile Panel -->
+        <div id="mobilePanel" class="md:hidden fixed inset-0 z-40 hidden">
+            <div class="absolute inset-0 bg-black/40" id="mobileBackdrop"></div>
+            <div class="absolute left-0 top-0 w-64 h-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-md p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center gap-3">
+                        <img src="../Imagens MyGluco/tugacriança.png" class="w-10 h-10 rounded-full" />
+                        <div class="font-extrabold text-lg text-mgBlue dark:text-mgGreen">MyGluco</div>
+                    </div>
+                    <button id="closeMobile" class="text-gray-700 dark:text-gray-200">✕</button>
+                </div>
+                <ul class="flex flex-col gap-4 text-base">
+                    <li><a href="../index.html" class="block">Início</a></li>
+                    <li><a href="Dispositivos.html" class="block">Dispositivos</a></li>
+                    <li><a href="Suporte.html" class="block">Suporte</a></li>
+                    <li><a href="Sobrenos.html" class="block">Quem somos</a></li>
+                    <li><a href="Termo.html" class="block font-semibold">Termos</a></li>
+                </ul>
+
+                <div class="mt-6">
+                    <button id="darkToggleMobile" class="w-full py-2 rounded-lg bg-mgBlue text-white">Alternar
+                        Tema</button>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden fixed inset-0 bg-black/40 hidden">
+            <div
+                class="absolute left-0 top-0 w-64 h-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl p-6 shadow-xl">
+                <button id="closeMobile" class="text-xl mb-6">✕</button>
+                <ul class="flex flex-col gap-4 text-lg">
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="Dispositivos.html">Dispositivos</a></li>
+                    <li><a href="Suporte.html">Suporte</a></li>
+                    <li><a href="Sobrenos.html">Quem somos</a></li>
+                    <li><a href="Termos.html">Termos</a></li>
+                    <li><a href="Privacidade.html" class="font-semibold">Privacidade</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU -->
+
+    <div class="pt-28"></div>
+
+    <!-- CONTENT -->
+    <section class="max-w-4xl mx-auto p-6 animate-fadein">
+        <h1 class="text-5xl font-extrabold text-mgBlue dark:text-mgGreen text-center">Política de Privacidade</h1>
+        <p class="mt-4 text-center opacity-80">Saiba como seus dados são coletados, utilizados e protegidos.</p>
+
+        <div
+            class="mt-10 space-y-8 bg-white/60 dark:bg-gray-800/40 p-8 rounded-2xl shadow-xl backdrop-blur-xl border border-white/20 dark:border-gray-700/40">
+
+            <section>
+                <h2 class="text-2xl font-bold mb-2">1. Informações que coletamos</h2>
+                <p class="opacity-80">Coletamos dados como nome, email, idade e registros de cálculos para melhorar sua
+                    experiência.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-2">2. Uso das informações</h2>
+                <p class="opacity-80">Utilizamos seus dados para personalização, funcionamento interno e melhorias do
+                    aplicativo.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-2">3. Segurança e armazenamento</h2>
+                <p class="opacity-80">Seus dados ficam protegidos no Firebase com criptografia e boas práticas de
+                    segurança.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-2">4. Compartilhamento de dados</h2>
+                <p class="opacity-80">Não compartilhamos seus dados com terceiros, exceto quando exigido por lei.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-2">5. Seus direitos</h2>
+                <p class="opacity-80">Você pode solicitar alteração, download ou exclusão de seus dados a qualquer
+                    momento.</p>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-2">6. Atualizações</h2>
+                <p class="opacity-80">Atualizaremos esta política quando necessário e avisaremos os usuários.</p>
+            </section>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
+        <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG"
+            class="w-16 mx-auto mb-4 animate-float" />
+        <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
+        <p>Desenvolvido por Mindsync — <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a>
+            • <a href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a></p>
+    </footer>
+
+    <script>
+        // Navbar Mobile & Dark Mode (mesmo padrão)
+        const $ = id => document.getElementById(id);
+        const hamburgerBtn = $('hamburgerBtn');
+        const mobilePanel = $('mobilePanel');
+        const mobileBackdrop = $('mobileBackdrop');
+        const closeMobile = $('closeMobile');
+        const darkToggle = $('darkToggle');
+        const darkToggleMobile = $('darkToggleMobile');
+
+        function openPanel() {
+            mobilePanel.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+        }
+        function closePanel() {
+            mobilePanel.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        hamburgerBtn?.addEventListener('click', openPanel);
+        closeMobile?.addEventListener('click', closePanel);
+        mobileBackdrop?.addEventListener('click', closePanel);
+
+        function applyTheme(isDark) {
+            document.documentElement.classList.toggle('dark', isDark);
+            darkToggle.textContent = isDark ? '☀️' : '🌙';
+            darkToggleMobile.textContent = (isDark ? '☀️' : '🌙') + ' Alternar Tema';
+        }
+
+        darkToggle?.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('mygluco-theme', isDark ? 'dark' : 'light');
+            applyTheme(isDark);
+        });
+        darkToggleMobile?.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('mygluco-theme', isDark ? 'dark' : 'light');
+            applyTheme(isDark);
+            closePanel();
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const saved = localStorage.getItem('mygluco-theme');
+            applyTheme(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches));
+        });
+    </script>
+
+</body>
+
+</html>
