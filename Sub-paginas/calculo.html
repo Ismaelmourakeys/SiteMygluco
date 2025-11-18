@@ -27,15 +27,56 @@
 
   <style>
     /* Preload => hide transitions until full load */
-    .preload * { transition: none !important; }
-    body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Poppins", "Segoe UI", Roboto, "Helvetica Neue", Arial; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-    .logo-glow { transition: transform .2s ease, box-shadow .3s ease; will-change: transform, box-shadow; animation: breathe 3s ease-in-out infinite; }
-    .reveal { opacity: 0; transform: translateY(14px) scale(.995); transition: all .7s cubic-bezier(.2,.9,.2,1); will-change: transform, opacity; }
-    .reveal.in { opacity: 1; transform: translateY(0) scale(1); }
-    .hamburger span { display:block; height:2px; width:22px; background:currentColor; border-radius:2px; transition: transform .25s ease, opacity .2s ease; }
-    .hamburger.open span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
-    .hamburger.open span:nth-child(2){ opacity:0; }
-    .hamburger.open span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+    .preload * {
+      transition: none !important;
+    }
+
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Poppins", "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+    .logo-glow {
+      transition: transform .2s ease, box-shadow .3s ease;
+      will-change: transform, box-shadow;
+      animation: breathe 3s ease-in-out infinite;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px) scale(.995);
+      transition: all .7s cubic-bezier(.2, .9, .2, 1);
+      will-change: transform, opacity;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2px;
+      width: 22px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: transform .25s ease, opacity .2s ease;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
   </style>
 
   <!-- Firebase compat libs (Auth + Firestore) -->
@@ -47,21 +88,31 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300 min-h-screen">
+<body
+  class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300 min-h-screen">
 
   <!-- BACKGROUND SHAPES -->
   <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800"></div>
-    <div class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float"></div>
-    <div class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300"></div>
-    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320"><path fill="#1E88E5" fill-opacity="0.12" d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z"></path></svg>
+    <div
+      class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float">
+    </div>
+    <div
+      class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300">
+    </div>
+    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
+      <path fill="#1E88E5" fill-opacity="0.12"
+        d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z">
+      </path>
+    </svg>
   </div>
 
   <!-- NAVBAR -->
   <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-x10 shadow-sm">
     <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
       <div class="flex items-center gap-3">
-        <button id="hamburgerBtn" aria-controls="mobilePanel" aria-expanded="false" class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none hamburger">
+        <button id="hamburgerBtn" aria-controls="mobilePanel" aria-expanded="false"
+          class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none hamburger">
           <span></span><span></span><span></span>
         </button>
 
@@ -81,7 +132,8 @@
       <div class="flex items-center gap-3">
         <!-- user area will be populated dynamically -->
         <div id="userArea" class="flex items-center gap-3"></div>
-        <button id="darkToggle" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
+        <button id="darkToggle"
+          class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/60 dark:bg-gray-700/60 shadow-sm text-sm">🌙</button>
       </div>
     </nav>
 
@@ -119,20 +171,25 @@
   <!-- título -->
   <section class="max-w-5xl mx-auto p-6 text-center animate-fadein">
     <h1 class="text-5xl font-extrabold text-mgBlue dark:text-mgGreen">Descubra seu nível de carboidratos</h1>
-    <p class="mt-4 text-lg opacity-80">Calcule a quantidade ideal de carboidratos considerando seu perfil nutricional.</p>
-    <p>Faça login para salvar seus resultados e acompanhar seu progresso, o que te proporciona uma experiência personalizada.</p>
+    <p class="mt-4 text-lg opacity-80">Calcule a quantidade ideal de carboidratos considerando seu perfil nutricional.
+    </p>
+    <p>Faça login para salvar seus resultados e acompanhar seu progresso, o que te proporciona uma experiência
+      personalizada.</p>
   </section>
 
   <!-- main grid -->
-  <main class="max-w-6xl mx-auto p-6 grid md:grid-cols-2 gap-10 animate-fadein">
+  <main class="max-w-6xl mx-auto p-4 sm:p-6 grid md:grid-cols-2 gap-6 md:gap-10">
+
     <!-- calculator -->
-    <section class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+    <section
+      class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
       <h2 class="text-3xl font-bold text-center mb-6">Calculadora</h2>
 
       <form id="carboForm" class="space-y-4" onsubmit="return false">
         <div>
           <label class="font-semibold">Sexo:</label>
-          <select id="sexo" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-mgBlue"></select>
+          <select id="sexo"
+            class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none focus:ring-2 focus:ring-mgBlue"></select>
         </div>
 
         <div>
@@ -167,15 +224,18 @@
 
         <div>
           <label class="font-semibold">Glicemia em Jejum:</label>
-          <input id="glicemiaJejum" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+          <input id="glicemiaJejum" type="number"
+            class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
         </div>
 
         <div>
           <label class="font-semibold">Glicemia Pós–Refeição:</label>
-          <input id="glicemiaPos" type="number" class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
+          <input id="glicemiaPos" type="number"
+            class="w-full p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none" />
         </div>
 
-        <button type="button" id="calcularBtn" class="w-full bg-mgGreen text-white p-3 rounded-xl mt-4 hover:bg-mgBlue transition">Calcular</button>
+        <button type="button" id="calcularBtn"
+          class="w-full bg-mgGreen text-white p-3 rounded-xl mt-4 hover:bg-mgBlue transition">Calcular</button>
       </form>
 
       <div id="resultado" class="mt-6 text-center text-xl font-semibold"></div>
@@ -183,23 +243,29 @@
 
     <!-- graph + history -->
     <section class="space-y-8">
-      <div class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+      <div
+        class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
         <h2 class="text-2xl font-bold mb-4 text-center">Gráfico</h2>
         <canvas id="graficoCarbo"></canvas>
       </div>
 
-      <div class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
+      <div
+        class="bg-white/60 dark:bg-gray-800/40 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/20 dark:border-gray-700/40">
         <label class="font-semibold">Filtrar por data:</label>
         <div class="flex gap-3 mt-2">
           <input type="date" id="filtroData" class="p-3 rounded-xl bg-gray-100 dark:bg-gray-700 border-none w-full" />
-          <button id="filtrarBtn" class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">🔍</button>
+          <button id="filtrarBtn"
+            class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">🔍</button>
         </div>
       </div>
 
       <div class="flex flex-wrap gap-3">
-        <button id="mostrarGraficoBtn" class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Gráfico</button>
-        <button id="mostrarHistoricoBtn" class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Histórico</button>
-        <button id="limparFiltroBtn" class="px-4 py-2 bg-gray-500 text-white rounded-xl hover:bg-gray-700 transition">Limpar Filtro</button>
+        <button id="mostrarGraficoBtn"
+          class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Gráfico</button>
+        <button id="mostrarHistoricoBtn"
+          class="px-4 py-2 bg-mgBlue text-white rounded-xl hover:bg-mgGreen transition">Mostrar Histórico</button>
+        <button id="limparFiltroBtn"
+          class="px-4 py-2 bg-gray-500 text-white rounded-xl hover:bg-gray-700 transition">Limpar Filtro</button>
       </div>
 
       <div id="historicoResultados" class="space-y-4"></div>
@@ -208,9 +274,11 @@
 
   <!-- footer -->
   <footer class="mt-20 bg-white/40 dark:bg-white/5 backdrop-blur-xl p-6 text-center shadow-inner">
-    <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float" alt="Mindsync" />
+    <img src="../../Sugestões de logotipo/Logotipo mindsync (prototipo).PNG" class="w-16 mx-auto mb-4 animate-float"
+      alt="Mindsync" />
     <p class="opacity-80">© 2025 Mindsync. Todos os direitos reservados.</p>
-    <p>Desenvolvido por Mindsync — <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> • <a href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a></p>
+    <p>Desenvolvido por Mindsync — <a href="Termos.html" class="underline text-mgBlue dark:text-mgGreen">Termos</a> • <a
+        href="Privacidade.html" class="underline text-mgBlue dark:text-mgGreen">Privacidade</a></p>
   </footer>
 
   <!-- AUTH MODAL -->
@@ -224,9 +292,12 @@
       </div>
 
       <form id="authForm" class="space-y-3" onsubmit="return false">
-        <input id="authName" type="text" placeholder="Nome (apenas para cadastro)" class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hidden" />
-        <input id="authEmail" type="email" placeholder="Email" class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700" required />
-        <input id="authPassword" type="password" placeholder="Senha (mín 6 caracteres)" class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700" required />
+        <input id="authName" type="text" placeholder="Nome (apenas para cadastro)"
+          class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hidden" />
+        <input id="authEmail" type="email" placeholder="Email"
+          class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700" required />
+        <input id="authPassword" type="password" placeholder="Senha (mín 6 caracteres)"
+          class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700" required />
         <div class="flex items-center justify-between gap-3">
           <button id="authSubmit" type="button" class="w-full bg-mgBlue text-white p-2 rounded-lg">Entrar</button>
         </div>
@@ -387,7 +458,7 @@
         display.className = 'flex items-center gap-3';
         const pic = document.createElement('div');
         pic.className = 'w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm';
-        pic.innerText = (user.displayName || user.email || '').slice(0,1).toUpperCase();
+        pic.innerText = (user.displayName || user.email || '').slice(0, 1).toUpperCase();
         display.appendChild(pic);
         const nameEl = document.createElement('div');
         nameEl.className = 'text-sm';
@@ -427,7 +498,7 @@
         return;
       }
 
-      let tmb = sexo === 'masculino' ? 10*peso + 6.25*altura - 5*idade + 5 : 10*peso + 6.25*altura - 5*idade - 161;
+      let tmb = sexo === 'masculino' ? 10 * peso + 6.25 * altura - 5 * idade + 5 : 10 * peso + 6.25 * altura - 5 * idade - 161;
       let fatorMeta = meta === 'perder' ? 0.85 : meta === 'ganhar' ? 1.15 : 1;
       const caloriasTotais = tmb * atividade * fatorMeta;
 
@@ -492,25 +563,25 @@
         return;
       }
 
-      db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato').orderBy('timestamp','desc').limit(10).get()
-      .then(qs => {
-        const labels = [], data = [];
-        qs.forEach(doc => {
-          const d = doc.data();
-          labels.push(new Date(d.timestamp.toDate()).toLocaleString());
-          data.push(Number(d.carboidratos || 0));
-        });
-        labels.reverse(); data.reverse();
+      db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato').orderBy('timestamp', 'desc').limit(10).get()
+        .then(qs => {
+          const labels = [], data = [];
+          qs.forEach(doc => {
+            const d = doc.data();
+            labels.push(new Date(d.timestamp.toDate()).toLocaleString());
+            data.push(Number(d.carboidratos || 0));
+          });
+          labels.reverse(); data.reverse();
 
-        if (!graficoCanvas) return;
-        const ctx = graficoCanvas.getContext('2d');
-        if (graficoInstance) graficoInstance.destroy();
-        graficoInstance = new Chart(ctx, {
-          type: 'line',
-          data: { labels, datasets: [{ label: 'Carboidratos (g/dia)', data, borderColor: 'orange', backgroundColor: 'rgba(255,165,0,0.2)', fill: true, tension: .3 }] },
-          options: { responsive: true, scales: { y: { beginAtZero: true }, x: {} }, plugins: { legend: { display: true } } }
-        });
-      }).catch(err => console.error('Erro ao carregar gráfico:', err));
+          if (!graficoCanvas) return;
+          const ctx = graficoCanvas.getContext('2d');
+          if (graficoInstance) graficoInstance.destroy();
+          graficoInstance = new Chart(ctx, {
+            type: 'line',
+            data: { labels, datasets: [{ label: 'Carboidratos (g/dia)', data, borderColor: 'orange', backgroundColor: 'rgba(255,165,0,0.2)', fill: true, tension: .3 }] },
+            options: { responsive: true, scales: { y: { beginAtZero: true }, x: {} }, plugins: { legend: { display: true } } }
+          });
+        }).catch(err => console.error('Erro ao carregar gráfico:', err));
     }
 
     function mostrarHistorico() {
@@ -518,13 +589,13 @@
       historicoResultados.innerHTML = '';
       if (!user) return;
 
-      db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato').orderBy('timestamp','desc').limit(50).get()
-      .then(qs => {
-        let html = '<h3 class="text-lg font-semibold mb-2">Últimos Cálculos:</h3><ul>';
-        qs.forEach(doc => {
-          const d = doc.data();
-          const id = doc.id;
-          html += `
+      db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato').orderBy('timestamp', 'desc').limit(50).get()
+        .then(qs => {
+          let html = '<h3 class="text-lg font-semibold mb-2">Últimos Cálculos:</h3><ul>';
+          qs.forEach(doc => {
+            const d = doc.data();
+            const id = doc.id;
+            html += `
             <li class="mb-4 p-3 bg-white/30 dark:bg-gray-700/30 rounded-xl shadow">
               <div><strong>Data:</strong> ${new Date(d.timestamp.toDate()).toLocaleString()}</div>
               <div><strong>TMB:</strong> ${Number(d.tmb).toFixed(2)} kcal</div>
@@ -533,19 +604,19 @@
               <div class="mt-2"><button onclick="deletarHistorico('${id}')" class="bg-red-500 text-white px-3 py-1 rounded-xl">Excluir</button></div>
             </li>
           `;
-        });
-        html += '</ul>';
-        historicoResultados.innerHTML = html;
-      }).catch(err => console.error('Erro ao carregar histórico:', err));
+          });
+          html += '</ul>';
+          historicoResultados.innerHTML = html;
+        }).catch(err => console.error('Erro ao carregar histórico:', err));
     }
 
-    window.deletarHistorico = function(id) {
+    window.deletarHistorico = function (id) {
       const user = auth.currentUser;
       if (!user) return alert('Faça login para excluir.');
       if (!confirm('Tem certeza que deseja excluir?')) return;
       db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato').doc(id).delete()
-      .then(()=> { mostrarHistorico(); mostrarGrafico(); })
-      .catch(err => console.error('Erro ao excluir:', err));
+        .then(() => { mostrarHistorico(); mostrarGrafico(); })
+        .catch(err => console.error('Erro ao excluir:', err));
     };
 
     // ---------- filtros ----------
@@ -562,7 +633,7 @@
       db.collection('usuarios').doc(user.uid).collection('resultadosCarboidrato')
         .where('timestamp', '>=', firebase.firestore.Timestamp.fromDate(inicio))
         .where('timestamp', '<=', firebase.firestore.Timestamp.fromDate(fim))
-        .orderBy('timestamp','desc')
+        .orderBy('timestamp', 'desc')
         .get()
         .then(qs => {
           let html = '<h3 class="text-lg font-semibold mb-2">Resultados Filtrados:</h3><ul>';
@@ -628,4 +699,5 @@
   </script>
 
 </body>
+
 </html>
