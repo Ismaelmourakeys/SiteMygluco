@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="scroll-smooth preload">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -24,46 +25,75 @@
   </script>
 
   <style>
-    .preload * { transition: none !important; }
+    .preload * {
+      transition: none !important;
+    }
 
     /* glass modal specific */
     .glass {
-      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.15));
       backdrop-filter: blur(10px) saturate(120%);
       -webkit-backdrop-filter: blur(10px) saturate(120%);
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 8px 30px rgba(2,6,23,0.2);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 8px 30px rgba(2, 6, 23, 0.2);
     }
+
     .glass-dark {
-      background: linear-gradient(180deg, rgba(17,24,39,0.6), rgba(17,24,39,0.35));
-      border: 1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.6), rgba(17, 24, 39, 0.35));
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
     }
 
     /* modal inputs */
-    .input-glass { background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.35); }
-    .dark .input-glass { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); color: #fff; }
+    .input-glass {
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .dark .input-glass {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #fff;
+    }
 
     /* small decorative */
-    .avatar-letter { font-weight:700; color:#0f172a; }
-    .dark .avatar-letter { color: #e6eef9; }
+    .avatar-letter {
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .dark .avatar-letter {
+      color: #e6eef9;
+    }
   </style>
 </head>
-<body class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300">
+
+<body
+  class="bg-gradient-to-br from-mgWhite to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-200 transition-colors duration-300">
 
   <!-- BACKGROUND -->
   <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800"></div>
-    <div class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float"></div>
-    <div class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300"></div>
-    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320"><path fill="#1E88E5" fill-opacity="0.15" d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z"></path></svg>
+    <div
+      class="absolute top-20 left-10 w-40 h-40 bg-blue-300/20 dark:bg-blue-600/20 rounded-full blur-2xl animate-float">
+    </div>
+    <div
+      class="absolute bottom-32 right-16 w-56 h-56 bg-green-300/20 dark:bg-green-600/20 rounded-full blur-3xl animate-float delay-300">
+    </div>
+    <svg class="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 320">
+      <path fill="#1E88E5" fill-opacity="0.15"
+        d="M0,224L26.7,213.3C53.3,203,107,181,160,149.3C213.3,117,267,75,320,80C373.3,85,427,139,480,165.3C533.3,192,587,192,640,170.7C693.3,149,747,107,800,117.3C853.3,128,907,192,960,202.7C1013.3,213,1067,171,1120,160C1173.3,149,1227,171,1280,170.7C1333.3,171,1387,149,1413,138.7L1440,128V320H0Z">
+      </path>
+    </svg>
   </div>
 
   <!-- NAV -->
   <header class="fixed top-0 w-full z-50 bg-white/70 dark:bg-gray-800/60 backdrop-blur-xl shadow-md">
     <nav class="max-w-6xl mx-auto flex items-center justify-between p-4">
       <div class="flex items-center gap-3">
-        <button id="hamburgerBtn" class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none mr-3" aria-controls="mobilePanel" aria-expanded="false">
+        <button id="hamburgerBtn"
+          class="md:hidden p-2 rounded-md text-gray-800 dark:text-gray-100 focus:outline-none mr-3"
+          aria-controls="mobilePanel" aria-expanded="false">
           <span class="block w-6 h-0.5 bg-current mb-1"></span>
           <span class="block w-6 h-0.5 bg-current mb-1"></span>
           <span class="block w-6 h-0.5 bg-current"></span>
@@ -76,7 +106,7 @@
 
       <ul class="hidden md:flex gap-8 font-medium absolute left-1/2 transform -translate-x-1/2">
         <li><a href="index.html" class="hover:text-mgBlue transition">Início</a></li>
-        <li><a href="Sub-paginas/Dispositivos.html" class="hover:text-mgBlue transition">Dispositivos</a></li>
+        <li><a href="Sub-paginas/dispositivos.html" class="hover:text-mgBlue transition">Dispositivos</a></li>
         <li><a href="Sub-paginas/Suporte.html" class="hover:text-mgBlue transition">Suporte</a></li>
         <li><a href="Sub-paginas/Sobrenos.html" class="hover:text-mgBlue transition">Quem Somos</a></li>
       </ul>
@@ -84,9 +114,12 @@
       <div class="flex items-center gap-3">
         <div id="userArea" class="flex items-center gap-3">
           <!-- preenchido via JS -->
-          <button id="openAuthModal" class="px-3 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition">Login / Cadastro</button>
+          <button id="openAuthModal"
+            class="px-3 py-2 bg-mgBlue text-white rounded-xl shadow hover:bg-mgGreen transition">Login /
+            Cadastro</button>
         </div>
-        <button id="darkToggle" class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/70 dark:bg-gray-700/70 text-xl">🌙</button>
+        <button id="darkToggle"
+          class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-white/70 dark:bg-gray-700/70 text-xl">🌙</button>
       </div>
     </nav>
   </header>
@@ -104,7 +137,7 @@
       </div>
       <ul class="flex flex-col gap-4 text-base">
         <li><a href="index.html" class="block">Início</a></li>
-        <li><a href="Sub-paginas/Dispositivos.html" class="block">Dispositivos</a></li>
+        <li><a href="Sub-paginas/dispositivos.html" class="block">Dispositivos</a></li>
         <li><a href="Sub-paginas/Suporte.html" class="block">Suporte</a></li>
         <li><a href="Sub-paginas/Sobrenos.html" class="block">Quem somos</a></li>
         <li><a href="Sub-paginas/Termos.html" class="block">Termos</a></li>
@@ -135,17 +168,22 @@
       </div>
 
       <form id="authForm" class="grid gap-3">
-        <input id="authName" type="text" placeholder="Nome (só para cadastro)" class="p-3 rounded-xl input-glass hidden" />
+        <input id="authName" type="text" placeholder="Nome (só para cadastro)"
+          class="p-3 rounded-xl input-glass hidden" />
         <input id="authEmail" type="email" placeholder="Email" class="p-3 rounded-xl input-glass" required />
-        <input id="authPassword" type="password" placeholder="Senha (mín 6 caracteres)" class="p-3 rounded-xl input-glass" required />
+        <input id="authPassword" type="password" placeholder="Senha (mín 6 caracteres)"
+          class="p-3 rounded-xl input-glass" required />
         <div class="flex gap-3">
-          <button id="authSubmit" type="button" class="flex-1 px-4 py-3 rounded-xl bg-mgBlue text-white hover:bg-mgGreen transition">Entrar</button>
-          <button id="continueGuest" type="button" class="px-4 py-3 rounded-xl border border-white/10 bg-white/10 text-sm">Continuar como convidado</button>
+          <button id="authSubmit" type="button"
+            class="flex-1 px-4 py-3 rounded-xl bg-mgBlue text-white hover:bg-mgGreen transition">Entrar</button>
+          <button id="continueGuest" type="button"
+            class="px-4 py-3 rounded-xl border border-white/10 bg-white/10 text-sm">Continuar como convidado</button>
         </div>
       </form>
 
       <div id="authError" class="mt-3 text-sm text-red-500 hidden"></div>
-      <p class="mt-4 text-xs text-gray-600 dark:text-gray-300">Ao continuar como convidado, seus cálculos NÃO serão salvos se atualizar a página.</p>
+      <p class="mt-4 text-xs text-gray-600 dark:text-gray-300">Ao continuar como convidado, seus cálculos NÃO serão
+        salvos se atualizar a página.</p>
     </div>
   </div>
 
@@ -154,7 +192,9 @@
     <div class="md:w-1/2">
       <h1 class="text-6xl font-extrabold text-mgBlue">MyGluco</h1>
       <p class="text-xl mt-4 opacity-80">Venha e calcule sua meta de carboidratos para monitorar a sua alimentação.</p>
-      <a href="Sub-paginas/calculo.html" id="goCalcBtn" class="inline-block mt-6 px-6 py-3 bg-mgGreen text-white rounded-xl text-lg shadow-xl hover:bg-mgBlue transition-all hover:scale-105">Simule Aqui!</a>
+      <a href="Sub-paginas/calculo.html" id="goCalcBtn"
+        class="inline-block mt-6 px-6 py-3 bg-mgGreen text-white rounded-xl text-lg shadow-xl hover:bg-mgBlue transition-all hover:scale-105">Simule
+        Aqui!</a>
     </div>
     <img src="Imagens MyGluco/tuga_calculadora.png" class="w-72 md:w-96 transform scale-x-[-1]" alt="Mascote" />
   </main>
@@ -165,17 +205,24 @@
     <div class="space-y-4 text-lg leading-relaxed">
       <li>O MyGluco é um aplicativo que ajuda você a monitorar sua ingestão de carboidratos.</li>
       <li>O aplicativo é projetado para ser intuitivo.</li>
-      <li>Com o MyGluco, você pode definir metas diárias de carboidratos, acompanhar sua ingestão e receber dicas personalizadas.</li>
+      <li>Com o MyGluco, você pode definir metas diárias de carboidratos, acompanhar sua ingestão e receber dicas
+        personalizadas.</li>
       <li>Além disso, o MyGluco oferece lembretes para ajudar você a manter o foco em seus objetivos de saúde.</li>
     </div>
     <h3 class="text-4xl font-bold mt-10 mb-6 text-center">Com o MyGluco, você pode:</h3>
     <ul class="grid md:grid-cols-2 gap-6 text-lg">
-      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Calcular sua meta diária</li>
-      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Acompanhar ingestão de carboidratos</li>
-      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Dicas de alimentação saudável</li>
-      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Exercícios físicos</li>
-      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Gráficos de progresso</li>
-      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Lembretes personalizados</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Calcular sua meta
+        diária</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Acompanhar ingestão
+        de carboidratos</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Dicas de alimentação
+        saudável</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Exercícios físicos
+      </li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Gráficos de
+        progresso</li>
+      <li class="bg-white dark:bg-gray-800 p-5 rounded-xl shadow-xl hover:scale-105 transition-all">Lembretes
+        personalizados</li>
     </ul>
   </section>
 
@@ -303,7 +350,7 @@
         display.className = 'flex items-center gap-3';
         const img = document.createElement('div');
         img.className = 'w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center avatar-letter';
-        img.innerText = (user.displayName || user.email || '').slice(0,1).toUpperCase();
+        img.innerText = (user.displayName || user.email || '').slice(0, 1).toUpperCase();
         display.appendChild(img);
         const nameEl = document.createElement('div');
         nameEl.className = 'text-sm';
@@ -344,12 +391,12 @@
       if (!mobilePanel) return;
       mobilePanel.classList.remove('hidden');
       document.body.classList.add('overflow-hidden');
-      hamburgerBtn.setAttribute('aria-expanded','true');
+      hamburgerBtn.setAttribute('aria-expanded', 'true');
     });
     closeMobile?.addEventListener('click', () => {
       mobilePanel.classList.add('hidden');
       document.body.classList.remove('overflow-hidden');
-      hamburgerBtn.setAttribute('aria-expanded','false');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
     });
     mobileBackdrop?.addEventListener('click', () => { mobilePanel.classList.add('hidden'); document.body.classList.remove('overflow-hidden'); });
 
@@ -370,4 +417,5 @@
 
   </script>
 </body>
+
 </html>
