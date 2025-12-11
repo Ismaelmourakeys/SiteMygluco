@@ -31,7 +31,7 @@
 
     /* glass modal specific */
     .glass {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.15));
+      background: linear-gradient(180deg, rgba(16, 147, 255, 0.411), rgba(164, 199, 252, 0.897));
       backdrop-filter: blur(10px) saturate(120%);
       -webkit-backdrop-filter: blur(10px) saturate(120%);
       border: 1px solid rgba(255, 255, 255, 0.18);
@@ -39,19 +39,19 @@
     }
 
     .glass-dark {
-      background: linear-gradient(180deg, rgba(17, 24, 39, 0.6), rgba(17, 24, 39, 0.35));
+      background: linear-gradient(180deg, rgba(104, 147, 241, 0.6), rgba(5, 7, 12, 0.35));
       border: 1px solid rgba(255, 255, 255, 0.04);
       box-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
     }
 
     /* modal inputs */
     .input-glass {
-      background: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.87);
       border: 1px solid rgba(255, 255, 255, 0.35);
     }
 
     .dark .input-glass {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.932);
       border: 1px solid rgba(255, 255, 255, 0.06);
       color: #fff;
     }
@@ -155,7 +155,7 @@
   <h3 id="saudacao" class="text-center text-2xl font-semibold animate-fadein"></h3>
 
   <!-- AUTH MODAL (glass style - OPTION B) -->
-  <div id="authModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div id="authModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 colors-white-900 dark:colors-gray-200 p-4">
     <div class="w-full max-w-xl p-6 rounded-2xl glass dark:glass-dark">
       <div class="flex items-center justify-between mb-4">
         <h2 id="authTitle" class="text-2xl font-bold">Entrar</h2>
@@ -164,7 +164,7 @@
 
       <div class="flex gap-3 items-center mb-4">
         <button id="btnModeLogin" class="px-3 py-1 rounded-full bg-white/30">Login</button>
-        <button id="btnModeRegister" class="px-3 py-1 rounded-full bg-white/10">Cadastrar</button>
+        <button id="btnModeRegister" class="px-3 py-1 rounded-full ">Cadastrar</button>
       </div>
 
       <form id="authForm" class="grid gap-3">
@@ -182,7 +182,7 @@
       </form>
 
       <div id="authError" class="mt-3 text-sm text-red-500 hidden"></div>
-      <p class="mt-4 text-xs text-gray-600 dark:text-gray-300">Ao continuar como convidado, seus cálculos NÃO serão
+      <p class="mt-4 text-xs text-gray-600 dark:text-black-100">Ao continuar como convidado, seus cálculos NÃO serão
         salvos se atualizar a página.</p>
     </div>
   </div>
