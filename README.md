@@ -50,10 +50,8 @@
 </table>
 
 <hr>
-<br>
 
-<div align="center">
-<h2>🏗️ Origem do projeto </h2>
+<h3 align="center">🏗️ Origem do projeto </h3>
 <p>
 O MyGluco surgiu como uma ideia para o Trabalho de Conclusão de Curso (TCC), com o objetivo de aplicar, na prática, os conhecimentos adquiridos ao longo da formação técnica, unindo teoria, tecnologia e impacto social. O projeto tem como base a ODS 3 da ONU – Saúde e Bem-Estar, que visa assegurar uma vida saudável e promover o bem-estar para todos, em todas as idades.
 
@@ -61,13 +59,11 @@ A proposta foi desenvolver uma solução digital capaz de auxiliar pessoas no co
 
 Embora esta landing page tenha sido desenvolvida com HTML, Tailwind CSS e JavaScript, o aplicativo mobile foi construído utilizando React Native, Node.js e Firebase, permitindo escalabilidade, integração de dados e desenvolvimento multiplataforma.
 </p>
-</div>
 
 <hr>
-<br>
 
 <div align="center">
-  <h2> ⚠️ Observação importante </h2>
+<h2> ⚠️ Observação importante </h2>
 
   <p>
     Este repositório não executa o aplicativo mobile, mas é possível fazer o download do app na aba de dispositivos do menu do site.
@@ -78,9 +74,9 @@ Embora esta landing page tenha sido desenvolvida com HTML, Tailwind CSS e JavaSc
     Para acessar o código-fonte do aplicativo mobile, por favor, visite o repositório dedicado ao aplicativo MyGluco. que pode ser encontrado no seguinte link:
     </p>
     <a href="https://github.com/Ismaelmourakeys/MyGlucoApp" target="_blank" style="font-weight:bold;font-size:15px;">MyGlucoApp</a>
+  </div>
 
 
-</div>
 
 
 <hr>
