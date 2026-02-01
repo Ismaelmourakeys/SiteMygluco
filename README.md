@@ -85,10 +85,6 @@ Embora esta landing page tenha sido desenvolvida com HTML, Tailwind CSS e JavaSc
 
 <hr>
 
-
-### 📌 Aprendizados (Experiências adquiridas com esse sistema 📊)
-
-```md
 ## 📚 Aprendizados
 
 - Estruturação de landing pages para projetos reais
@@ -104,10 +100,9 @@ Embora esta landing page tenha sido desenvolvida com HTML, Tailwind CSS e JavaSc
 - Prática de desenvolvimento front-end com HTML, CSS e JavaScript
 
 
-# Desenvolvido por 
+## 👤 Autor
 
-*Ismael Moura* 
-
+Desenvolvido por 
+**Ismael Moura** 
 
 🔗 [LinkedIn](www.linkedin.com/in/ismaelmourakeys) | [GitHub](https://github.com/Ismaelmourakeys)
-```
