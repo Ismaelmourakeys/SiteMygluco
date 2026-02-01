@@ -70,8 +70,8 @@ Embora esta landing page tenha sido desenvolvida com HTML, Tailwind CSS e JavaSc
   <h2> ⚠️ Observação importante </h2>
 
   <p>
-    Este repositório não executa o aplicativo mobile.
-    Ele contém apenas a landing page de apresentação do projeto.
+    Este repositório não executa o aplicativo mobile, mas é possível fazer o download do app na aba de dispositivos do menu do site.
+    Nesse repositório contém apenas a landing page de apresentação do projeto.
   </p>
 
   <p>
@@ -105,4 +105,6 @@ Embora esta landing page tenha sido desenvolvida com HTML, Tailwind CSS e JavaSc
 Desenvolvido por 
 **Ismael Moura** 
 
+
 🔗 [LinkedIn](www.linkedin.com/in/ismaelmourakeys) | [GitHub](https://github.com/Ismaelmourakeys)
+
